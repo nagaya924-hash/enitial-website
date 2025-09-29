@@ -25,7 +25,7 @@ function SectionHeader({
         <p
           className={`${
             subtitleClassName ?? "mt-3"
-          } text-sm md:text-base text-gray-500 font-light leading-relaxed ${
+          } text-base text-gray-500 font-light leading-relaxed ${
             align === "center" ? "max-w-4xl mx-auto" : ""
           }`}
         >
@@ -95,8 +95,33 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen bg-white font-light">
+      {/* Header */}
+      <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
+        <div className="container mx-auto px-8 py-6 flex items-center justify-between">
+          {/* ロゴクリックで最上部へ */}
+          <a href="#top" className="flex items-center cursor-pointer">
+            <Image
+              src="/images/logo-horizontal.png"
+              alt="Enitial Logo"
+              width={180}
+              height={40}
+              className="h-10 w-auto"
+            />
+          </a>
+          <nav className="hidden md:flex items-center space-x-12">
+            <a href="#services" className="text-gray-600 hover:text-slate-700 text-sm">サービス</a>
+            <a href="#mvv" className="text-gray-600 hover:text-slate-700 text-sm">理念</a>
+            <a href="#about" className="text-gray-600 hover:text-slate-700 text-sm">会社概要</a>
+            <a href="#contact" className="text-gray-600 hover:text-slate-700 text-sm">お問い合わせ</a>
+          </nav>
+          <Button className="hidden md:inline-flex bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2">
+            お問い合わせ <ArrowRight className="ml-2 h-3 w-3" />
+          </Button>
+        </div>
+      </header>
+
       {/* Hero */}
-      <section className="relative py-32 md:py-48 bg-black overflow-hidden">
+      <section id="top" className="relative py-32 md:py-48 bg-black overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/hero-handshake-clean.png"
@@ -109,7 +134,6 @@ export default function Homepage() {
         </div>
         <div className="relative container mx-auto px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            {/* 装飾はそのまま残す */}
             <p className="text-sm md:text-lg text-white mb-4">出会いが縁を生み、縁が可能性を育む。</p>
             <p className="text-sm md:text-lg text-white mb-8">その可能性を、私たちは共に拓く。</p>
             <div className="flex items-center justify-center space-x-4 mb-8">
@@ -122,16 +146,13 @@ export default function Homepage() {
               <div className="w-1 h-1 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
               <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
             </div>
-
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white leading-tight mb-6">
-              顧客との縁を大切にし
-              <br />
-              可能性を最大化
+              顧客との縁を大切にし<br />可能性を最大化
             </h1>
             <p className="text-sm md:text-base text-gray-200 mb-8">
               事業計画策定から補助金申請、営業代行まで お客様のビジネス成長を総合的にサポートいたします
             </p>
-            <Button className="bg-slate-800/90 hover:bg-slate-900 text-white font-light text-sm px-12 py-4">
+            <Button className="bg-slate-800/90 hover:bg-slate-900 text-white text-sm px-12 py-4">
               サービスを見る <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -150,14 +171,14 @@ export default function Homepage() {
             {services.map((service, i) => {
               const Icon = service.icon
               return (
-                <div key={i} className="p-8 border border-gray-100 bg-white hover:shadow-lg transition-all">
+                <div key={i} className="group p-8 border border-gray-100 bg-white hover:shadow-lg transition-all">
                   <div className="flex items-start space-x-6">
                     <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-slate-600" />
+                      <Icon className="w-6 h-6 text-slate-600 transition-colors duration-200 group-hover:text-black" />
                     </div>
                     <div>
                       <h3 className="text-xl font-light text-gray-900 mb-4">{service.title}</h3>
-                      <p className="text-gray-600 font-light text-sm mb-6">{service.description}</p>
+                      <p className="text-gray-600 font-light text-base mb-6">{service.description}</p>
                       <ul className="space-y-2">
                         {service.features.map((f, j) => (
                           <li key={j} className="text-sm text-gray-500 font-light">・{f}</li>
@@ -187,7 +208,7 @@ export default function Homepage() {
                 </h3>
                 <p className="text-xs text-gray-400 uppercase mb-4">{item.subtitle}</p>
                 <div className="w-12 h-px bg-slate-300 mx-auto mb-6 group-hover:bg-slate-500 transition-colors"></div>
-                <p className="text-gray-600 font-light text-sm">{item.content}</p>
+                <p className="text-gray-600 font-light text-base">{item.content}</p>
               </div>
             ))}
           </div>
@@ -205,7 +226,7 @@ export default function Homepage() {
                 align="left"
                 subtitleClassName="mt-6"
               />
-              <p className="text-gray-600 font-light leading-relaxed">
+              <p className="text-gray-600 font-light leading-relaxed text-base">
                 事業計画策定から補助金申請サポート、営業代行、ネットショップ運営まで、
                 お客様のビジネス成長を多角的にサポートする総合コンサルティング会社です。
               </p>
@@ -231,8 +252,8 @@ export default function Homepage() {
       <section id="contact" className="py-28 bg-slate-50 text-center">
         <div className="container mx-auto px-8">
           <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 mb-6">お問い合わせ</h2>
-          <p className="text-sm md:text-base text-gray-500 mb-2">事業計画のご相談から補助金申請まで</p>
-          <p className="text-sm md:text-base text-gray-500 mb-10">どんなことでもお聞かせください</p>
+          <p className="text-base text-gray-500 mb-2">事業計画のご相談から補助金申請まで</p>
+          <p className="text-base text-gray-500 mb-10">どんなことでもお聞かせください</p>
           <ContactForm />
         </div>
       </section>
