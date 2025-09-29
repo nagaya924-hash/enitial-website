@@ -130,7 +130,13 @@ export default function Homepage() {
         <div className="container mx-auto px-8 py-6 flex items-center justify-between relative">
           {/* ロゴクリックでトップに戻る */}
           <a href="#top" className="flex items-center cursor-pointer">
-            <Image src="/images/logo-horizontal.png" alt="Enitial Logo" width={180} height={40} className="h-10 w-auto" />
+            <Image
+              src="/images/logo-horizontal.png"
+              alt="Enitial Logo"
+              width={260}
+              height={60}
+              className="h-14 w-auto"
+            />
           </a>
 
           {/* PCナビ */}
@@ -290,7 +296,13 @@ export default function Homepage() {
         <div className="container mx-auto px-8">
           <div className="grid md:grid-cols-4 gap-12">
             <div>
-              <Image src="/images/logo-horizontal.png" alt="Enitial Logo" width={220} height={50} className="h-10 w-auto mb-6"/>
+              <Image
+                src="/images/logo-horizontal.png"
+                alt="Enitial Logo"
+                width={260}
+                height={60}
+                className="h-14 w-auto mb-6"
+              />
               <p className="text-sm font-light mb-8">株式会社エニシャル</p>
               <p className="text-sm font-light">顧客との縁を大切にし<br/>ビジネスの可能性を最大化するパートナー</p>
             </div>
