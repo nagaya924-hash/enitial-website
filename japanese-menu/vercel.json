@@ -1,8 +1,11 @@
 {
-  "regions": ["hnd1"],
+  "version": 2,
   "functions": {
-    "app/api/**": {
-      "maxDuration": 10
+    "app/api/contact/route.ts": {
+      "runtime": "nodejs18.x",
+      "memory": 1024,
+      "maxDuration": 10,
+      "regions": ["hnd1"]
     }
   }
 }
