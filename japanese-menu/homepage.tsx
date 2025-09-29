@@ -98,15 +98,9 @@ export default function Homepage() {
       {/* Header */}
       <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
         <div className="container mx-auto px-8 py-6 flex items-center justify-between">
-          {/* ロゴクリックで最上部へ */}
+          {/* ロゴクリックでトップに戻る */}
           <a href="#top" className="flex items-center cursor-pointer">
-            <Image
-              src="/images/logo-horizontal.png"
-              alt="Enitial Logo"
-              width={180}
-              height={40}
-              className="h-10 w-auto"
-            />
+            <Image src="/images/logo-horizontal.png" alt="Enitial Logo" width={180} height={40} className="h-10 w-auto" />
           </a>
           <nav className="hidden md:flex items-center space-x-12">
             <a href="#services" className="text-gray-600 hover:text-slate-700 text-sm">サービス</a>
@@ -114,7 +108,10 @@ export default function Homepage() {
             <a href="#about" className="text-gray-600 hover:text-slate-700 text-sm">会社概要</a>
             <a href="#contact" className="text-gray-600 hover:text-slate-700 text-sm">お問い合わせ</a>
           </nav>
-          <Button className="hidden md:inline-flex bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2">
+          <Button
+            className="hidden md:inline-flex bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2"
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+          >
             お問い合わせ <ArrowRight className="ml-2 h-3 w-3" />
           </Button>
         </div>
@@ -123,13 +120,7 @@ export default function Homepage() {
       {/* Hero */}
       <section id="top" className="relative py-32 md:py-48 bg-black overflow-hidden">
         <div className="absolute inset-0">
-          <Image
-            src="/images/hero-handshake-clean.png"
-            alt="Professional handshake representing partnership"
-            fill
-            className="object-cover"
-            priority
-          />
+          <Image src="/images/hero-handshake-clean.png" alt="Professional handshake representing partnership" fill className="object-cover" priority />
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
         <div className="relative container mx-auto px-8 text-center">
@@ -152,7 +143,10 @@ export default function Homepage() {
             <p className="text-sm md:text-base text-gray-200 mb-8">
               事業計画策定から補助金申請、営業代行まで お客様のビジネス成長を総合的にサポートいたします
             </p>
-            <Button className="bg-slate-800/90 hover:bg-slate-900 text-white text-sm px-12 py-4">
+            <Button
+              className="bg-slate-800/90 hover:bg-slate-900 text-white text-sm px-12 py-4"
+              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+            >
               サービスを見る <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
@@ -162,11 +156,7 @@ export default function Homepage() {
       {/* Services */}
       <section id="services" className="py-28 bg-white">
         <div className="container mx-auto px-8">
-          <SectionHeader
-            title="サービス"
-            subtitle="お客様のビジネス成長を支える幅広いコンサルティングサービスを提供しています"
-            align="center"
-          />
+          <SectionHeader title="サービス" subtitle="お客様のビジネス成長を支える幅広いコンサルティングサービスを提供しています" align="center" />
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {services.map((service, i) => {
               const Icon = service.icon
@@ -199,13 +189,8 @@ export default function Homepage() {
           <SectionHeader title="企業理念" subtitle="私たちの行動指針となる理念をご紹介します" align="center" />
           <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
             {mvv.map((item, i) => (
-              <div
-                key={i}
-                className="p-8 bg-white border border-gray-100 hover:shadow-lg hover:border-slate-200 transition-all text-center group"
-              >
-                <h3 className="text-2xl font-extralight text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">
-                  {item.title}
-                </h3>
+              <div key={i} className="p-8 bg-white border border-gray-100 hover:shadow-lg transition-all text-center group">
+                <h3 className="text-2xl font-extralight text-slate-700 mb-2 group-hover:text-slate-900 transition-colors">{item.title}</h3>
                 <p className="text-xs text-gray-400 uppercase mb-4">{item.subtitle}</p>
                 <div className="w-12 h-px bg-slate-300 mx-auto mb-6 group-hover:bg-slate-500 transition-colors"></div>
                 <p className="text-gray-600 font-light text-base">{item.content}</p>
