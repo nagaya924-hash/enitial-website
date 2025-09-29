@@ -6,7 +6,7 @@ import { ArrowRight, Target, TrendingUp, Users, ShoppingCart } from "lucide-reac
 import ContactForm from "./components/contact-form"
 import Image from "next/image"
 
-// 共通セクションヘッダー（見出しサイズ・装飾を統一）
+// 装飾なしの共通見出し
 function SectionHeader({
   title,
   subtitle,
@@ -16,23 +16,11 @@ function SectionHeader({
   subtitle?: string
   align?: "left" | "center"
 }) {
-  const isCenter = align === "center"
   return (
-    <div className={`${isCenter ? "text-center" : "text-left"} mb-24`}>
-      <div className={`flex items-center ${isCenter ? "justify-center" : ""} mb-6`}>
-        {/* 装飾：ドット-ライン-タイトル-ライン-ドット（左寄せ時はドット＋ライン＋タイトル） */}
-        <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-        <div className="w-16 h-px bg-slate-300 mx-4"></div>
-        <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 tracking-tight">{title}</h2>
-        {isCenter && (
-          <>
-            <div className="w-16 h-px bg-slate-300 mx-4"></div>
-            <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-          </>
-        )}
-      </div>
+    <div className={`${align === "center" ? "text-center" : "text-left"} mb-12`}>
+      <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 tracking-tight">{title}</h2>
       {subtitle && (
-        <p className={`text-xs md:text-sm lg:text-base text-gray-500 font-light leading-relaxed ${isCenter ? "max-w-4xl mx-auto" : ""}`}>
+        <p className={`mt-3 text-sm md:text-base text-gray-500 font-light leading-relaxed ${align === "center" ? "max-w-4xl mx-auto" : ""}`}>
           {subtitle}
         </p>
       )}
@@ -134,7 +122,7 @@ export default function Homepage() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="relative py-32 md:py-48 bg-black overflow-hidden">
         <div className="absolute inset-0">
           <Image
@@ -148,36 +136,23 @@ export default function Homepage() {
         </div>
         <div className="relative container mx-auto px-8 text-center">
           <div className="max-w-4xl mx-auto">
-            <div className="mb-16">
-              <p className="text-sm md:text-lg text-white mb-4 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
-                出会いが縁を生み、縁が可能性を育む。
-              </p>
-              <p className="text-sm md:text-lg text-white mb-8 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
-                その可能性を、私たちは共に拓く。
-              </p>
-              <div className="flex items-center justify-center space-x-4 mb-8">
-                <div className="w-12 h-px bg-slate-400"></div>
-                <p className="text-xs text-gray-200 font-light tracking-widest uppercase">Enitial（EN × Potential）</p>
-                <div className="w-12 h-px bg-slate-400"></div>
-              </div>
-              <div className="flex items-center justify-center space-x-2 mt-4">
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
-                <div className="w-1 h-1 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
-                <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
-              </div>
-            </div>
+            <p className="text-sm md:text-lg text-white mb-2 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+              出会いが縁を生み、縁が可能性を育む。
+            </p>
+            <p className="text-sm md:text-lg text-white mb-10 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+              その可能性を、私たちは共に拓く。
+            </p>
 
-            <div className="space-y-6 mb-16">
+            <div className="space-y-6 mb-12">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-white leading-tight tracking-tight">
                 顧客との縁を大切にし
-                <br />
               </h1>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-gray-100 leading-tight tracking-tight">
                 可能性を最大化
               </h1>
             </div>
 
-            <div className="space-y-3 mb-12 max-w-3xl mx-auto">
+            <div className="space-y-2 mb-10 max-w-3xl mx-auto">
               <p className="text-xs md:text-sm lg:text-base text-gray-200 leading-relaxed font-light">
                 事業計画策定から補助金申請、営業代行まで
               </p>
@@ -199,7 +174,7 @@ export default function Homepage() {
       </section>
 
       {/* Services */}
-      <section id="services" className="py-32 bg-white relative overflow-hidden">
+      <section id="services" className="py-28 bg-white relative overflow-hidden">
         <div className="container mx-auto px-8 relative">
           <SectionHeader
             title="サービス"
@@ -212,15 +187,13 @@ export default function Homepage() {
               return (
                 <div
                   key={index}
-                  className="group p-8 border border-gray-100 hover:border-slate-200 transition-all duration-300 hover:shadow-lg relative bg-white animate-fade-in"
+                  className="group p-8 border border-gray-100 hover:border-slate-200 transition-all duration-300 hover:shadow-lg bg-white animate-fade-in"
                   style={{ animationDelay: `${index * 0.2}s` }}
                 >
-                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-slate-200 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <div className="flex items-start space-x-6">
                     <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-slate-700 transition-colors relative">
+                      <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center group-hover:bg-slate-700 transition-colors">
                         <IconComponent className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
-                        <div className="absolute -inset-2 border border-slate-200 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
                       </div>
                     </div>
                     <div className="flex-1">
@@ -245,32 +218,22 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Mission, Vision, Value */}
-      <section id="mvv" className="py-32 bg-slate-50 relative overflow-hidden">
+      {/* MVV */}
+      <section id="mvv" className="py-28 bg-slate-50 relative overflow-hidden">
         <div className="container mx-auto px-8 relative">
-          {/* ※サービスと同じデザイン・サイズの見出し */}
+          {/* 見出しは装飾なし */}
           <SectionHeader title="企業理念" subtitle="私たちの行動指針となる理念をご紹介します" align="center" />
-
-          <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto relative">
-            <div className="hidden lg:block absolute top-1/2 left-1/3 w-1/3 h-px bg-gradient-to-r from-slate-300 via-slate-200 to-slate-300 transform -translate-y-1/2"></div>
-            <div className="hidden lg:block absolute top-1/2 right-1/3 w-1/3 h-px bg-gradient-to-r from-slate-300 via-slate-200 to-slate-300 transform -translate-y-1/2"></div>
-
+          <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
             {mvv.map((item, index) => (
               <div
                 key={index}
-                className="text-center p-8 bg-white border border-gray-100 hover:shadow-lg hover:border-slate-200 transition-all relative group"
+                className="text-center p-8 bg-white border border-gray-100 hover:shadow-lg hover:border-slate-200 transition-all group"
               >
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-slate-700 text-white rounded-full flex items-center justify-center text-xs font-light">
-                  {index + 1}
-                </div>
-                <div className="mb-8 pt-4">
-                  <h3 className="text-2xl font-extralight text-slate-700 mb-2 tracking-wide">{item.title}</h3>
+                <div className="mb-8">
+                  <h3 className="text-2xl font-extralight text-slate-700 mb-1 tracking-wide">{item.title}</h3>
                   <p className="text-xs text-gray-400 font-light tracking-widest uppercase">{item.subtitle}</p>
-                  <div className="w-12 h-px bg-slate-300 mx-auto mt-4 group-hover:bg-slate-500 transition-colors"></div>
                 </div>
                 <p className="text-gray-600 leading-relaxed font-light text-sm">{item.content}</p>
-
-                <div className="absolute bottom-4 right-4 w-3 h-3 border-r-2 border-b-2 border-slate-200 opacity-0 group-hover:opacity-100 transition-opacity"></div>
               </div>
             ))}
           </div>
@@ -278,49 +241,29 @@ export default function Homepage() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-32 bg-white relative">
+      <section id="about" className="py-28 bg-white relative">
         <div className="container mx-auto px-8">
-          <div className="grid lg:grid-cols-2 gap-20 items-center max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-start max-w-6xl mx-auto">
             <div>
-              {/* ※見出しを共通コンポーネントで左寄せに */}
+              {/* 見出し（装飾なし・左寄せ） */}
               <SectionHeader
                 title="会社概要"
                 subtitle="株式会社エニシャルは『顧客との縁を大切にし、その可能性を最大限に引き出す』という理念のもと、お客様と共に成長していくパートナーを目指しています。"
                 align="left"
               />
-              <div className="space-y-8 mb-16">
+              {/* 余白を縮小（mb-16 → mb-8、space-y-8 → space-y-6） */}
+              <div className="space-y-6 mb-8">
                 <p className="text-gray-600 leading-relaxed font-light">
                   事業計画策定から補助金申請サポート、営業代行、ネットショップ運営まで、お客様のビジネス成長を多角的にサポートする総合コンサルティング会社です。
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-8">
-                <div className="text-center group">
-                  <div className="font-light text-gray-900 mb-2 text-sm group-hover:text-slate-700 transition-colors">
-                    顧客中心主義
-                  </div>
-                  <div className="text-xs text-gray-500 font-light">お客様第一</div>
-                  <div className="w-8 h-px bg-slate-300 mx-auto mt-2"></div>
-                </div>
-                <div className="text-center group">
-                  <div className="font-light text-gray-900 mb-2 text-sm group-hover:text-slate-700 transition-colors">
-                    高い成果
-                  </div>
-                  <div className="text-xs text-gray-500 font-light">95%採択率</div>
-                  <div className="w-8 h-px bg-slate-300 mx-auto mt-2"></div>
-                </div>
-                <div className="text-center group">
-                  <div className="font-light text-gray-900 mb-2 text-sm group-hover:text-slate-700 transition-colors">
-                    信頼と実績
-                  </div>
-                  <div className="text-xs text-gray-500 font-light">200+支援実績</div>
-                  <div className="w-8 h-px bg-slate-300 mx-auto mt-2"></div>
-                </div>
-              </div>
+              {/* ※ 要望により「顧客中心主義／高い成果／信頼と実績」の3項目は削除 */}
             </div>
+
             <div className="relative">
               <div className="bg-slate-50 p-12 border border-slate-100">
-                <h3 className="font-light text-slate-700 mb-8 text-lg tracking-wide">企業情報</h3>
-                <div className="space-y-6">
+                <h3 className="font-light text-slate-700 mb-6 text-lg tracking-wide">企業情報</h3>
+                <div className="space-y-4">
                   {companyInfo.map((info, index) => (
                     <div key={index} className="flex justify-between py-3 border-b border-slate-200 last:border-b-0">
                       <span className="text-gray-600 font-light text-sm">{info.label}</span>
@@ -334,11 +277,11 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Contact Form */}
-      <section id="contact" className="py-32 bg-slate-50">
+      {/* Contact */}
+      <section id="contact" className="py-28 bg-slate-50">
         <div className="container mx-auto px-8">
-          <div className="text-center mb-24">
-            <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 mb-8 tracking-tight">
+          <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 mb-6 tracking-tight">
               お問い合わせ
             </h2>
             <div className="space-y-1">
@@ -410,17 +353,12 @@ export default function Homepage() {
         </div>
       </footer>
 
-      {/* Custom CSS Animations */}
+      {/* Animations */}
       <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-10px); }
-        }
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-float { animation: float 3s ease-in-out infinite; }
         .animate-fade-in { animation: fade-in 0.6s ease-out forwards; opacity: 0; }
       `}</style>
     </div>
