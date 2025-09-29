@@ -1,8 +1,9 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { ArrowRight, Target, TrendingUp, Users, ShoppingCart } from "lucide-react"
+import { ArrowRight, Target, TrendingUp, Users, ShoppingCart, Menu, X } from "lucide-react"
 import ContactForm from "./components/contact-form"
 import Image from "next/image"
 
@@ -31,6 +32,36 @@ function SectionHeader({
         >
           {subtitle}
         </p>
+      )}
+    </div>
+  )
+}
+
+// モバイルメニュー（ハンバーガー）
+function MobileMenu() {
+  const [open, setOpen] = useState(false)
+
+  const go = (id: string) => (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    setOpen(false)
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
+  return (
+    <div className="md:hidden">
+      <button aria-label="メニュー" onClick={() => setOpen(v => !v)}>
+        {open ? <X size={28} /> : <Menu size={28} />}
+      </button>
+      {open && (
+        <div className="absolute inset-x-0 top-full border-t bg-white shadow-sm">
+          <nav className="container mx-auto px-8 py-3 space-y-2">
+            <a href="#services" onClick={go("services")} className="block py-2 text-sm">下へ（サービス）</a>
+            <a href="#services" onClick={go("services")} className="block py-2 text-sm">サービス</a>
+            <a href="#mvv" onClick={go("mvv")} className="block py-2 text-sm">理念</a>
+            <a href="#about" onClick={go("about")} className="block py-2 text-sm">会社概要</a>
+            <a href="#contact" onClick={go("contact")} className="block py-2 text-sm">お問い合わせ</a>
+          </nav>
+        </div>
       )}
     </div>
   )
@@ -97,23 +128,30 @@ export default function Homepage() {
     <div className="min-h-screen bg-white font-light">
       {/* Header */}
       <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-8 py-6 flex items-center justify-between">
+        <div className="container mx-auto px-8 py-6 flex items-center justify-between relative">
           {/* ロゴクリックでトップに戻る */}
           <a href="#top" className="flex items-center cursor-pointer">
             <Image src="/images/logo-horizontal.png" alt="Enitial Logo" width={180} height={40} className="h-10 w-auto" />
           </a>
+
+          {/* PCナビ */}
           <nav className="hidden md:flex items-center space-x-12">
             <a href="#services" className="text-gray-600 hover:text-slate-700 text-sm">サービス</a>
             <a href="#mvv" className="text-gray-600 hover:text-slate-700 text-sm">理念</a>
             <a href="#about" className="text-gray-600 hover:text-slate-700 text-sm">会社概要</a>
             <a href="#contact" className="text-gray-600 hover:text-slate-700 text-sm">お問い合わせ</a>
           </nav>
+
+          {/* PCお問い合わせボタン */}
           <Button
             className="hidden md:inline-flex bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2"
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
           >
             お問い合わせ <ArrowRight className="ml-2 h-3 w-3" />
           </Button>
+
+          {/* モバイル：ハンバーガー */}
+          <MobileMenu />
         </div>
       </header>
 
@@ -137,9 +175,14 @@ export default function Homepage() {
               <div className="w-1 h-1 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
               <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white leading-tight mb-6">
-              顧客との縁を大切にし<br />可能性を最大化
+
+            {/* 見出し：1行固定＋同サイズ */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white leading-tight mb-6 break-keep">
+              <span className="whitespace-nowrap">顧客との縁を大切にし</span>
+              <br />
+              <span className="inline-block">可能性を最大化</span>
             </h1>
+
             <p className="text-sm md:text-base text-gray-200 mb-8">
               事業計画策定から補助金申請、営業代行まで お客様のビジネス成長を総合的にサポートいたします
             </p>
