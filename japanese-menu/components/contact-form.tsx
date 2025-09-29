@@ -48,7 +48,6 @@ export default function ContactForm() {
         body: JSON.stringify(data),
         headers: { "Content-Type": "application/json" },
       })
-
       const result = await res.json()
       if (res.ok) {
         toast.success("お問い合わせを送信しました！", { description: result.message })
@@ -56,10 +55,8 @@ export default function ContactForm() {
       } else {
         toast.error("送信に失敗しました", { description: result.message })
       }
-    } catch (error) {
-      toast.error("送信に失敗しました", {
-        description: "しばらく時間をおいて再度お試しください。",
-      })
+    } catch {
+      toast.error("送信に失敗しました", { description: "しばらく時間をおいて再度お試しください。" })
     } finally {
       setIsSubmitting(false)
     }
@@ -126,7 +123,7 @@ export default function ContactForm() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-3">
                 <Label htmlFor="service">ご相談内容 *</Label>
-                <Select onValueChange={(v) => setValue("service", v)}>
+                <Select onValueChange={(v) => setValue("service", v, { shouldValidate: true })}>
                   <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
                   </SelectTrigger>
@@ -143,7 +140,7 @@ export default function ContactForm() {
 
               <div className="space-y-3">
                 <Label htmlFor="budget">予算（任意）</Label>
-                <Select onValueChange={(v) => setValue("budget", v)}>
+                <Select onValueChange={(v) => setValue("budget", v, { shouldValidate: true })}>
                   <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
                   </SelectTrigger>
@@ -164,16 +161,27 @@ export default function ContactForm() {
               {errors.message && <p className="text-xs text-red-400">{errors.message.message}</p>}
             </div>
 
-            <div className="flex items-start space-x-3 pt-4">
-              <Checkbox
-                id="privacy"
-                checked={watch("privacy")}
-                onCheckedChange={(checked) => setValue("privacy", checked as boolean)}
-              />
-              <Label htmlFor="privacy" className="text-xs">
-                プライバシーポリシーに同意します *
-              </Label>
-              {errors.privacy && <p className="text-xs text-red-400">{errors.privacy.message}</p>}
+            {/* プライバシーポリシー同意（リンク化） */}
+            <div className="pt-2">
+              <div className="flex items-start gap-3">
+                <Checkbox
+                  id="privacy"
+                  checked={watch("privacy")}
+                  onCheckedChange={(checked) => setValue("privacy", Boolean(checked), { shouldValidate: true })}
+                />
+                <Label htmlFor="privacy" className="text-xs leading-5">
+                  <a
+                    href="/privacy-policy"
+                    className="underline underline-offset-2 hover:opacity-80"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    プライバシーポリシー
+                  </a>
+                  に同意します *
+                </Label>
+              </div>
+              {errors.privacy && <p className="mt-2 text-xs text-red-400">{errors.privacy.message}</p>}
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
