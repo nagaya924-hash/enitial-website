@@ -6,6 +6,40 @@ import { ArrowRight, Target, TrendingUp, Users, ShoppingCart } from "lucide-reac
 import ContactForm from "./components/contact-form"
 import Image from "next/image"
 
+// 共通セクションヘッダー（見出しサイズ・装飾を統一）
+function SectionHeader({
+  title,
+  subtitle,
+  align = "center",
+}: {
+  title: string
+  subtitle?: string
+  align?: "left" | "center"
+}) {
+  const isCenter = align === "center"
+  return (
+    <div className={`${isCenter ? "text-center" : "text-left"} mb-24`}>
+      <div className={`flex items-center ${isCenter ? "justify-center" : ""} mb-6`}>
+        {/* 装飾：ドット-ライン-タイトル-ライン-ドット（左寄せ時はドット＋ライン＋タイトル） */}
+        <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
+        <div className="w-16 h-px bg-slate-300 mx-4"></div>
+        <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 tracking-tight">{title}</h2>
+        {isCenter && (
+          <>
+            <div className="w-16 h-px bg-slate-300 mx-4"></div>
+            <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
+          </>
+        )}
+      </div>
+      {subtitle && (
+        <p className={`text-xs md:text-sm lg:text-base text-gray-500 font-light leading-relaxed ${isCenter ? "max-w-4xl mx-auto" : ""}`}>
+          {subtitle}
+        </p>
+      )}
+    </div>
+  )
+}
+
 export default function Homepage() {
   const services = [
     {
@@ -167,17 +201,11 @@ export default function Homepage() {
       {/* Services */}
       <section id="services" className="py-32 bg-white relative overflow-hidden">
         <div className="container mx-auto px-8 relative">
-          <div className="text-center mb-24">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-gray-900 mb-6 tracking-tight">
-              サービス
-            </h2>
-            <p className="text-xs md:text-sm lg:text-base text-gray-500 max-w-4xl mx-auto font-light leading-relaxed">
-              お客様のビジネス成長を支える幅広いコンサルティングサービスを提供しています
-            </p>
-          </div>
+          <SectionHeader
+            title="サービス"
+            subtitle="お客様のビジネス成長を支える幅広いコンサルティングサービスを提供しています"
+            align="center"
+          />
           <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
             {services.map((service, index) => {
               const IconComponent = service.icon
@@ -220,18 +248,9 @@ export default function Homepage() {
       {/* Mission, Vision, Value */}
       <section id="mvv" className="py-32 bg-slate-50 relative overflow-hidden">
         <div className="container mx-auto px-8 relative">
-          <div className="text-center mb-24">
-            <div className="flex items-center justify-center mb-8">
-              <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-              <div className="w-16 h-px bg-slate-300 mx-4"></div>
-              <h2 className="text-lg md:text-xl lg:text-2xl font-extralight text-gray-900 tracking-tight">企業理念</h2>
-              <div className="w-16 h-px bg-slate-300 mx-4"></div>
-              <div className="w-2 h-2 bg-slate-400 rounded-full"></div>
-            </div>
-            <p className="text-xs md:text-sm lg:text-base text-gray-500 font-light max-w-3xl mx-auto">
-              私たちの行動指針となる理念をご紹介します
-            </p>
-          </div>
+          {/* ※サービスと同じデザイン・サイズの見出し */}
+          <SectionHeader title="企業理念" subtitle="私たちの行動指針となる理念をご紹介します" align="center" />
+
           <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto relative">
             <div className="hidden lg:block absolute top-1/2 left-1/3 w-1/3 h-px bg-gradient-to-r from-slate-300 via-slate-200 to-slate-300 transform -translate-y-1/2"></div>
             <div className="hidden lg:block absolute top-1/2 right-1/3 w-1/3 h-px bg-gradient-to-r from-slate-300 via-slate-200 to-slate-300 transform -translate-y-1/2"></div>
@@ -263,13 +282,13 @@ export default function Homepage() {
         <div className="container mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-20 items-center max-w-6xl mx-auto">
             <div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-gray-900 mb-12 tracking-tight">
-                会社概要
-              </h2>
+              {/* ※見出しを共通コンポーネントで左寄せに */}
+              <SectionHeader
+                title="会社概要"
+                subtitle="株式会社エニシャルは『顧客との縁を大切にし、その可能性を最大限に引き出す』という理念のもと、お客様と共に成長していくパートナーを目指しています。"
+                align="left"
+              />
               <div className="space-y-8 mb-16">
-                <p className="text-gray-600 leading-relaxed font-light">
-                  2024年9月に設立された株式会社エニシャルは、「顧客との縁を大切にし、その可能性を最大限に引き出す」という理念のもと、お客様と共に成長していくパートナーを目指しています。
-                </p>
                 <p className="text-gray-600 leading-relaxed font-light">
                   事業計画策定から補助金申請サポート、営業代行、ネットショップ運営まで、お客様のビジネス成長を多角的にサポートする総合コンサルティング会社です。
                 </p>
@@ -319,7 +338,7 @@ export default function Homepage() {
       <section id="contact" className="py-32 bg-slate-50">
         <div className="container mx-auto px-8">
           <div className="text-center mb-24">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-gray-900 mb-8 tracking-tight">
+            <h2 className="text-4xl md:text-5xl font-extralight text-gray-900 mb-8 tracking-tight">
               お問い合わせ
             </h2>
             <div className="space-y-1">
