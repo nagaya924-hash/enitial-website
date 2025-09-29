@@ -1,5 +1,4 @@
 "use server"
-
 import nodemailer from "nodemailer"
 
 export async function submitContactForm(formData: FormData) {
@@ -15,12 +14,12 @@ export async function submitContactForm(formData: FormData) {
 
   try {
     const transporter = nodemailer.createTransport({
-      host: "mail1022.onamae.ne.jp", // スクショに出ていたSMTP
+      host: "mail1022.onamae.ne.jp", // お名前.com のSMTPサーバー
       port: 465,
       secure: true,
       auth: {
-        user: "info@enitial.jp",
-        pass: process.env.MAIL_PASS!, // ← 環境変数に保存（直書きしない）
+        user: "info@enitial.jp",       // 送信元アドレス
+        pass: process.env.MAIL_PASS!,  // ← Vercel環境変数に登録したパスワード
       },
     })
 
@@ -43,19 +42,16 @@ export async function submitContactForm(formData: FormData) {
 
 【お問い合わせ内容】
 ${data.message}
-
----
-このメールは株式会社エニシャルのWebサイトから送信されました。
-      `,
-      replyTo: data.email,
+`,
+      replyTo: data.email || undefined,
     })
 
     return {
       success: true,
       message: "お問い合わせを送信しました！担当者より2営業日以内にご連絡いたします。",
     }
-  } catch (error) {
-    console.error("Email sending failed:", error)
+  } catch (e) {
+    console.error("Email sending failed:", e)
     return {
       success: false,
       message: "送信に失敗しました。しばらく時間をおいて再度お試しください。",
