@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
         </p>
 
         <Separator className="my-6" />
-        <p className="text-sm text-gray-500">制定日: 2025年●月●日</p>
+        <p className="text-sm text-gray-500">制定日: 2025年9月13日</p>
       </div>
     </div>
   )
