@@ -134,11 +134,12 @@ export default function Homepage() {
         <div className="relative container mx-auto px-8 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="mb-16">
-              <p className="text-lg md:text-xl text-white mb-8 leading-loose font-extralight tracking-wide">
-                出会いが縁を生み、縁が可能性を育む。
-                <br />
-                その可能性を、私たちは共に拓く。
-              </p>
+             <p className="text-sm md:text-lg text-white mb-4 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+  出会いが縁を生み、縁が可能性を育む。
+</p>
+<p className="text-sm md:text-lg text-white mb-8 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+  その可能性を、私たちは共に拓く。
+</p>
               <div className="flex items-center justify-center space-x-4 mb-8">
                 <div className="w-12 h-px bg-slate-400"></div>
                 <p className="text-xs text-gray-200 font-light tracking-widest uppercase">Enitial（EN × Potential）</p>
