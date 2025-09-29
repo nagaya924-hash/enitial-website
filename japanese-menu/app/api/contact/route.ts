@@ -1,3 +1,8 @@
+// これをファイルの一番上に追記
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+export const preferredRegion = ['hnd1']; // Tokyo
+
 import nodemailer from "nodemailer"
 
 export async function POST(req: Request) {
