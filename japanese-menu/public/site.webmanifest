@@ -1,0 +1,21 @@
+{
+  "name": "株式会社エニシャル",
+  "short_name": "エニシャル",
+  "description": "ビジネス成長のパートナー",
+  "icons": [
+    {
+      "src": "/favicon-32x32.jpg",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.jpg",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}
