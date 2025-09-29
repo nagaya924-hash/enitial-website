@@ -127,9 +127,9 @@ export default function Homepage() {
     <div className="min-h-screen bg-white font-light">
       {/* Header */}
       <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
-        <div className="container mx-auto px-8 py-6 flex items-center justify-between relative">
-          {/* ロゴクリックでトップに戻る */}
-          <a href="#top" className="flex items-center cursor-pointer">
+        <div className="w-full flex items-center justify-between px-4 py-6 relative">
+          {/* ロゴ左寄せ */}
+          <a href="#top" className="flex items-center cursor-pointer ml-0">
             <Image
               src="/images/logo-horizontal.png"
               alt="Enitial Logo"
