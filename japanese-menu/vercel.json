@@ -4,8 +4,7 @@
     "app/api/contact/route.ts": {
       "runtime": "nodejs18.x",
       "memory": 1024,
-      "maxDuration": 10,
-      "regions": ["hnd1"]
+      "maxDuration": 10
     }
   }
 }
