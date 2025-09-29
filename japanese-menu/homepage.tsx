@@ -55,7 +55,6 @@ function MobileMenu() {
       {open && (
         <div className="absolute inset-x-0 top-full border-t bg-white shadow-sm">
           <nav className="container mx-auto px-8 py-3 space-y-2">
-            <a href="#services" onClick={go("services")} className="block py-2 text-sm">下へ（サービス）</a>
             <a href="#services" onClick={go("services")} className="block py-2 text-sm">サービス</a>
             <a href="#mvv" onClick={go("mvv")} className="block py-2 text-sm">理念</a>
             <a href="#about" onClick={go("about")} className="block py-2 text-sm">会社概要</a>
