@@ -1,5 +1,7 @@
 "use server"
 
+import nodemailer from "nodemailer"
+
 export async function submitContactForm(formData: FormData) {
   const data = {
     name: formData.get("name") as string,
@@ -11,17 +13,22 @@ export async function submitContactForm(formData: FormData) {
     message: formData.get("message") as string,
   }
 
-  // Here you would typically integrate with an email service like Resend, SendGrid, etc.
-  // For now, we'll simulate the email sending
   try {
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    const transporter = nodemailer.createTransport({
+      host: "mail1022.onamae.ne.jp", // スクショに出ていたSMTP
+      port: 465,
+      secure: true,
+      auth: {
+        user: "info@enitial.jp",
+        pass: process.env.MAIL_PASS!, // ← 環境変数に保存（直書きしない）
+      },
+    })
 
-    // In a real implementation, you would send an email to info@enitial.jp
-    console.log("Sending email to info@enitial.jp with data:", data)
-
-    // Email content that would be sent
-    const emailContent = `
+    await transporter.sendMail({
+      from: `"HPお問い合わせ" <info@enitial.jp>`,
+      to: "info@enitial.jp",
+      subject: "【HP】お問い合わせ",
+      text: `
 新しいお問い合わせが届きました。
 
 【お客様情報】
@@ -39,9 +46,9 @@ ${data.message}
 
 ---
 このメールは株式会社エニシャルのWebサイトから送信されました。
-    `
-
-    console.log("Email content:", emailContent)
+      `,
+      replyTo: data.email,
+    })
 
     return {
       success: true,
