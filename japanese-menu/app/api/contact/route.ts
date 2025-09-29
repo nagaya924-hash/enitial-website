@@ -1,7 +1,7 @@
 // Tokyoリージョンで動かす指定
-export const runtime = 'nodejs'
-export const dynamic = 'force-dynamic'
-export const preferredRegion = ['hnd1'] // Tokyo
+export const runtime = "nodejs"
+export const dynamic = "force-dynamic"
+export const preferredRegion = ["hnd1"] // 東京リージョン
 
 import nodemailer from "nodemailer"
 import { NextResponse } from "next/server"
@@ -18,14 +18,14 @@ export async function POST(req: Request) {
       }
     }
 
-    // SMTPトランスポート
+    // SMTPトランスポート設定
     const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,            // 例: mail.onamae.ne.jp
+      host: process.env.MAIL_HOST,            // 例: "mail.onamae.ne.jp"
       port: Number(process.env.MAIL_PORT) || 587,
-      secure: false, // 587ならfalse / 465ならtrue
+      secure: Number(process.env.MAIL_PORT) === 465, // 465ならtrue, 587ならfalse
       auth: {
-        user: process.env.MAIL_USER,          // 例: info@enitial.jp
-        pass: process.env.MAIL_PASS,          // メールパスワード
+        user: process.env.MAIL_USER,          // 例: "info@enitial.jp"
+        pass: process.env.MAIL_PASS,
       },
     })
 
@@ -49,22 +49,23 @@ export async function POST(req: Request) {
       <p>このメールはサイトのフォームから送信されました。</p>
     `
 
+    // メール送信
     await transporter.sendMail({
       from: process.env.MAIL_FROM || process.env.MAIL_USER,
       to: process.env.MAIL_TO || "info@enitial.jp",
-      subject: "【サイトお問い合わせ】" + body.name + " 様",
+      subject: `【サイトお問い合わせ】${body.name} 様`,
       replyTo: body.email,
       html,
     })
 
     return NextResponse.json({ message: "送信しました。担当者よりご連絡します。" })
   } catch (e: any) {
-    console.error(e)
+    console.error("メール送信エラー:", e)
     return NextResponse.json({ message: "サーバーエラーが発生しました。" }, { status: 500 })
   }
 }
 
-// リージョン確認用エンドポイント
+// ★ デバッグ用: デプロイ先のリージョン確認
 export async function GET() {
   return NextResponse.json({
     ok: true,
