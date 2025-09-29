@@ -35,13 +35,6 @@ export default function Homepage() {
     },
   ]
 
-  const achievements = [
-    { number: "95%", label: "補助金採択率" },
-    { number: "200+", label: "支援実績" },
-    { number: "2024年", label: "設立" },
-    { number: "100%", label: "顧客満足度" },
-  ]
-
   const companyInfo = [
     { label: "会社名", value: "株式会社エニシャル" },
     { label: "設立", value: "2024年9月" },
@@ -86,28 +79,16 @@ export default function Homepage() {
               />
             </div>
             <nav className="hidden md:flex items-center space-x-12">
-              <a
-                href="#services"
-                className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide"
-              >
+              <a href="#services" className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide">
                 サービス
               </a>
-              <a
-                href="#mvv"
-                className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide"
-              >
+              <a href="#mvv" className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide">
                 理念
               </a>
-              <a
-                href="#about"
-                className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide"
-              >
+              <a href="#about" className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide">
                 会社概要
               </a>
-              <a
-                href="#contact"
-                className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide"
-              >
+              <a href="#contact" className="text-gray-600 hover:text-slate-700 transition-colors font-light text-sm tracking-wide">
                 お問い合わせ
               </a>
             </nav>
@@ -134,12 +115,12 @@ export default function Homepage() {
         <div className="relative container mx-auto px-8 text-center">
           <div className="max-w-4xl mx-auto">
             <div className="mb-16">
-             <p className="text-sm md:text-lg text-white mb-4 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
-  出会いが縁を生み、縁が可能性を育む。
-</p>
-<p className="text-sm md:text-lg text-white mb-8 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
-  その可能性を、私たちは共に拓く。
-</p>
+              <p className="text-sm md:text-lg text-white mb-4 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+                出会いが縁を生み、縁が可能性を育む。
+              </p>
+              <p className="text-sm md:text-lg text-white mb-8 leading-relaxed font-extralight tracking-wide whitespace-nowrap">
+                その可能性を、私たちは共に拓く。
+              </p>
               <div className="flex items-center justify-center space-x-4 mb-8">
                 <div className="w-12 h-px bg-slate-400"></div>
                 <p className="text-xs text-gray-200 font-light tracking-widest uppercase">Enitial（EN × Potential）</p>
@@ -147,10 +128,7 @@ export default function Homepage() {
               </div>
               <div className="flex items-center justify-center space-x-2 mt-4">
                 <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse"></div>
-                <div
-                  className="w-1 h-1 bg-white/40 rounded-full animate-pulse"
-                  style={{ animationDelay: "0.5s" }}
-                ></div>
+                <div className="w-1 h-1 bg-white/40 rounded-full animate-pulse" style={{ animationDelay: "0.5s" }}></div>
                 <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
               </div>
             </div>
@@ -174,33 +152,14 @@ export default function Homepage() {
               </p>
             </div>
 
-           <Button
-  size="lg"
-  className="bg-slate-800/90 hover:bg-slate-900 text-white font-light text-sm px-12 py-4 border-0 tracking-wide shadow-lg"
-  onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
->
-  サービスを見る
-  <ArrowRight className="ml-3 h-4 w-4" />
-</Button>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Achievements */}
-      <section id="achievements" className="py-24 bg-slate-50">
-        <div className="container mx-auto px-8 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-16">
-            {achievements.map((item, index) => (
-              <div key={index} className="text-center group relative">
-                <div className="relative">
-                  <div className="text-4xl md:text-5xl font-extralight text-gray-900 mb-4 tracking-tight group-hover:text-slate-700 group-hover:scale-110 transition-all duration-300">
-                    {item.number}
-                  </div>
-                  <div className="text-gray-600 font-light text-sm tracking-wide">{item.label}</div>
-                </div>
-              </div>
-            ))}
+            <Button
+              size="lg"
+              className="bg-slate-800/90 hover:bg-slate-900 text-white font-light text-sm px-12 py-4 border-0 tracking-wide shadow-lg"
+              onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+            >
+              サービスを見る
+              <ArrowRight className="ml-3 h-4 w-4" />
+            </Button>
           </div>
         </div>
       </section>
@@ -402,51 +361,19 @@ export default function Homepage() {
             <div>
               <h4 className="font-light mb-8 text-slate-800 text-sm tracking-wide">サービス</h4>
               <ul className="space-y-4 text-xs text-slate-600 font-light">
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    事業計画策定
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    補助金申請サポート
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    営業代行
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    ネットショップ運営
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">事業計画策定</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">補助金申請サポート</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">営業代行</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">ネットショップ運営</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-light mb-8 text-slate-800 text-sm tracking-wide">会社情報</h4>
               <ul className="space-y-4 text-xs text-slate-600 font-light">
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    会社概要
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    企業理念
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    お知らせ
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-slate-800 transition-colors">
-                    お問い合わせ
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">会社概要</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">企業理念</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">お知らせ</a></li>
+                <li><a href="#" className="hover:text-slate-800 transition-colors">お問い合わせ</a></li>
               </ul>
             </div>
             <div>
@@ -470,20 +397,12 @@ export default function Homepage() {
           0%, 100% { transform: translateY(0px); }
           50% { transform: translateY(-10px); }
         }
-        
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-          opacity: 0;
-        }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-fade-in { animation: fade-in 0.6s ease-out forwards; opacity: 0; }
       `}</style>
     </div>
   )
