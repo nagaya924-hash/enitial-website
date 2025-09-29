@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   manifest: "/site.webmanifest",
 
-  // ✅ OGPのみ（Facebook/LINE/Twitter共通で利用される）
+  // ✅ OGP設定（SNS共通で利用される）
   openGraph: {
     title: "株式会社エニシャル - ビジネス成長のパートナー",
     description:
@@ -52,6 +52,27 @@ export default function RootLayout({
       <body className={inter.className}>
         {children}
         <Toaster position="top-right" />
+
+        {/* ✅ 構造化データ (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "株式会社エニシャル",
+              url: "https://www.enitial.jp",
+              logo: "https://www.enitial.jp/og-image.png",
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "info@enitial.jp",
+                contactType: "customer service",
+                areaServed: "JP",
+                availableLanguage: "Japanese",
+              },
+            }),
+          }}
+        />
       </body>
     </html>
   )
