@@ -174,14 +174,15 @@ export default function Homepage() {
               </p>
             </div>
 
-            <Button
-              size="lg"
-              className="bg-slate-800/90 hover:bg-slate-900 text-white font-light text-sm px-12 py-4 border-0 tracking-wide shadow-lg"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              サービスを見る
-              <ArrowRight className="ml-3 h-4 w-4" />
-            </Button>
+           <Button
+  size="lg"
+  className="bg-slate-800/90 hover:bg-slate-900 text-white font-light text-sm px-12 py-4 border-0 tracking-wide shadow-lg"
+  onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+>
+  サービスを見る
+  <ArrowRight className="ml-3 h-4 w-4" />
+</Button>
+
           </div>
         </div>
       </section>
