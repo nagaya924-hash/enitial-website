@@ -1,0 +1,9 @@
+{
+  "regions": ["hnd1"],
+  "functions": {
+    "app/api/**": {
+      "runtime": "nodejs20.x",
+      "regions": ["hnd1"]
+    }
+  }
+}
