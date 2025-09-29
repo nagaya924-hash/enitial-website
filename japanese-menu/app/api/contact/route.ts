@@ -1,30 +1,31 @@
-// これをファイルの一番上に追記
-export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
-export const preferredRegion = ['hnd1']; // Tokyo
+// Tokyoリージョンで動かす指定
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+export const preferredRegion = ['hnd1'] // Tokyo
 
 import nodemailer from "nodemailer"
+import { NextResponse } from "next/server"
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
 
-    // 必須チェック（最低限）
+    // 必須チェック
     const required = ["name", "company", "email", "phone", "service", "message", "privacy"]
     for (const k of required) {
       if (!body?.[k]) {
-        return Response.json({ message: `「${k}」が未入力です` }, { status: 400 })
+        return NextResponse.json({ message: `「${k}」が未入力です` }, { status: 400 })
       }
     }
 
     // SMTPトランスポート
     const transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,            // 例: "mail.onamae.ne.jp" 等（お名前.comのSMTP）
+      host: process.env.MAIL_HOST,            // 例: mail.onamae.ne.jp
       port: Number(process.env.MAIL_PORT) || 587,
-      secure: false, // 587想定。465なら true に
+      secure: false, // 587ならfalse / 465ならtrue
       auth: {
-        user: process.env.MAIL_USER,          // メールアカウント（例: info@enitial.jp）
-        pass: process.env.MAIL_PASS,          // そのパスワード
+        user: process.env.MAIL_USER,          // 例: info@enitial.jp
+        pass: process.env.MAIL_PASS,          // メールパスワード
       },
     })
 
@@ -49,16 +50,25 @@ export async function POST(req: Request) {
     `
 
     await transporter.sendMail({
-      from: process.env.MAIL_FROM || process.env.MAIL_USER, // 送信元表示
-      to: process.env.MAIL_TO || "info@enitial.jp",         // 受信先
+      from: process.env.MAIL_FROM || process.env.MAIL_USER,
+      to: process.env.MAIL_TO || "info@enitial.jp",
       subject: "【サイトお問い合わせ】" + body.name + " 様",
       replyTo: body.email,
       html,
     })
 
-    return Response.json({ message: "送信しました。担当者よりご連絡します。" })
+    return NextResponse.json({ message: "送信しました。担当者よりご連絡します。" })
   } catch (e: any) {
     console.error(e)
-    return Response.json({ message: "サーバーエラーが発生しました。" }, { status: 500 })
+    return NextResponse.json({ message: "サーバーエラーが発生しました。" }, { status: 500 })
   }
+}
+
+// リージョン確認用エンドポイント
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    region: process.env.VERCEL_REGION || "unknown",
+    runtime: "nodejs",
+  })
 }
