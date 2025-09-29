@@ -128,7 +128,7 @@ export default function Homepage() {
       {/* Header */}
       <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
         <div className="w-full flex items-center justify-between px-4 py-6 relative">
-          {/* ロゴ左寄せ */}
+          {/* ロゴ左寄せ & h-14 */}
           <a href="#top" className="flex items-center cursor-pointer ml-0">
             <Image
               src="/images/logo-horizontal.png"
@@ -269,7 +269,7 @@ export default function Homepage() {
                 <h3 className="font-light text-slate-700 mb-6 text-lg">企業情報</h3>
                 <div className="space-y-4">
                   {companyInfo.map((info, i) => (
-                    <div key={i} className="flex justify-between py-3 border-b border-slate-200 last:border-b-0">
+                    <div key={i} className="flex justify-between py-3 border-b border-slate-2 00 last:border-b-0">
                       <span className="text-gray-600 font-light text-sm">{info.label}</span>
                       <span className="text-slate-700 font-light text-sm">{info.value}</span>
                     </div>
@@ -291,47 +291,56 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-100 text-slate-700 py-20">
-        <div className="container mx-auto px-8">
-          <div className="grid md:grid-cols-4 gap-12">
-            <div>
+      {/* Footer（横並び・高さコンパクト） */}
+      <footer className="bg-slate-100 text-slate-700 py-10">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
+            {/* 左ロゴ（少しだけ小さめで圧縮） */}
+            <div className="flex-shrink-0">
               <Image
                 src="/images/logo-horizontal.png"
                 alt="Enitial Logo"
-                width={260}
-                height={60}
-                className="h-14 w-auto mb-6"
+                width={200}
+                height={50}
+                className="h-12 w-auto mb-3"
               />
-              <p className="text-sm font-light mb-8">株式会社エニシャル</p>
-              <p className="text-sm font-light">顧客との縁を大切にし<br/>ビジネスの可能性を最大化するパートナー</p>
+              <p className="text-xs font-light">株式会社エニシャル</p>
             </div>
-            <div>
-              <h4 className="font-light mb-8 text-sm">サービス</h4>
-              <ul className="space-y-3 text-xs font-light">
+
+            {/* サービス */}
+            <div className="min-w-0">
+              <h4 className="font-light mb-2 text-sm">サービス</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
                 <li>事業計画策定</li>
                 <li>補助金申請サポート</li>
                 <li>営業代行</li>
                 <li>ネットショップ運営</li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-light mb-8 text-sm">会社情報</h4>
-              <ul className="space-y-3 text-xs font-light">
+
+            {/* 会社情報 */}
+            <div className="min-w-0">
+              <h4 className="font-light mb-2 text-sm">会社情報</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
                 <li>会社概要</li>
                 <li>企業理念</li>
                 <li>お知らせ</li>
                 <li>お問い合わせ</li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-light mb-8 text-sm">お問い合わせ</h4>
+
+            {/* お問い合わせ */}
+            <div className="min-w-0">
+              <h4 className="font-light mb-2 text-sm">お問い合わせ</h4>
               <p className="text-xs font-light">info@enitial.jp</p>
               <p className="text-xs font-light">岐阜県揖斐郡揖斐川町日坂1178</p>
             </div>
           </div>
-          <Separator className="my-12 bg-slate-300"/>
-          <p className="text-center text-xs font-light text-slate-500">&copy; 2025 株式会社エニシャル. All rights reserved.</p>
+
+          <Separator className="my-6 bg-slate-300" />
+          <p className="text-center text-xs font-light text-slate-500">
+            &copy; 2025 株式会社エニシャル. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
