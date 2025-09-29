@@ -117,7 +117,6 @@ export default function Homepage() {
         </div>
 
         <div className="relative container mx-auto px-8">
-          {/* ←ここを“グリッド中央寄せ”に変更 */}
           <div className="grid place-items-center">
             <div className="max-w-4xl text-center">
               <p className="text-sm md:text-lg text-white mb-4">出会いが縁を生み、縁が可能性を育む。</p>
@@ -135,7 +134,6 @@ export default function Homepage() {
                 <div className="w-2 h-2 bg-white/60 rounded-full animate-pulse" style={{ animationDelay: "1s" }}></div>
               </div>
 
-              {/* 見出し：中央揃え強制 */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white leading-tight mb-6 text-center break-keep">
                 <span className="block">顧客との縁を大切にし</span>
                 <span className="block">可能性を最大化</span>
@@ -243,7 +241,7 @@ export default function Homepage() {
         </div>
       </section>
 
-      {/* Footer（横並び・コンパクト） */}
+      {/* Footer（横並び・コンパクト with プライバシーポリシー） */}
       <footer className="bg-slate-100 text-slate-700 py-10">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8">
@@ -254,13 +252,22 @@ export default function Homepage() {
             <div className="min-w-0">
               <h4 className="font-light mb-2 text-sm">サービス</h4>
               <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
-                <li>事業計画策定</li><li>補助金申請サポート</li><li>営業代行</li><li>ネットショップ運営</li>
+                <li>事業計画策定</li>
+                <li>補助金申請サポート</li>
+                <li>営業代行</li>
+                <li>ネットショップ運営</li>
               </ul>
             </div>
             <div className="min-w-0">
               <h4 className="font-light mb-2 text-sm">会社情報</h4>
               <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
-                <li>会社概要</li><li>企業理念</li><li>お知らせ</li><li>お問い合わせ</li>
+                <li>会社概要</li>
+                <li>企業理念</li>
+                <li>お知らせ</li>
+                <li>
+                  <a href="/privacy-policy" className="hover:underline">プライバシーポリシー</a>
+                </li>
+                <li>お問い合わせ</li>
               </ul>
             </div>
             <div className="min-w-0">
