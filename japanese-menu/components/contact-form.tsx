@@ -12,22 +12,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { toast } from "sonner"
 import { Loader2, Send } from "lucide-react"
-import { submitContactForm } from "../actions/contact"
 
 const contactSchema = z.object({
-  name: z.string().min(1, "氏名を入力してください").min(2, "氏名は2文字以上で入力してください"),
+  name: z.string().min(2, "氏名は2文字以上で入力してください"),
   company: z.string().min(1, "会社名を入力してください"),
-  email: z.string().min(1, "メールアドレスを入力してください").email("正しいメールアドレスを入力してください"),
-  phone: z
-    .string()
-    .min(1, "電話番号を入力してください")
-    .regex(/^[0-9-+()]+$/, "正しい電話番号を入力してください"),
+  email: z.string().email("正しいメールアドレスを入力してください"),
+  phone: z.string().regex(/^[0-9-+()]+$/, "正しい電話番号を入力してください"),
   service: z.string().min(1, "ご相談内容を選択してください"),
   budget: z.string().optional(),
-  message: z
-    .string()
-    .min(1, "お問い合わせ内容を入力してください")
-    .min(10, "お問い合わせ内容は10文字以上で入力してください"),
+  message: z.string().min(10, "お問い合わせ内容は10文字以上で入力してください"),
   privacy: z.boolean().refine((val) => val === true, "プライバシーポリシーに同意してください"),
 })
 
@@ -35,7 +28,6 @@ type ContactFormData = z.infer<typeof contactSchema>
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
-
   const {
     register,
     handleSubmit,
@@ -45,33 +37,24 @@ export default function ContactForm() {
     formState: { errors },
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
-    defaultValues: {
-      privacy: false,
-    },
+    defaultValues: { privacy: false },
   })
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true)
-
     try {
-      const formData = new FormData()
-      Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) {
-          formData.append(key, value.toString())
-        }
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
       })
 
-      const result = await submitContactForm(formData)
-
-      if (result.success) {
-        toast.success("お問い合わせを送信しました！", {
-          description: result.message,
-        })
+      const result = await res.json()
+      if (res.ok) {
+        toast.success("お問い合わせを送信しました！", { description: result.message })
         reset()
       } else {
-        toast.error("送信に失敗しました", {
-          description: result.message,
-        })
+        toast.error("送信に失敗しました", { description: result.message })
       }
     } catch (error) {
       toast.error("送信に失敗しました", {
@@ -116,105 +99,58 @@ export default function ContactForm() {
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <Label htmlFor="name" className="text-gray-700 font-light text-sm tracking-wide">
-                  氏名 <span className="text-red-400">*</span>
-                </Label>
-                <Input
-                  id="name"
-                  {...register("name")}
-                  placeholder="山田 太郎"
-                  className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light ${
-                    errors.name ? "border-red-300" : ""
-                  }`}
-                />
-                {errors.name && <p className="text-xs text-red-400 font-light">{errors.name.message}</p>}
+                <Label htmlFor="name">氏名 *</Label>
+                <Input id="name" {...register("name")} placeholder="山田 太郎" />
+                {errors.name && <p className="text-xs text-red-400">{errors.name.message}</p>}
               </div>
-
               <div className="space-y-3">
-                <Label htmlFor="company" className="text-gray-700 font-light text-sm tracking-wide">
-                  会社名 <span className="text-red-400">*</span>
-                </Label>
-                <Input
-                  id="company"
-                  {...register("company")}
-                  placeholder="株式会社○○○"
-                  className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light ${
-                    errors.company ? "border-red-300" : ""
-                  }`}
-                />
-                {errors.company && <p className="text-xs text-red-400 font-light">{errors.company.message}</p>}
+                <Label htmlFor="company">会社名 *</Label>
+                <Input id="company" {...register("company")} placeholder="株式会社○○○" />
+                {errors.company && <p className="text-xs text-red-400">{errors.company.message}</p>}
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <Label htmlFor="email" className="text-gray-700 font-light text-sm tracking-wide">
-                  メールアドレス <span className="text-red-400">*</span>
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  {...register("email")}
-                  placeholder="example@company.com"
-                  className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light ${
-                    errors.email ? "border-red-300" : ""
-                  }`}
-                />
-                {errors.email && <p className="text-xs text-red-400 font-light">{errors.email.message}</p>}
+                <Label htmlFor="email">メールアドレス *</Label>
+                <Input id="email" type="email" {...register("email")} placeholder="example@company.com" />
+                {errors.email && <p className="text-xs text-red-400">{errors.email.message}</p>}
               </div>
-
               <div className="space-y-3">
-                <Label htmlFor="phone" className="text-gray-700 font-light text-sm tracking-wide">
-                  電話番号 <span className="text-red-400">*</span>
-                </Label>
-                <Input
-                  id="phone"
-                  {...register("phone")}
-                  placeholder="03-1234-5678"
-                  className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light ${
-                    errors.phone ? "border-red-300" : ""
-                  }`}
-                />
-                {errors.phone && <p className="text-xs text-red-400 font-light">{errors.phone.message}</p>}
+                <Label htmlFor="phone">電話番号 *</Label>
+                <Input id="phone" {...register("phone")} placeholder="03-1234-5678" />
+                {errors.phone && <p className="text-xs text-red-400">{errors.phone.message}</p>}
               </div>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-3">
-                <Label htmlFor="service" className="text-gray-700 font-light text-sm tracking-wide">
-                  ご相談内容 <span className="text-red-400">*</span>
-                </Label>
-                <Select onValueChange={(value) => setValue("service", value)}>
-                  <SelectTrigger
-                    className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light ${
-                      errors.service ? "border-red-300" : ""
-                    }`}
-                  >
+                <Label htmlFor="service">ご相談内容 *</Label>
+                <Select onValueChange={(v) => setValue("service", v)}>
+                  <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
                   </SelectTrigger>
                   <SelectContent>
-                    {serviceOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="font-light">
-                        {option.label}
+                    {serviceOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {o.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {errors.service && <p className="text-xs text-red-400 font-light">{errors.service.message}</p>}
+                {errors.service && <p className="text-xs text-red-400">{errors.service.message}</p>}
               </div>
 
               <div className="space-y-3">
-                <Label htmlFor="budget" className="text-gray-700 font-light text-sm tracking-wide">
-                  予算（任意）
-                </Label>
-                <Select onValueChange={(value) => setValue("budget", value)}>
-                  <SelectTrigger className="border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white font-light">
+                <Label htmlFor="budget">予算（任意）</Label>
+                <Select onValueChange={(v) => setValue("budget", v)}>
+                  <SelectTrigger>
                     <SelectValue placeholder="選択してください" />
                   </SelectTrigger>
                   <SelectContent>
-                    {budgetOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value} className="font-light">
-                        {option.label}
+                    {budgetOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {o.label}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -223,19 +159,9 @@ export default function ContactForm() {
             </div>
 
             <div className="space-y-3">
-              <Label htmlFor="message" className="text-gray-700 font-light text-sm tracking-wide">
-                お問い合わせ内容 <span className="text-red-400">*</span>
-              </Label>
-              <Textarea
-                id="message"
-                {...register("message")}
-                placeholder="具体的なご相談内容をお聞かせください"
-                rows={6}
-                className={`border-gray-200 focus:border-slate-400 focus:ring-slate-400 focus:ring-1 bg-white resize-none font-light ${
-                  errors.message ? "border-red-300" : ""
-                }`}
-              />
-              {errors.message && <p className="text-xs text-red-400 font-light">{errors.message.message}</p>}
+              <Label htmlFor="message">お問い合わせ内容 *</Label>
+              <Textarea id="message" {...register("message")} rows={6} placeholder="具体的なご相談内容をお聞かせください" />
+              {errors.message && <p className="text-xs text-red-400">{errors.message.message}</p>}
             </div>
 
             <div className="flex items-start space-x-3 pt-4">
@@ -243,48 +169,27 @@ export default function ContactForm() {
                 id="privacy"
                 checked={watch("privacy")}
                 onCheckedChange={(checked) => setValue("privacy", checked as boolean)}
-                className={`border-gray-300 data-[state=checked]:bg-slate-600 data-[state=checked]:border-slate-600 ${
-                  errors.privacy ? "border-red-300" : ""
-                }`}
               />
-              <div className="grid gap-1.5 leading-none">
-                <Label htmlFor="privacy" className="text-xs font-light leading-relaxed text-gray-700">
-                  <a href="#" className="text-gray-600 hover:text-slate-700 underline underline-offset-2">
-                    プライバシーポリシー
-                  </a>
-                  に同意します <span className="text-red-400">*</span>
-                </Label>
-                {errors.privacy && <p className="text-xs text-red-400 font-light">{errors.privacy.message}</p>}
-              </div>
+              <Label htmlFor="privacy" className="text-xs">
+                プライバシーポリシーに同意します *
+              </Label>
+              {errors.privacy && <p className="text-xs text-red-400">{errors.privacy.message}</p>}
             </div>
 
-            <div className="pt-8">
-              <Button
-                type="submit"
-                className="w-full bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-light text-sm py-4 tracking-wide"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-3 w-3 animate-spin" />
-                    送信中...
-                  </>
-                ) : (
-                  <>
-                    <Send className="mr-2 h-3 w-3" />
-                    お問い合わせを送信
-                  </>
-                )}
-              </Button>
-            </div>
+            <Button type="submit" className="w-full" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-3 w-3 animate-spin" />
+                  送信中...
+                </>
+              ) : (
+                <>
+                  <Send className="mr-2 h-3 w-3" />
+                  お問い合わせを送信
+                </>
+              )}
+            </Button>
           </form>
-        </div>
-
-        <div className="mt-12 text-center">
-          <div className="space-y-3 text-xs text-gray-500 font-light leading-relaxed">
-            <p>担当者より2営業日以内にご連絡いたします</p>
-            <p>土日祝日のお問い合わせは、翌営業日以降の対応となります</p>
-          </div>
         </div>
       </div>
     </div>
