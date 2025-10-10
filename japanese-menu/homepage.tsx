@@ -85,15 +85,19 @@ export default function Homepage() {
 
   // value: 文字列 or 配列（配列は <br /> で改行表示）
   const companyInfo: { label: string; value: string | string[] }[] = [
-    { label: "会社名", value: "株式会社エニシャル" },
-    { label: "設立", value: "2024年9月" },
-    { label: "代表者", value: "廣瀬 陽介" },
-    {
-      label: "所在地",
-      // ← 改行で表示（\n を入れておく）
-      value: "本社：岐阜県揖斐郡揖斐川町日坂1178\n北方事務所：岐阜県本巣郡北方町高屋条里3−37",
-    },
-    { label: "メール", value: "info@enitial.jp" },
+  { label: "会社名", value: "株式会社エニシャル" },
+  { label: "設立", value: "2024年9月" },
+  { label: "代表者", value: "廣瀬 陽介" },
+  {
+    label: "所在地",
+    value: [
+      "本社：岐阜県揖斐郡揖斐川町日坂1178",
+      "北方事務所：岐阜県本巣郡北方町高屋条里3−37",
+    ],
+  },
+  { label: "メール", value: "info@enitial.jp" },
+]
+
   ]
 
   const mvv = [
