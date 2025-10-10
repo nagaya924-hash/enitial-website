@@ -73,16 +73,15 @@ export default function Homepage() {
     { title: "デザインディレクション", description: "ショップカード・ポスター・名刺などの販促物を、企画からデザインまで一貫対応します。", features: ["ショップカード", "ポスター", "名刺", "ブランド設計"], icon: Palette },
   ]
 
+  // value: 文字列 or 配列（配列は <br /> で改行表示）
   const companyInfo: { label: string; value: string | string[] }[] = [
     { label: "会社名", value: "株式会社エニシャル" },
     { label: "設立", value: "2024年9月" },
     { label: "代表者", value: "廣瀬 陽介" },
     {
       label: "所在地",
-      value: [
-        "本社：岐阜県揖斐郡揖斐川町日坂1178",
-        "北方事務所：岐阜県本巣郡北方町高屋条里3−37"
-      ],
+      // ← 改行で表示（\n を入れておく）
+      value: "本社：岐阜県揖斐郡揖斐川町日坂1178\n北方事務所：岐阜県本巣郡北方町高屋条里3−37",
     },
     { label: "メール", value: "info@enitial.jp" },
   ]
@@ -108,7 +107,7 @@ export default function Homepage() {
             <a href="#contact" className="text-gray-600 hover:text-slate-700 text-sm">お問い合わせ</a>
           </nav>
           <Button
-            className="hidden md:inline-flex bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2"
+            className="hidden md:inline-flex bg白 hover:bg-slate-50 text-slate-700 border border-slate-200 text-sm px-6 py-2"
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
           >
             お問い合わせ <ArrowRight className="ml-2 h-3 w-3" />
@@ -207,7 +206,7 @@ export default function Homepage() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-28 bg-white">
+      <section id="about" className="py-28 bg白">
         <div className="container mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
             <div>
@@ -235,6 +234,13 @@ export default function Homepage() {
                               <span key={idx}>
                                 {line}
                                 {idx < info.value.length - 1 && <><br /></>}
+                              </span>
+                            ))
+                          : typeof info.value === "string" && info.value.includes("\n")
+                          ? info.value.split("\n").map((line, idx, arr) => (
+                              <span key={idx}>
+                                {line}
+                                {idx < arr.length - 1 && <><br /></>}
                               </span>
                             ))
                           : info.value}
@@ -297,4 +303,20 @@ export default function Homepage() {
               </ul>
             </div>
 
-            <div className="min-w-0 md:pt-1
+            <div className="min-w-0 md:pt-1">
+              <h4 className="font-light mb-2 text-sm">お問い合わせ</h4>
+              <p className="text-xs font-light">info@enitial.jp</p>
+              <p className="text-xs font-light">本社：岐阜県揖斐郡揖斐川町日坂1178</p>
+              <p className="text-xs font-light">北方事務所：岐阜県本巣郡北方町高屋条里3−37</p>
+            </div>
+          </div>
+
+          <Separator className="my-6 bg-slate-300" />
+          <p className="text-center text-xs font-light text-slate-500">
+            &copy; 2025 株式会社エニシャル. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  )
+}
