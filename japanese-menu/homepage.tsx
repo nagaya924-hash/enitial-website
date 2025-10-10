@@ -98,8 +98,6 @@ export default function Homepage() {
   { label: "メール", value: "info@enitial.jp" },
 ]
 
-  ]
-
   const mvv = [
     { title: "Mission", subtitle: "ミッション", content: "顧客との縁を大切にし、製品やサービスのポテンシャルを最大限に引き出すことで、持続可能な成長と価値創造を実現する。" },
     { title: "Vision", subtitle: "ビジョン", content: "顧客のビジネスを成功へ導く最良のパートナーとして、革新的で信頼されるOEM企画や販路開拓のリーダーとなり、共に未来を切り拓く。" },
