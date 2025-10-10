@@ -78,12 +78,10 @@ export default function Homepage() {
   { label: "設立", value: "2024年9月" },
   { label: "代表者", value: "廣瀬 陽介" },   // ← ここを追加
   {
-    label: "所在地",
-    value: [
-      "本社：岐阜県揖斐郡揖斐川町日坂1178",
-      "北方事務所：岐阜県本巣郡北方町高屋条里3−37",
-    ],
-  },
+  label: "所在地",
+  value: "本社：岐阜県揖斐郡揖斐川町日坂1178 ／ 北方事務所：岐阜県本巣郡北方町高屋条里3−37",
+},
+
   { label: "メール", value: "info@enitial.jp" },
 ]
 
