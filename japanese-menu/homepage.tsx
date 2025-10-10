@@ -67,10 +67,20 @@ function MobileMenu() {
 export default function Homepage() {
   const services = [
     { title: "事業計画策定", description: "金融機関・補助金申請に対応可能な計画書を作成支援します。", features: ["金融機関対応","補助金申請対応","実現可能性検証"], icon: Target },
-    { title: "補助金申請サポート", description: "実績に基づいた計画書づくりと申請実務を通じて、高い採択率を実現します。", features: ["計画書作成","申請実務代行","高い採択率"], icon: TrendingUp },
-    { title: "営業代行", description: "新規開拓からフォロー営業まで、売上拡大をサポートします。", features: ["新規開拓","フォロー営業","売上拡大"], icon: Users },
+    { title: "補助金申請サポート", description: "実績に基づいた計画書づくりと申請実務を通じて、高い採択率を実現します。", features: ["事業計画書策定","申請サポート","高い採択率"], icon: TrendingUp },
+   {
+  title: "営業代行",
+  description: "新規開拓・フォロー営業・販路拡大まで、戦略設計から実行支援まで一貫対応します。",
+  features: ["新規顧客開拓", "フォロー営業", "販路拡大", "営業戦略設計"],
+  icon: Users,
+},
     { title: "ネットショップ運営・販売", description: "楽天・メルカリ・eBayでの販売実績を活かし、仕入れ・委託商品の販売やテストマーケティングに対応します。", features: ["楽天・メルカリ・eBay","委託販売","テストマーケティング"], icon: ShoppingCart },
-    { title: "デザインディレクション", description: "ショップカード・ポスター・名刺などの販促物を、企画からデザインまで一貫対応します。", features: ["ショップカード", "ポスター", "名刺", "ブランド設計"], icon: Palette },
+    {
+  title: "デザインディレクション",
+  description: "名刺・ショップカード・ポスターなどの販促物を、コンセプト設計からデザイン・印刷・納品まで、ディレクションを含め一貫して対応します。",
+  features: ["名刺", "ショップカード", "ポスター", "販促物ディレクション", "印刷・納品"],
+  icon: Palette,
+},
   ]
 
   // value: 文字列 or 配列（配列は <br /> で改行表示）
