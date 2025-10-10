@@ -127,7 +127,7 @@ export default function Homepage() {
           <div className="grid place-items-center">
             <div className="max-w-4xl text-center">
               <p className="text-sm md:text-lg text-white mb-4">出会いが縁を生み、縁が可能性を育む。</p>
-              <p className="text-sm md:text-lg text白 mb-8">その可能性を、私たちは共に拓く。</p>
+              <p className="text-sm md:text-lg text-white mb-8">その可能性を、私たちは共に拓く。</p>
 
               <div className="flex items-center justify-center space-x-4 mb-8">
                 <div className="w-12 h-px bg-slate-400"></div>
