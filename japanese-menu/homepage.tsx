@@ -74,17 +74,18 @@ export default function Homepage() {
 
   // value は string または string[]（配列なら <br/> で改行表示）
   const companyInfo: { label: string; value: string | string[] }[] = [
-    { label: "会社名", value: "株式会社エニシャル" },
-    { label: "設立", value: "2024年9月" },
-    {
-      label: "所在地",
-      value: [
-        "本社：岐阜県揖斐郡揖斐川町日坂1178",
-        "北方事務所：岐阜県本巣郡北方町高屋条里3−37",
-      ],
-    },
-    { label: "メール", value: "info@enitial.jp" },
-  ]
+  { label: "会社名", value: "株式会社エニシャル" },
+  { label: "設立", value: "2024年9月" },
+  { label: "代表者", value: "廣瀬 陽介" },   // ← ここを追加
+  {
+    label: "所在地",
+    value: [
+      "本社：岐阜県揖斐郡揖斐川町日坂1178",
+      "北方事務所：岐阜県本巣郡北方町高屋条里3−37",
+    ],
+  },
+  { label: "メール", value: "info@enitial.jp" },
+]
 
   const mvv = [
     { title: "Mission", subtitle: "ミッション", content: "顧客との縁を大切にし、製品やサービスのポテンシャルを最大限に引き出すことで、持続可能な成長と価値創造を実現する。" },
