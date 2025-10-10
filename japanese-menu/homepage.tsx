@@ -72,10 +72,18 @@ export default function Homepage() {
     { title: "ネットショップ運営・販売", description: "楽天・メルカリ・eBayでの販売実績を活かし、仕入れ・委託商品の販売やテストマーケティングに対応します。", features: ["楽天・メルカリ・eBay","委託販売","テストマーケティング"], icon: ShoppingCart },
   ]
 
-  const companyInfo = [
+  const companyInfo: { label: string; value: React.ReactNode }[] = [
     { label: "会社名", value: "株式会社エニシャル" },
     { label: "設立", value: "2024年9月" },
-    { label: "所在地", value: "岐阜県揖斐郡揖斐川町日坂1178" },
+    {
+      label: "所在地",
+      value: (
+        <>
+          本社：岐阜県揖斐郡揖斐川町日坂1178<br />
+          北方事務所：岐阜県本巣郡北方町高屋条里3−37
+        </>
+      ),
+    },
     { label: "メール", value: "info@enitial.jp" },
   ]
 
@@ -221,7 +229,7 @@ export default function Homepage() {
                   {companyInfo.map((info, i) => (
                     <div key={i} className="flex justify-between py-3 border-b border-slate-200 last:border-b-0">
                       <span className="text-gray-600 font-light text-sm">{info.label}</span>
-                      <span className="text-slate-700 font-light text-sm">{info.value}</span>
+                      <span className="text-slate-700 font-light text-sm text-right">{info.value}</span>
                     </div>
                   ))}
                 </div>
@@ -241,62 +249,55 @@ export default function Homepage() {
         </div>
       </section>
 
-     {/* Footer（PCは横4カラム／モバイルは現状の縦） */}
-<footer className="bg-slate-100 text-slate-700 py-10">
-  <div className="container mx-auto px-8">
-    {/* md以上でグリッド。1列目は固定幅でロゴ縦積み、他は自動 */}
-    <div className="flex flex-col gap-8 md:grid md:grid-cols-[240px_1fr_1fr_1fr] md:gap-12 md:items-start">
-      {/* 1. ロゴ＋会社名（縦積み・左揃え） */}
-      <div className="space-y-3">
-        <Image
-          src="/images/logo-horizontal.png"
-          alt="Enitial Logo"
-          width={220}
-          height={60}
-          className="h-12 w-auto"
-        />
-        <p className="text-xs font-light">株式会社エニシャル</p>
-      </div>
+      {/* Footer */}
+      <footer className="bg-slate-100 text-slate-700 py-10">
+        <div className="container mx-auto px-8">
+          <div className="flex flex-col gap-8 md:grid md:grid-cols-[240px_1fr_1fr_1fr] md:gap-12 md:items-start">
+            {/* 1. ロゴ＋会社名 */}
+            <div className="space-y-3">
+              <Image
+                src="/images/logo-horizontal.png"
+                alt="Enitial Logo"
+                width={220}
+                height={60}
+                className="h-12 w-auto"
+              />
+              <p className="text-xs font-light">株式会社エニシャル</p>
+            </div>
 
-      {/* 2. サービス（タイトルとリンクを横並びで改行折返し） */}
-      <div className="min-w-0 md:pt-1">
-        <h4 className="font-light mb-2 text-sm">サービス</h4>
-        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
-          <li>事業計画策定</li>
-          <li>補助金申請サポート</li>
-          <li>営業代行</li>
-          <li>ネットショップ運営</li>
-        </ul>
-      </div>
+            {/* 2. サービス */}
+            <div className="min-w-0 md:pt-1">
+              <h4 className="font-light mb-2 text-sm">サービス</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
+                <li>事業計画策定</li>
+                <li>補助金申請サポート</li>
+                <li>営業代行</li>
+                <li>ネットショップ運営</li>
+              </ul>
+            </div>
 
-      {/* 3. 会社情報（プライバシーポリシー追加済み） */}
-      <div className="min-w-0 md:pt-1">
-        <h4 className="font-light mb-2 text-sm">会社情報</h4>
-        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
-          <li>会社概要</li>
-          <li>企業理念</li>
-          <li>お知らせ</li>
-          <li>
-            <a href="/privacy-policy" className="hover:underline">プライバシーポリシー</a>
-          </li>
-          <li>お問い合わせ</li>
-        </ul>
-      </div>
+            {/* 3. 会社情報 */}
+            <div className="min-w-0 md:pt-1">
+              <h4 className="font-light mb-2 text-sm">会社情報</h4>
+              <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-light">
+                <li>会社概要</li>
+                <li>企業理念</li>
+                <li>お知らせ</li>
+                <li>
+                  <a href="/privacy-policy" className="hover:underline">プライバシーポリシー</a>
+                </li>
+                <li>お問い合わせ</li>
+              </ul>
+            </div>
 
-      {/* 4. お問い合わせ */}
-      <div className="min-w-0 md:pt-1">
-        <h4 className="font-light mb-2 text-sm">お問い合わせ</h4>
-        <p className="text-xs font-light">info@enitial.jp</p>
-        <p className="text-xs font-light">岐阜県揖斐郡揖斐川町日坂1178</p>
-      </div>
-    </div>
+            {/* 4. お問い合わせ */}
+            <div className="min-w-0 md:pt-1">
+              <h4 className="font-light mb-2 text-sm">お問い合わせ</h4>
+              <p className="text-xs font-light">info@enitial.jp</p>
+              <p className="text-xs font-light">本社：岐阜県揖斐郡揖斐川町日坂1178</p>
+              <p className="text-xs font-light">北方事務所：岐阜県本巣郡北方町高屋条里3−37</p>
+            </div>
+          </div>
 
-    <Separator className="my-6 bg-slate-300" />
-    <p className="text-center text-xs font-light text-slate-500">
-      &copy; 2025 株式会社エニシャル. All rights reserved.
-    </p>
-  </div>
-</footer>
-    </div>
-  )
-}
+          <Separator className="my-6 bg-slate-300" />
+          <p className="text-center text-xs font-light text
