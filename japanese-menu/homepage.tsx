@@ -219,7 +219,7 @@ export default function Homepage() {
               />
               <p className="text-gray-600 font-light leading-relaxed text-base">
                 事業計画策定から補助金申請サポート、営業代行、ネットショップ運営まで、
-                お客様のビジネス成長を多角的にサポートする総合コンサルティング会社です。
+                お客様のビジネス成長を多角的にサポートする会社です。
               </p>
             </div>
             <div>
