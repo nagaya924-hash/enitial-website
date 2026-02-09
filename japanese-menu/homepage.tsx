@@ -49,8 +49,8 @@ ${formData.get('message')}
           </div>
           
           <div className="hidden md:flex items-center space-x-10 text-[13px] tracking-widest text-gray-600 uppercase font-medium">
-            <button onClick={() => go('philosophy')} className="hover:text-black transition-colors">Philosophy</button>
-            <button onClick={() => go('services')} className="hover:text-black transition-colors">Services</button>
+            <button onClick={() => go('philosophy')} className="hover:text-black transition-colors font-semibold">Philosophy</button>
+            <button onClick={() => go('services')} className="hover:text-black transition-colors font-semibold">Services</button>
             <button onClick={() => go('contact')} className="hover:text-black transition-colors font-bold text-gray-900 border-b border-gray-900">Contact</button>
           </div>
 
@@ -76,16 +76,22 @@ ${formData.get('message')}
           </h1>
         </div>
         <div className="h-[1px] w-16 bg-gray-400 mb-10"></div>
-        <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.4em]">縁を、形に。</p>
+        <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.5em]">縁を、形に。</p>
       </section>
 
       {/* 2. Philosophy & Introduction */}
       <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 border-t border-gray-100 text-left text-gray-800">
-        <div className="mb-40">
-           <p className="text-lg md:text-xl leading-[2.2] font-light text-gray-700 mb-12">
-            株式会社エニシャルは『顧客との縁を大切にし、その可能性を最大化する』という理念のもと、お客様と共に成長していくパートナーを目指しています。
-            事業計画策定から補助金申請サポート、営業代行、ネットショップ運営、デザインディレクションまで、お客様のビジネス成長を多角的にサポートいたします。
-          </p>
+        <div className="mb-48">
+           {/* 重複を避け、さらりと役割を説明する文章へ修正 */}
+           <div className="space-y-6 mb-24">
+            <p className="text-2xl md:text-3xl leading-relaxed text-gray-800 font-serif">
+              事業の想いを、確かな実像へ。
+            </p>
+            <p className="text-base md:text-lg leading-[2] text-gray-600 font-sans font-light max-w-2xl">
+              私たちは、計画・実務・表現の3つのアプローチから、お客様のビジネスが持つ可能性を多角的に引き出し、その成長に並走します。
+            </p>
+          </div>
+
           <div className="text-center">
             <p className="text-[13px] tracking-[0.5em] text-gray-500 uppercase mb-3 font-sans font-bold italic">Origin</p>
             <p className="text-base tracking-[0.15em] text-gray-600 italic">EN × POTENTIAL</p>
@@ -105,7 +111,7 @@ ${formData.get('message')}
             <h3 className="text-[12px] tracking-[0.3em] text-gray-500 mb-6 uppercase font-sans font-bold border-l-2 border-gray-400 pl-4">Vision</h3>
             <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-900 mb-8 font-serif">共に未来を切り拓く、最良のパートナー。</p>
             <p className="text-base md:text-lg text-gray-700 leading-loose max-w-3xl font-sans font-light">
-              顧客のビジネスを成功へ導く最良のパートナーとして、革新的で信頼されるOEM企画や販路開拓のリーダーとなり、共に未来を切り拓く。
+              革新的で信頼される支援を通じて、顧客のビジネスを成功へ導く最良の伴走者となります。
             </p>
           </div>
 
@@ -113,7 +119,7 @@ ${formData.get('message')}
             <h3 className="text-[12px] tracking-[0.3em] text-gray-500 mb-6 uppercase font-sans font-bold border-l-2 border-gray-400 pl-4">Value</h3>
             <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-900 mb-8 font-serif">誠実、創造、持続。</p>
             <p className="text-base md:text-lg text-gray-700 leading-loose max-w-3xl font-sans font-light">
-              顧客中心主義・創造性と革新・誠実と信頼・持続可能な成長を核として、すべての活動において顧客のニーズを最優先し、長期的な信頼関係を築きます。
+              誠実な対話と創造的な提案を核とし、長期的な信頼に基づく持続可能な成長を目指します。
             </p>
           </div>
         </div>
@@ -134,7 +140,7 @@ ${formData.get('message')}
                 <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                自ら売り、市場を知る。楽天・メルカリ・eBay・Shopeeでの販売実績を活かし、独自の選定と実務を通じて市場と繋がります。
+                自ら売り、市場を知る。楽天・メルカリ・eBay・Shopeeでの実績を活かし、独自の選定と実務を通じて市場と繋がります。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・国内外EC運用</li>
@@ -150,7 +156,7 @@ ${formData.get('message')}
                 <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Creative ｜ 表現</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                意志を可視化し、信頼を形にする。名刺一枚から看板・店舗サインまで、コンセプト設計から納品まで一貫して対応します。
+                意志を可視化し、信頼を形にする。名刺から看板・店舗サインまで、コンセプト設計から納品まで一貫して対応します。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・名刺 / カード / ポスター制作</li>
@@ -183,8 +189,8 @@ ${formData.get('message')}
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-24 space-y-4">
             <h2 className="text-[13px] tracking-[0.5em] text-gray-500 uppercase font-bold">Contact</h2>
-            <p className="text-2xl font-light text-gray-900 font-serif">ご相談はこちらから</p>
-            <p className="text-sm text-gray-500 tracking-wider font-light uppercase">2営業日以内にご連絡いたします</p>
+            <p className="text-2xl font-light text-gray-900 font-serif font-semibold">ご相談はこちらから</p>
+            <p className="text-sm text-gray-500 tracking-wider font-light uppercase">担当者より2営業日以内にご連絡いたします</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-12">
@@ -211,7 +217,7 @@ ${formData.get('message')}
             </div>
 
             <div className="grid md:grid-cols-2 gap-10 text-gray-800">
-              <div className="space-y-3">
+              <div className="space-y-3 text-left">
                 <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">ご相談内容 *</label>
                 <select required name="category" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg appearance-none cursor-pointer">
                   <option value="">選択してください</option>
@@ -223,7 +229,7 @@ ${formData.get('message')}
                   <option value="その他">その他</option>
                 </select>
               </div>
-              <div className="space-y-3">
+              <div className="space-y-3 text-left">
                 <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">予算（任意）</label>
                 <select name="budget" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg appearance-none cursor-pointer">
                   <option value="未定">選択してください</option>
@@ -237,7 +243,7 @@ ${formData.get('message')}
               </div>
             </div>
 
-            <div className="space-y-3 text-gray-800">
+            <div className="space-y-3 text-gray-800 text-left">
               <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">お問い合わせ内容 *</label>
               <textarea required name="message" rows={5} className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg resize-none"></textarea>
             </div>
@@ -266,7 +272,7 @@ ${formData.get('message')}
         <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
           <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 text-left max-w-4xl mx-auto font-light text-[15px] leading-[2.5]">
-            <div className="space-y-12">
+            <div className="space-y-12 text-left">
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Company Name</span>
                 <span className="text-gray-900 text-xl font-medium">株式会社エニシャル</span>
@@ -277,10 +283,10 @@ ${formData.get('message')}
               </div>
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Representative</span>
-                <span className="text-gray-900 text-xl font-medium italic">廣瀬 陽介</span>
+                <span className="text-gray-900 text-xl font-medium">廣瀬 陽介</span>
               </div>
             </div>
-            <div className="space-y-12">
+            <div className="space-y-12 text-left">
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Location</span>
                 <div className="space-y-4 text-gray-900 text-base">
