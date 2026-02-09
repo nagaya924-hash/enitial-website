@@ -102,7 +102,7 @@ ${formData.get('message')}
             
             {/* サービス橋渡しリンク */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-100 py-6">
-              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
+              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">コンサル</button>
               <span className="text-gray-200">|</span>
               <button onClick={() => go('service-commerce')} className="hover:text-black transition-colors">物販</button>
               <span className="text-gray-200">|</span>
