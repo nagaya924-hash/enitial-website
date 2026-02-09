@@ -46,6 +46,7 @@ ${formData.get('message')}
   return (
     <div className="bg-[#fcfcfc] text-[#333] font-serif min-h-screen selection:bg-[#fffde7]">
       
+      {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#fffdf9]/95 backdrop-blur-md border-b border-gray-100 font-sans">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
@@ -76,7 +77,7 @@ ${formData.get('message')}
         )}
       </nav>
 
-      {/* 1. Hero Section (背景: 薄いグレー) */}
+      {/* 1. Hero Section */}
       <section className="h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#fcfcfc]">
         <div className="mb-10 text-gray-800">
           <h1 className="text-4xl md:text-5xl tracking-[0.3em] font-serif uppercase animate-slideInLeft opacity-0" style={{ animationDelay: '0.2s' }}>
@@ -89,7 +90,7 @@ ${formData.get('message')}
         </p>
       </section>
 
-      {/* 2. Philosophy & Diagram (背景: 白) */}
+      {/* 2. Philosophy & Diagram */}
       <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 bg-white text-left text-gray-800">
         <div className="mb-48">
            <div className="space-y-10 mb-24">
@@ -111,21 +112,17 @@ ${formData.get('message')}
             </p>
           </div>
 
-          {/* 円の色をそれぞれ個別に設定 */}
-          <div className="relative h-[320px] w-full flex items-center justify-center mb-32">
-            {/* Consulting - 淡いブルーグレー */}
-            <div className="absolute top-0 left-1/2 -translate-x-[60%] w-48 h-48 md:w-56 md:h-56 rounded-full border border-blue-50 bg-[#f1f5f9]/70 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.2s', zIndex: 1 }}>
+          {/* 3つの円の重なり図解 */}
+          <div className="relative h-[400px] w-full flex items-center justify-center mb-32">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-56 h-56 rounded-full border border-blue-50 bg-[#f1f5f9]/70 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.2s', zIndex: 1 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Consulting</span>
             </div>
-            {/* Commerce - ロゴの薄い黄色 */}
-            <div className="absolute top-0 right-1/2 translate-x-[60%] w-48 h-48 md:w-56 md:h-56 rounded-full border border-yellow-50 bg-[#fffde7]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.4s', zIndex: 2 }}>
+            <div className="absolute bottom-0 left-1/2 -translate-x-[85%] translate-y-1/4 w-56 h-56 rounded-full border border-yellow-50 bg-[#fffde7]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.4s', zIndex: 2 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Commerce</span>
             </div>
-            {/* Creative - 淡いウォームベージュ */}
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-48 md:w-56 md:h-56 rounded-full border border-orange-50 bg-[#fafaf9]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.6s', zIndex: 3 }}>
+            <div className="absolute bottom-0 right-1/2 translate-x-[85%] translate-y-1/4 w-56 h-56 rounded-full border border-orange-50 bg-[#fafaf9]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.6s', zIndex: 3 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Creative</span>
             </div>
-            {/* ENITIAL - 中央 */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-sm md:text-base font-serif tracking-[0.2em] text-gray-800 bg-white px-8 py-4 border border-gray-50 shadow-sm animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}>
               ENITIAL
             </div>
@@ -164,18 +161,20 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services (背景: 薄いグレー) */}
+      {/* 3. Services - PC表示で一行になるように修正 */}
       <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
             <h2 className="text-[13px] tracking-[0.5em] text-gray-500 uppercase font-bold">Services</h2>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-20 text-left">
+          <div className="grid md:grid-cols-3 gap-x-12 gap-y-20 text-left">
+            {/* 01 Consulting (支援) */}
             <div id="service-consulting" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
-                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Consulting ｜ 支援</h3>
+                {/* whitespace-nowrapを追加して改行を防ぎました */}
+                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Consulting ｜ 支援</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
                 現場の知見を、確かな成長の土台に。金融機関や補助金申請に対応可能な「生きた計画書」の策定を、実践者の視点で支援します。
@@ -187,10 +186,11 @@ ${formData.get('message')}
               </ul>
             </div>
 
+            {/* 02 Commerce (物販) */}
             <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
-                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Commerce ｜ 物販</h3>
+                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
                 自ら売り、市場を知る。楽天・メルカリShops・eBay・Shopeeでの実績を活かし、独自の選定と実務を通じて市場と繋がります。
@@ -202,10 +202,11 @@ ${formData.get('message')}
               </ul>
             </div>
 
+            {/* 03 Creative (表現) */}
             <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
-                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Creative ｜ 表現</h3>
+                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 表現</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
                 意志を可視化し、信頼を形にする。名刺から看板・店舗サインまで、コンセプト設計から納品まで一貫して対応します。
@@ -220,7 +221,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 4. Contact Form (背景: 白) */}
+      {/* 4. Contact Form */}
       <section id="contact" className="py-40 px-6 bg-white font-sans text-left text-gray-800">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-24 space-y-4">
@@ -303,7 +304,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 5. Company Info & Footer (背景: 薄いグレー) */}
+      {/* 5. Company Info & Footer */}
       <footer className="py-40 px-6 bg-[#fcfcfc] font-sans border-t border-gray-100">
         <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
           <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
