@@ -7,7 +7,6 @@ import Link from "next/link"
 export default function Homepage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // お問い合わせフォームの送信処理
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -31,7 +30,17 @@ ${formData.get('message')}
     setIsMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      // 画面上部のナビゲーションバーの高さを考慮してスクロール
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   };
 
@@ -60,6 +69,7 @@ ${formData.get('message')}
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-b border-gray-100 px-6 py-10 space-y-8 text-base tracking-[0.2em] uppercase text-gray-700 font-sans">
             <button onClick={() => go('philosophy')} className="block w-full text-left font-light">Philosophy</button>
@@ -69,31 +79,36 @@ ${formData.get('message')}
         )}
       </nav>
 
-      {/* 1. Hero Section - 左から流れるアニメーションを適用 */}
+      {/* 1. Hero Section - テキストアニメーションのみのクリーンなトップ */}
       <section className="h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         <div className="mb-10 text-gray-800">
-          {/* ENITIAL にアニメーションを適用 */}
           <h1 className="text-4xl md:text-5xl tracking-[0.3em] font-serif uppercase animate-slideInLeft opacity-0" style={{ animationDelay: '0.2s' }}>
             Enitial
           </h1>
         </div>
-        <div className="h-[1px] w-16 bg-gray-400 mb-8 animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}></div>
-        <div className="space-y-4 font-sans tracking-[0.3em] text-gray-500 uppercase text-xs md:text-sm mb-12 animate-fadeIn opacity-0" style={{ animationDelay: '1.0s' }}>
-          <span>事業計画 ｜ 物販 ｜ クリエイティブ</span>
-        </div>
-        {/* 縁を、形に。 にアニメーションを適用 */}
+        <div className="h-[1px] w-16 bg-gray-400 mb-10 animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}></div>
         <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.4em] animate-slideInLeft opacity-0" style={{ animationDelay: '0.5s' }}>
           縁を、形に。
         </p>
       </section>
 
-      {/* 2. Philosophy & Introduction with Diagram */}
+      {/* 2. Philosophy & Interaction Bridge */}
       <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 border-t border-gray-100 text-left text-gray-800">
         <div className="mb-48">
-           <div className="space-y-8 mb-32 text-left">
+           <div className="space-y-10 mb-24">
             <p className="text-2xl md:text-3xl leading-relaxed text-gray-800 font-serif">
               事業の想いを、確かな実像へ。
             </p>
+            
+            {/* サービスへの橋渡しリンク */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-50 py-6">
+              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
+              <span className="text-gray-200">|</span>
+              <button onClick={() => go('service-commerce')} className="hover:text-black transition-colors">物販</button>
+              <span className="text-gray-200">|</span>
+              <button onClick={() => go('service-creative')} className="hover:text-black transition-colors">クリエイティブ</button>
+            </div>
+
             <p className="text-base md:text-lg leading-[2.2] text-gray-600 font-sans font-light max-w-3xl">
               株式会社エニシャルは、計画・実務・表現の3つのアプローチから、お客様のビジネス成長を多角的にサポートする会社です。
               単なる代行ではなく、ポテンシャルを最大化するパートナーとして共に歩みます。
@@ -149,7 +164,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services */}
+      {/* 3. Services - 順番をリンクに合わせて再編 */}
       <section id="services" className="bg-white py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -157,10 +172,26 @@ ${formData.get('message')}
           </div>
           
           <div className="grid md:grid-cols-3 gap-20 text-left">
-            {/* 01 Commerce - メルカリShopsに修正 */}
-            <div className="space-y-10">
+            {/* 01 Consulting (事業計画) */}
+            <div id="service-consulting" className="space-y-10 scroll-mt-24">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
+                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Consulting ｜ 支援</h3>
+              </div>
+              <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
+                現場の知見を、確かな成長の土台に。金融機関や補助金申請に対応可能な「生きた計画書」の策定を、実践者の視点で支援します。
+              </p>
+              <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
+                <li>・補助金申請サポート</li>
+                <li>・事業計画策定 / 実現性検証</li>
+                <li>・プレイヤー視点の伴走助言</li>
+              </ul>
+            </div>
+
+            {/* 02 Commerce (物販) */}
+            <div id="service-commerce" className="space-y-10 scroll-mt-24">
+              <div className="space-y-3">
+                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
                 <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
@@ -173,10 +204,10 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 02 Creative */}
-            <div className="space-y-10">
+            {/* 03 Creative (クリエイティブ) */}
+            <div id="service-creative" className="space-y-10 scroll-mt-24">
               <div className="space-y-3">
-                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
+                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
                 <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Creative ｜ 表現</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
@@ -186,22 +217,6 @@ ${formData.get('message')}
                 <li>・名刺 / カード / ポスター制作</li>
                 <li>・サインデザイン / 看板 / 什器</li>
                 <li>・ディレクション / 印刷・納品</li>
-              </ul>
-            </div>
-
-            {/* 03 Consulting */}
-            <div className="space-y-10">
-              <div className="space-y-3">
-                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
-                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Consulting ｜ 支援</h3>
-              </div>
-              <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                現場の知見を、確かな成長の土台に。金融機関や補助金申請に対応可能な「生きた計画書」の策定を、実践者の視点で支援します。
-              </p>
-              <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
-                <li>・補助金申請サポート</li>
-                <li>・事業計画策定 / 実現性検証</li>
-                <li>・プレイヤー視点の伴走助言</li>
               </ul>
             </div>
           </div>
@@ -241,7 +256,7 @@ ${formData.get('message')}
             </div>
 
             <div className="grid md:grid-cols-2 gap-10">
-              <div className="space-y-3 text-left">
+              <div className="space-y-3 text-left text-gray-800">
                 <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">ご相談内容 *</label>
                 <select required name="category" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg appearance-none cursor-pointer">
                   <option value="">選択してください</option>
@@ -267,13 +282,13 @@ ${formData.get('message')}
               </div>
             </div>
 
-            <div className="space-y-3 text-gray-800 text-left">
+            <div className="space-y-3">
               <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">お問い合わせ内容 *</label>
               <textarea required name="message" rows={5} className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg resize-none"></textarea>
             </div>
 
             <div className="flex flex-col items-center space-y-10 pt-16">
-              <label className="flex items-center space-x-4 cursor-pointer">
+              <label className="flex items-center space-x-4 cursor-pointer text-gray-800">
                 <input required type="checkbox" className="w-6 h-6 border-gray-300 rounded focus:ring-black cursor-pointer shadow-sm" />
                 <span className="text-sm tracking-widest uppercase font-bold">
                   <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-black transition-colors">
@@ -299,24 +314,20 @@ ${formData.get('message')}
             <div className="space-y-12 text-left">
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Company Name</span>
-                {/* 文字サイズを抑え、細身のフォントに変更 */}
                 <span className="text-gray-900 text-base font-light">株式会社エニシャル</span>
               </div>
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Established</span>
-                {/* 文字サイズを抑え、細身のフォントに変更 */}
                 <span className="text-gray-900 text-base font-light">2024年9月</span>
               </div>
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Representative</span>
-                {/* 文字サイズを抑え、細身のフォントに変更 */}
                 <span className="text-gray-900 text-base font-light">廣瀬 陽介</span>
               </div>
             </div>
             <div className="space-y-12 text-left">
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Location</span>
-                {/* 住所も太字を解除しサイズを調整 */}
                 <div className="space-y-4 text-gray-800 text-base font-light">
                   <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans tracking-widest">Head</span>岐阜県揖斐郡揖斐川町日坂1178</p>
                   <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans tracking-widest">Office</span>岐阜県本巣郡北方町高屋条里3-37</p>
@@ -324,7 +335,6 @@ ${formData.get('message')}
               </div>
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Email</span>
-                {/* メールも太字を解除しサイズを調整 */}
                 <span className="text-gray-900 text-base font-light font-serif">info@enitial.jp</span>
               </div>
             </div>
