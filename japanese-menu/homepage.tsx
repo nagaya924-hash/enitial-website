@@ -68,14 +68,12 @@ ${formData.get('message')}
         )}
       </nav>
 
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section - 画像を削除し、テキストのみに変更 */}
       <section className="h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="mb-12 animate-fadeIn">
-          <img 
-            src="/images/logo-horizontal.png" 
-            alt="ENITIAL Logo" 
-            className="w-64 md:w-96 h-auto mx-auto"
-          />
+        <div className="mb-10 animate-fadeIn">
+          <h1 className="text-4xl md:text-5xl tracking-[0.3em] text-gray-800 font-serif uppercase">
+            Enitial
+          </h1>
         </div>
         <div className="h-[1px] w-16 bg-gray-400 mb-10"></div>
         <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.4em]">縁を、形に。</p>
@@ -115,7 +113,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services - リスト部分を適切に調整 */}
+      {/* 3. Services */}
       <section id="services" className="bg-white py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -132,7 +130,6 @@ ${formData.get('message')}
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
                 自ら売り、市場を知る。楽天・メルカリ・eBay・Shopeeでの販売実績を活かし、独自の選定と実務を通じて市場と繋がります。
               </p>
-              {/* 文字サイズを16pxに調整。太さを維持して視認性を確保 */}
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・国内外EC運用 (SHOPEE対応)</li>
                 <li>・販売実務支援 / テストマーケ</li>
@@ -239,7 +236,6 @@ ${formData.get('message')}
               <textarea required name="message" rows={5} className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg resize-none"></textarea>
             </div>
 
-            {/* プライバシーポリシーのチェックボックス */}
             <div className="flex flex-col items-center space-y-10 pt-16">
               <label className="flex items-center space-x-4 cursor-pointer">
                 <input required type="checkbox" className="w-6 h-6 border-gray-300 rounded focus:ring-black cursor-pointer shadow-sm" />
