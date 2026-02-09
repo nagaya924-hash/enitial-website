@@ -68,10 +68,10 @@ ${formData.get('message')}
         )}
       </nav>
 
-      {/* 1. Hero Section - 画像を削除し、テキストのみに変更 */}
+      {/* 1. Hero Section */}
       <section className="h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="mb-10 animate-fadeIn">
-          <h1 className="text-4xl md:text-5xl tracking-[0.3em] text-gray-800 font-serif uppercase">
+        <div className="mb-10 animate-fadeIn text-gray-800">
+          <h1 className="text-4xl md:text-5xl tracking-[0.3em] font-serif uppercase">
             Enitial
           </h1>
         </div>
@@ -79,11 +79,17 @@ ${formData.get('message')}
         <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.4em]">縁を、形に。</p>
       </section>
 
-      {/* 2. Philosophy & Origin */}
-      <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 border-t border-gray-100 text-left">
-        <div className="text-center mb-32">
-          <p className="text-[13px] tracking-[0.5em] text-gray-500 uppercase mb-3 font-sans font-bold">Origin</p>
-          <p className="text-base tracking-[0.15em] text-gray-600 italic">EN × POTENTIAL</p>
+      {/* 2. Philosophy & Introduction */}
+      <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 border-t border-gray-100 text-left text-gray-800">
+        <div className="mb-40">
+           <p className="text-lg md:text-xl leading-[2.2] font-light text-gray-700 mb-12">
+            株式会社エニシャルは『顧客との縁を大切にし、その可能性を最大化する』という理念のもと、お客様と共に成長していくパートナーを目指しています。
+            事業計画策定から補助金申請サポート、営業代行、ネットショップ運営、デザインディレクションまで、お客様のビジネス成長を多角的にサポートいたします。
+          </p>
+          <div className="text-center">
+            <p className="text-[13px] tracking-[0.5em] text-gray-500 uppercase mb-3 font-sans font-bold italic">Origin</p>
+            <p className="text-base tracking-[0.15em] text-gray-600 italic">EN × POTENTIAL</p>
+          </div>
         </div>
 
         <div className="grid gap-36">
@@ -125,13 +131,13 @@ ${formData.get('message')}
             <div className="space-y-10">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
-                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Commerce ｜ 商い</h3>
+                <h3 className="text-xl md:text-2xl tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
                 自ら売り、市場を知る。楽天・メルカリ・eBay・Shopeeでの販売実績を活かし、独自の選定と実務を通じて市場と繋がります。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
-                <li>・国内外EC運用 (SHOPEE対応)</li>
+                <li>・国内外EC運用</li>
                 <li>・販売実務支援 / テストマーケ</li>
                 <li>・営業代行 / 販路拡大支援</li>
               </ul>
@@ -237,9 +243,9 @@ ${formData.get('message')}
             </div>
 
             <div className="flex flex-col items-center space-y-10 pt-16">
-              <label className="flex items-center space-x-4 cursor-pointer">
+              <label className="flex items-center space-x-4 cursor-pointer text-gray-800">
                 <input required type="checkbox" className="w-6 h-6 border-gray-300 rounded focus:ring-black cursor-pointer shadow-sm" />
-                <span className="text-sm text-gray-600 tracking-widest uppercase font-bold">
+                <span className="text-sm tracking-widest uppercase font-bold">
                   <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-black">
                     プライバシーポリシー
                   </Link>
@@ -266,16 +272,20 @@ ${formData.get('message')}
                 <span className="text-gray-900 text-xl font-medium">株式会社エニシャル</span>
               </div>
               <div>
+                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Established</span>
+                <span className="text-gray-900 text-xl font-medium">2024年9月</span>
+              </div>
+              <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Representative</span>
-                <span className="text-gray-900 text-xl font-medium">廣瀬 陽介</span>
+                <span className="text-gray-900 text-xl font-medium italic">廣瀬 陽介</span>
               </div>
             </div>
             <div className="space-y-12">
               <div>
                 <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Location</span>
                 <div className="space-y-4 text-gray-900 text-base">
-                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1">Head</span>岐阜県揖斐郡揖斐川町日坂1178</p>
-                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1">Office</span>岐阜県本巣郡北方町高屋条里3-37</p>
+                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans">Head</span>岐阜県揖斐郡揖斐川町日坂1178</p>
+                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans">Office</span>岐阜県本巣郡北方町高屋条里3-37</p>
                 </div>
               </div>
               <div>
