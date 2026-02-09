@@ -148,7 +148,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services - PCタイトル一行表示・物販詳細説明反映 */}
+      {/* 3. Services - 全テキストを廣瀬さんの強みが伝わる内容へ最適化 */}
       <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -156,14 +156,14 @@ ${formData.get('message')}
           </div>
           
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-20 text-left">
-            {/* 01 Consulting */}
+            {/* 01 Consulting - 「変」だった部分をプロの言葉へ修正 */}
             <div id="service-consulting" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Consulting ｜ 支援</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                あなたの想いを、これからのカタチに。補助金のことや事業の計画など、今の課題を一緒に整理して、次の一歩をしっかりと支えます。
+                想いを戦略に、戦略を確かな実行へ。補助金の活用や事業計画の策定を通じ、経営者の「右腕」として、次の一歩に必要な確かな道筋を共に整えます。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・補助金申請サポート</li>
@@ -172,14 +172,14 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 02 Commerce - 物販詳細説明（廣瀬さん指定案） */}
+            {/* 02 Commerce - 廣瀬さん指定の物販詳細説明 */}
             <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                国内外の魅力ある商品を選定し、ECモールを中心に販売・運用。企画から仕入、販促、出荷まで一気通貫で実行し、データに基づいた事業を展開します。
+                国内外の魅力ある商品を選定し、ECモールを中心に販売・運用。商品企画から仕入、販促、出荷までを一気通貫で実行し、データに基づいた物販事業を展開しています。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・国内外EC運用代行</li>
@@ -188,14 +188,14 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 03 Creative */}
+            {/* 03 Creative - 「創造」および助詞「が」の修正 */}
             <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 創造</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                伝えたい想いを、伝わるデザインに。名刺から看板まで、ブランドの個性を大切にしながら、新しく価値あるものを丁寧に作り上げます。
+                伝えたい想いが伝わるデザインに。名刺から看板まで、ブランドの個性を大切にしながら、新しく価値あるものを丁寧に作り上げます。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・名刺 / カード / ポスター制作</li>
@@ -290,7 +290,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 5. Company Info & Footer - 細身フォント・サイズ控えめ */}
+      {/* 5. Company Info & Footer - 細身・サイズ控えめ */}
       <footer className="py-40 px-6 bg-[#fcfcfc] font-sans border-t border-gray-100">
         <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
           <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
