@@ -7,6 +7,7 @@ import Link from "next/link"
 export default function Homepage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  // お問い合わせフォーム送信処理（mailto起動）
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -26,6 +27,7 @@ ${formData.get('message')}
     window.location.href = `mailto:info@enitial.jp?subject=お問い合わせ（${formData.get('name')}様）&body=${encodeURIComponent(body)}`;
   };
 
+  // ページ内スムーススクロール
   const go = (id: string) => {
     setIsMenuOpen(false);
     const element = document.getElementById(id);
@@ -46,7 +48,7 @@ ${formData.get('message')}
   return (
     <div className="bg-[#fcfcfc] text-[#333] font-serif min-h-screen selection:bg-[#fffde7]">
       
-      {/* Navigation */}
+      {/* Navigation - ロゴパス修正済 */}
       <nav className="fixed top-0 w-full z-50 bg-[#fffdf9]/95 backdrop-blur-md border-b border-gray-100 font-sans">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
@@ -77,7 +79,7 @@ ${formData.get('message')}
         )}
       </nav>
 
-      {/* 1. Hero Section */}
+      {/* 1. Hero Section - テキストアニメーション */}
       <section className="h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#fcfcfc]">
         <div className="mb-10 text-gray-800">
           <h1 className="text-4xl md:text-5xl tracking-[0.3em] font-serif uppercase animate-slideInLeft opacity-0" style={{ animationDelay: '0.2s' }}>
@@ -90,7 +92,7 @@ ${formData.get('message')}
         </p>
       </section>
 
-      {/* 2. Philosophy & Diagram */}
+      {/* 2. Philosophy & Introduction */}
       <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 bg-white text-left text-gray-800">
         <div className="mb-48">
            <div className="space-y-10 mb-24">
@@ -98,6 +100,7 @@ ${formData.get('message')}
               事業の想いを、確かな実像へ。
             </p>
             
+            {/* サービス橋渡しリンク */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-100 py-6">
               <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
               <span className="text-gray-200">|</span>
@@ -112,23 +115,7 @@ ${formData.get('message')}
             </p>
           </div>
 
-          {/* 3つの円の重なり図解 */}
-          <div className="relative h-[400px] w-full flex items-center justify-center mb-32">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/4 w-56 h-56 rounded-full border border-blue-50 bg-[#f1f5f9]/70 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.2s', zIndex: 1 }}>
-              <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Consulting</span>
-            </div>
-            <div className="absolute bottom-0 left-1/2 -translate-x-[85%] translate-y-1/4 w-56 h-56 rounded-full border border-yellow-50 bg-[#fffde7]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.4s', zIndex: 2 }}>
-              <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Commerce</span>
-            </div>
-            <div className="absolute bottom-0 right-1/2 translate-x-[85%] translate-y-1/4 w-56 h-56 rounded-full border border-orange-50 bg-[#fafaf9]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.6s', zIndex: 3 }}>
-              <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Creative</span>
-            </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-sm md:text-base font-serif tracking-[0.2em] text-gray-800 bg-white px-8 py-4 border border-gray-50 shadow-sm animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}>
-              ENITIAL
-            </div>
-          </div>
-
-          <div className="text-center">
+          <div className="text-center pt-12">
             <p className="text-[13px] tracking-[0.5em] text-gray-500 uppercase mb-3 font-sans font-bold italic">Origin</p>
             <p className="text-base tracking-[0.15em] text-gray-600 italic">EN × POTENTIAL</p>
           </div>
@@ -161,7 +148,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services - PC表示で一行になるように修正 */}
+      {/* 3. Services - PCタイトル一行表示対応 */}
       <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -169,11 +156,10 @@ ${formData.get('message')}
           </div>
           
           <div className="grid md:grid-cols-3 gap-x-12 gap-y-20 text-left">
-            {/* 01 Consulting (支援) */}
+            {/* 01 Consulting */}
             <div id="service-consulting" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
-                {/* whitespace-nowrapを追加して改行を防ぎました */}
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Consulting ｜ 支援</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
@@ -186,7 +172,7 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 02 Commerce (物販) */}
+            {/* 02 Commerce - メルカリShops表記 */}
             <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
@@ -202,7 +188,7 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 03 Creative (表現) */}
+            {/* 03 Creative */}
             <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
@@ -304,7 +290,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 5. Company Info & Footer */}
+      {/* 5. Company Info & Footer - 細身フォント調整済 */}
       <footer className="py-40 px-6 bg-[#fcfcfc] font-sans border-t border-gray-100">
         <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
           <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
@@ -343,19 +329,15 @@ ${formData.get('message')}
         </div>
       </footer>
 
+      {/* グローバルアニメーション設定 */}
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInLeft {
           from { opacity: 0; transform: translateX(-30px); }
           to { opacity: 1; transform: translateX(0); }
         }
-        @keyframes popIn {
-          0% { opacity: 0; transform: scale(0.8); }
-          100% { opacity: 1; transform: scale(1); }
-        }
         .animate-fadeIn { animation: fadeIn 2s ease-out forwards; }
         .animate-slideInLeft { animation: slideInLeft 1.5s ease-out forwards; }
-        .animate-popIn { animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </div>
   )
