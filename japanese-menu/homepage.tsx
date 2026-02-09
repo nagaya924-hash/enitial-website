@@ -7,7 +7,7 @@ import Link from "next/link"
 export default function Homepage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // お問い合わせフォーム送信処理（mailto起動）
+  // お問い合わせフォーム送信処理
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -87,7 +87,7 @@ ${formData.get('message')}
           </h1>
         </div>
         <div className="h-[1px] w-16 bg-gray-400 mb-10 animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}></div>
-        <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.4em] animate-slideInLeft opacity-0" style={{ animationDelay: '0.5s' }}>
+        <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.5em] animate-slideInLeft opacity-0" style={{ animationDelay: '0.5s' }}>
           縁を、形に。
         </p>
       </section>
@@ -97,20 +97,20 @@ ${formData.get('message')}
         <div className="mb-48">
            <div className="space-y-10 mb-24">
             <p className="text-2xl md:text-3xl leading-relaxed text-gray-800 font-serif">
-              事業の想いを、確かな実像へ。
+              ビジネスの想いを、一緒に形へ。
             </p>
             
             {/* サービス橋渡しリンク */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-100 py-6">
-              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">コンサル</button>
+              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
               <span className="text-gray-200">|</span>
               <button onClick={() => go('service-commerce')} className="hover:text-black transition-colors">物販</button>
               <span className="text-gray-200">|</span>
-              <button onClick={() => go('service-creative')} className="hover:text-black transition-colors">クリエイティブ</button>
+              <button onClick={() => go('service-creative')} className="hover:text-black transition-colors">創造</button>
             </div>
 
             <p className="text-base md:text-lg leading-[2.2] text-gray-600 font-sans font-light max-w-3xl">
-              株式会社エニシャルは、計画・実務・表現の3つのアプローチから、お客様のビジネス成長を多角的にサポートする会社です。
+              株式会社エニシャルは、計画・実務・創造の3つのアプローチから、お客様のビジネス成長を多角的にサポートする会社です。
               単なる代行ではなく、ポテンシャルを最大化するパートナーとして共に歩みます。
             </p>
           </div>
@@ -148,7 +148,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services - PCタイトル一行表示対応 */}
+      {/* 3. Services - PCタイトル一行表示・物販詳細説明反映 */}
       <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -163,7 +163,7 @@ ${formData.get('message')}
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Consulting ｜ 支援</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                現場の知見を、確かな成長の土台に。金融機関や補助金申請に対応可能な「生きた計画書」の策定を、実践者の視点で支援します。
+                あなたの想いを、これからのカタチに。補助金のことや事業の計画など、今の課題を一緒に整理して、次の一歩をしっかりと支えます。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・補助金申請サポート</li>
@@ -172,19 +172,19 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 02 Commerce - メルカリShops表記 */}
+            {/* 02 Commerce - 物販詳細説明（廣瀬さん指定案） */}
             <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Commerce ｜ 物販</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                自ら売り、市場を知る。楽天・メルカリShops・eBay・Shopeeでの実績を活かし、独自の選定と実務を通じて市場と繋がります。
+                国内外の魅力ある商品を選定し、ECモールを中心に販売・運用。企画から仕入、販促、出荷まで一気通貫で実行し、データに基づいた事業を展開します。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
-                <li>・国内外EC運用</li>
-                <li>・販売実務支援 / テストマーケ</li>
-                <li>・営業代行 / 販路拡大支援</li>
+                <li>・国内外EC運用代行</li>
+                <li>・商品企画 / ページ制作</li>
+                <li>・在庫管理 / 物流一括対応</li>
               </ul>
             </div>
 
@@ -192,10 +192,10 @@ ${formData.get('message')}
             <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
-                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 表現</h3>
+                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 創造</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                意志を可視化し、信頼を形にする。名刺から看板・店舗サインまで、コンセプト設計から納品まで一貫して対応します。
+                伝えたい想いを、伝わるデザインに。名刺から看板まで、ブランドの個性を大切にしながら、新しく価値あるものを丁寧に作り上げます。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・名刺 / カード / ポスター制作</li>
@@ -290,7 +290,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 5. Company Info & Footer - 細身フォント調整済 */}
+      {/* 5. Company Info & Footer - 細身フォント・サイズ控えめ */}
       <footer className="py-40 px-6 bg-[#fcfcfc] font-sans border-t border-gray-100">
         <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
           <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
