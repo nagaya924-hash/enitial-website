@@ -46,7 +46,6 @@ ${formData.get('message')}
   return (
     <div className="bg-[#fcfcfc] text-[#333] font-serif min-h-screen selection:bg-[#fffde7]">
       
-      {/* Navigation - 背景色をわずかに温かみのある色に調整 */}
       <nav className="fixed top-0 w-full z-50 bg-[#fffdf9]/95 backdrop-blur-md border-b border-gray-100 font-sans">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
@@ -90,7 +89,7 @@ ${formData.get('message')}
         </p>
       </section>
 
-      {/* 2. Philosophy & Diagram (背景: 白) - 区切りのために白背景に変更 */}
+      {/* 2. Philosophy & Diagram (背景: 白) */}
       <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 bg-white text-left text-gray-800">
         <div className="mb-48">
            <div className="space-y-10 mb-24">
@@ -98,7 +97,6 @@ ${formData.get('message')}
               事業の想いを、確かな実像へ。
             </p>
             
-            {/* サービスへの橋渡しリンク */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-100 py-6">
               <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
               <span className="text-gray-200">|</span>
@@ -113,22 +111,22 @@ ${formData.get('message')}
             </p>
           </div>
 
-          {/* 3つの円の重なり図解 - アニメーションと薄い黄色を追加 */}
-          <div className="relative h-[300px] md:h-[400px] w-full flex items-center justify-center mb-32">
-            {/* Consulting - 1番目に出現 */}
-            <div className="absolute w-40 h-40 md:w-56 md:h-56 rounded-full border border-[#fefce8] bg-[#fffde7]/60 flex items-center justify-center -translate-x-12 md:-translate-x-20 -translate-y-10 md:-translate-y-16 animate-popIn opacity-0" style={{ animationDelay: '0.2s' }}>
+          {/* 円の色をそれぞれ個別に設定 */}
+          <div className="relative h-[320px] w-full flex items-center justify-center mb-32">
+            {/* Consulting - 淡いブルーグレー */}
+            <div className="absolute top-0 left-1/2 -translate-x-[60%] w-48 h-48 md:w-56 md:h-56 rounded-full border border-blue-50 bg-[#f1f5f9]/70 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.2s', zIndex: 1 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Consulting</span>
             </div>
-            {/* Commerce - 2番目に出現 */}
-            <div className="absolute w-40 h-40 md:w-56 md:h-56 rounded-full border border-[#fefce8] bg-[#fffde7]/60 flex items-center justify-center translate-x-12 md:translate-x-20 -translate-y-10 md:-translate-y-16 animate-popIn opacity-0" style={{ animationDelay: '0.4s' }}>
+            {/* Commerce - ロゴの薄い黄色 */}
+            <div className="absolute top-0 right-1/2 translate-x-[60%] w-48 h-48 md:w-56 md:h-56 rounded-full border border-yellow-50 bg-[#fffde7]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.4s', zIndex: 2 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Commerce</span>
             </div>
-            {/* Creative - 3番目に出現 */}
-            <div className="absolute w-40 h-40 md:w-56 md:h-56 rounded-full border border-[#fefce8] bg-[#fffde7]/60 flex items-center justify-center translate-y-12 md:translate-y-20 animate-popIn opacity-0" style={{ animationDelay: '0.6s' }}>
+            {/* Creative - 淡いウォームベージュ */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-48 h-48 md:w-56 md:h-56 rounded-full border border-orange-50 bg-[#fafaf9]/80 flex items-center justify-center animate-popIn opacity-0" style={{ animationDelay: '0.6s', zIndex: 3 }}>
               <span className="text-[11px] md:text-xs font-bold tracking-widest text-gray-500 uppercase">Creative</span>
             </div>
-            {/* ENITIAL - 最後に出現 */}
-            <div className="relative z-10 text-sm md:text-base font-serif tracking-[0.2em] text-gray-800 bg-white px-6 py-3 border border-gray-100 shadow-sm animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}>
+            {/* ENITIAL - 中央 */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-sm md:text-base font-serif tracking-[0.2em] text-gray-800 bg-white px-8 py-4 border border-gray-50 shadow-sm animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}>
               ENITIAL
             </div>
           </div>
@@ -166,7 +164,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 3. Services (背景: 薄いグレー) - 区切りのために薄いグレーに戻す */}
+      {/* 3. Services (背景: 薄いグレー) */}
       <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-32">
@@ -174,7 +172,6 @@ ${formData.get('message')}
           </div>
           
           <div className="grid md:grid-cols-3 gap-20 text-left">
-            {/* 01 Consulting (事業計画) */}
             <div id="service-consulting" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
@@ -190,7 +187,6 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 02 Commerce (物販) */}
             <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
@@ -206,7 +202,6 @@ ${formData.get('message')}
               </ul>
             </div>
 
-            {/* 03 Creative (クリエイティブ) */}
             <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
               <div className="space-y-3">
                 <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
@@ -225,7 +220,7 @@ ${formData.get('message')}
         </div>
       </section>
 
-      {/* 4. Contact Form (背景: 白) - 区切りのために白に変更 */}
+      {/* 4. Contact Form (背景: 白) */}
       <section id="contact" className="py-40 px-6 bg-white font-sans text-left text-gray-800">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-24 space-y-4">
@@ -347,28 +342,15 @@ ${formData.get('message')}
         </div>
       </footer>
 
-      {/* グローバルスタイルに新しいアニメーションを追加 */}
       <style jsx global>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
         }
         @keyframes popIn {
-          0% {
-            opacity: 0;
-            transform: scale(0.8);
-          }
-          100% {
-            opacity: 1;
-            transform: scale(1);
-          }
+          0% { opacity: 0; transform: scale(0.8); }
+          100% { opacity: 1; transform: scale(1); }
         }
         .animate-fadeIn { animation: fadeIn 2s ease-out forwards; }
         .animate-slideInLeft { animation: slideInLeft 1.5s ease-out forwards; }
