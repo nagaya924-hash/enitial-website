@@ -184,10 +184,10 @@ ${formData.get('message')}
               <div className="space-y-6 pt-8 border-t border-gray-100">
                 <div>
                   <h4 className="text-[11px] tracking-widest text-gray-400 uppercase font-bold mb-3">Domestic Channels</h4>
-                  <ul className="text-[15px] text-gray-800 space-y-2 font-medium">
-                    <li>・楽天市場 / メルカリShops</li>
-                    <li className="text-gray-400 text-[13px]">・Yahoo! / Amazon（準備中）</li>
-                  </ul>
+                 <ul className="text-[15px] text-gray-800 space-y-2 font-medium">
+  <li>・楽天市場 / メルカリShops</li>
+  <li>・Amazon / Giftmall</li>
+</ul>
                 </div>
                 <div>
                   <h4 className="text-[11px] tracking-widest text-gray-400 uppercase font-bold mb-3">Global Channels</h4>
@@ -211,7 +211,7 @@ ${formData.get('message')}
                 <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 創造</h3>
               </div>
               <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                伝えたい想いが伝わるデザインに. 名刺から看板まで, ブランドの個性を大切にしながら, 新しく価値あるものを丁寧に作り上げます。
+               伝えたい想いが伝わるデザインに。名刺から看板まで、ブランドの個性を大切にしながら、新しく価値あるものを丁寧に作り上げます。
               </p>
               <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
                 <li>・名刺 / カード / ポスター制作</li>
