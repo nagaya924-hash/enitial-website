@@ -1,359 +1,595 @@
 "use client"
 
-import React, { useState } from "react"
-import { Menu, X } from "lucide-react"
-import Link from "next/link"
+import React, { useEffect, useRef, useState } from "react"
+import {
+  ArrowRight,
+  FileText,
+  Gift,
+  Mail,
+  Menu,
+  Minus,
+  PencilLine,
+  Plus,
+  ShoppingCart,
+  X,
+} from "lucide-react"
+
+type AccordionItemProps = {
+  id: string
+  title: string
+  subtitle?: string
+  icon?: React.ReactNode
+  badge?: string
+  isOpen: boolean
+  onToggle: () => void
+  children: React.ReactNode
+}
+
+function AccordionItem({
+  id,
+  title,
+  subtitle,
+  icon,
+  badge,
+  isOpen,
+  onToggle,
+  children,
+}: AccordionItemProps) {
+  return (
+    <div className="border-b border-[#e8e6e1]">
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls={`${id}-content`}
+        onClick={onToggle}
+        className="group flex w-full items-center gap-4 py-6 text-left md:py-7"
+      >
+        {icon && (
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center text-[#222]">
+            {icon}
+          </span>
+        )}
+
+        <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-3 gap-y-2">
+          <span className="font-serif text-[17px] tracking-[0.05em] text-[#202020] md:text-[19px]">
+            {title}
+          </span>
+
+          {subtitle && (
+            <span className="font-sans text-[12px] tracking-[0.12em] text-[#666] md:text-[13px]">
+              {subtitle}
+            </span>
+          )}
+
+          {badge && (
+            <span className="border border-[#FFD600]/80 px-2 py-0.5 font-sans text-[9px] tracking-[0.14em] text-[#6d6100]">
+              {badge}
+            </span>
+          )}
+        </span>
+
+        <span className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center text-[#FFD600] transition-transform duration-300">
+          {isOpen ? (
+            <Minus size={14} strokeWidth={1.35} />
+          ) : (
+            <Plus size={14} strokeWidth={1.35} />
+          )}
+        </span>
+      </button>
+
+      <div
+        id={`${id}-content`}
+        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <div className="pb-9 pl-0 md:pb-11 md:pl-11">{children}</div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mb-8 flex items-center gap-3">
+      <h2 className="font-serif text-[13px] tracking-[0.28em] text-[#222] md:text-[14px]">
+        {children}
+      </h2>
+      <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
+    </div>
+  )
+}
 
 export default function Homepage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [openSection, setOpenSection] = useState<string | null>(null)
+  const cursorRef = useRef<HTMLDivElement>(null)
 
-  // お問い合わせフォーム送信処理
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const body = `
-【お問い合わせ内容】
-氏名: ${formData.get('name')}
-会社名: ${formData.get('company')}
-メール: ${formData.get('email')}
-電話: ${formData.get('tel')}
-内容: ${formData.get('category')}
-予算: ${formData.get('budget')}
-
-メッセージ:
-${formData.get('message')}
-    `.trim();
-
-    window.location.href = `mailto:info@enitial.jp?subject=お問い合わせ（${formData.get('name')}様）&body=${encodeURIComponent(body)}`;
-  };
-
-  // ページ内スムーススクロール
   const go = (id: string) => {
-    setIsMenuOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+    setIsMenuOpen(false)
+    const element = document.getElementById(id)
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+    if (!element) return
+
+    const offset = 88
+    const top = element.getBoundingClientRect().top + window.scrollY - offset
+
+    window.scrollTo({ top, behavior: "smooth" })
+  }
+
+  const toggleSection = (id: string) => {
+    setOpenSection((current) => (current === id ? null : id))
+  }
+
+  useEffect(() => {
+    const cursor = cursorRef.current
+    if (!cursor) return
+
+    const moveCursor = (event: MouseEvent) => {
+      cursor.style.transform = `translate3d(${event.clientX - 18}px, ${event.clientY - 18}px, 0)`
+      cursor.style.opacity = "1"
     }
-  };
+
+    const hideCursor = () => {
+      cursor.style.opacity = "0"
+    }
+
+    window.addEventListener("mousemove", moveCursor)
+    document.documentElement.addEventListener("mouseleave", hideCursor)
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor)
+      document.documentElement.removeEventListener("mouseleave", hideCursor)
+    }
+  }, [])
 
   return (
-    <div className="bg-[#fcfcfc] text-[#333] font-serif min-h-screen selection:bg-[#fffde7]">
-      
-      {/* Navigation - ロゴパス修正済 */}
-      <nav className="fixed top-0 w-full z-50 bg-[#fffdf9]/95 backdrop-blur-md border-b border-gray-100 font-sans">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <img 
-              src="/images/logo-horizontal.png" 
-              alt="ENITIAL Logo" 
-              className="h-9 md:h-10 w-auto" 
+    <div className="min-h-screen bg-[#fcfbf8] text-[#222] selection:bg-[#fff3a5]">
+      {/* ほのかな黄色のカーソル */}
+      <div
+        ref={cursorRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed left-0 top-0 z-[100] hidden h-9 w-9 rounded-full bg-[#FFD600]/25 opacity-0 blur-md transition-[opacity,width,height] duration-200 md:block"
+      />
+
+      {/* Header */}
+      <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#eceae5] bg-[#fcfbf8]/92 backdrop-blur-md">
+        <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:h-24 md:px-10">
+          <button
+            type="button"
+            aria-label="ページ上部へ戻る"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="shrink-0"
+          >
+            <img
+              src="/images/logo-horizontal.png"
+              alt="ENITIAL"
+              className="h-8 w-auto md:h-9"
             />
-          </div>
-          
-          <div className="hidden md:flex items-center space-x-10 text-[13px] tracking-widest text-gray-600 uppercase font-medium">
-            <button onClick={() => go('philosophy')} className="hover:text-black transition-colors font-semibold">Philosophy</button>
-            <button onClick={() => go('services')} className="hover:text-black transition-colors font-semibold">Services</button>
-            <button onClick={() => go('contact')} className="hover:text-black transition-colors font-bold text-gray-900 border-b-2 border-gray-900">Contact</button>
+          </button>
+
+          <div className="hidden items-center gap-10 font-sans text-[11px] tracking-[0.18em] text-[#555] md:flex">
+            <button type="button" onClick={() => go("about")} className="transition-colors hover:text-black">
+              ABOUT
+            </button>
+            <button type="button" onClick={() => go("business")} className="transition-colors hover:text-black">
+              BUSINESS
+            </button>
+            <button type="button" onClick={() => go("philosophy")} className="transition-colors hover:text-black">
+              PHILOSOPHY
+            </button>
+            <button type="button" onClick={() => go("company")} className="transition-colors hover:text-black">
+              COMPANY
+            </button>
+            <button type="button" onClick={() => go("contact")} className="transition-colors hover:text-black">
+              CONTACT
+            </button>
           </div>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          <button
+            type="button"
+            aria-label={isMenuOpen ? "メニューを閉じる" : "メニューを開く"}
+            aria-expanded={isMenuOpen}
+            onClick={() => setIsMenuOpen((current) => !current)}
+            className="flex h-10 w-10 items-center justify-center md:hidden"
+          >
+            {isMenuOpen ? <X size={25} strokeWidth={1.35} /> : <Menu size={28} strokeWidth={1.35} />}
           </button>
         </div>
 
-        {isMenuOpen && (
-          <div className="md:hidden bg-white border-b border-gray-100 px-6 py-10 space-y-8 text-base tracking-[0.2em] uppercase text-gray-700 font-sans">
-            <button onClick={() => go('philosophy')} className="block w-full text-left font-light">Philosophy</button>
-            <button onClick={() => go('services')} className="block w-full text-left font-light">Services</button>
-            <button onClick={() => go('contact')} className="block w-full text-left font-light">Contact</button>
+        <div
+          className={`overflow-hidden border-[#eceae5] bg-[#fcfbf8] transition-[max-height,border-width] duration-500 md:hidden ${
+            isMenuOpen ? "max-h-96 border-t" : "max-h-0 border-t-0"
+          }`}
+        >
+          <div className="space-y-7 px-7 py-9 font-sans text-[12px] tracking-[0.2em] text-[#444]">
+            <button type="button" onClick={() => go("about")} className="block w-full text-left">
+              ABOUT
+            </button>
+            <button type="button" onClick={() => go("business")} className="block w-full text-left">
+              BUSINESS
+            </button>
+            <button type="button" onClick={() => go("philosophy")} className="block w-full text-left">
+              PHILOSOPHY
+            </button>
+            <button type="button" onClick={() => go("company")} className="block w-full text-left">
+              COMPANY PROFILE
+            </button>
+            <button type="button" onClick={() => go("contact")} className="block w-full text-left">
+              CONTACT
+            </button>
           </div>
-        )}
+        </div>
       </nav>
 
-      {/* 1. Hero Section - テキストアニメーション */}
-      <section className="h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden bg-[#fcfcfc]">
-        <div className="mb-10 text-gray-800">
-          <h1 className="text-4xl md:text-5xl tracking-[0.3em] font-serif uppercase animate-slideInLeft opacity-0" style={{ animationDelay: '0.2s' }}>
-            Enitial
+      <main>
+        {/* Hero */}
+        <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center md:pt-24">
+          <h1 className="hero-from-left font-serif text-[34px] tracking-[0.31em] text-[#17202b] opacity-0 md:text-[54px]">
+            ENITIAL
           </h1>
-        </div>
-        <div className="h-[1px] w-16 bg-gray-400 mb-10 animate-fadeIn opacity-0" style={{ animationDelay: '0.8s' }}></div>
-        <p className="text-lg md:text-xl tracking-[0.4em] text-gray-600 font-light ml-[0.5em] animate-slideInLeft opacity-0" style={{ animationDelay: '0.5s' }}>
-          縁を、形に。
-        </p>
-      </section>
 
-      {/* 2. Philosophy & Introduction */}
-      <section id="philosophy" className="max-w-4xl mx-auto py-40 px-6 bg-white text-left text-gray-800">
-        <div className="mb-48">
-           <div className="space-y-10 mb-24">
-            <p className="text-2xl md:text-3xl leading-relaxed text-gray-800 font-serif">
-              ビジネスの想いを、一緒に形へ。
-            </p>
-            
-            {/* サービス橋渡しリンク */}
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-4 font-sans tracking-[0.2em] text-gray-400 uppercase text-xs md:text-sm border-y border-gray-100 py-6">
-              <button onClick={() => go('service-consulting')} className="hover:text-black transition-colors">事業計画</button>
-              <span className="text-gray-200">|</span>
-              <button onClick={() => go('service-commerce')} className="hover:text-black transition-colors">物販</button>
-              <span className="text-gray-200">|</span>
-              <button onClick={() => go('service-creative')} className="hover:text-black transition-colors">創造</button>
-            </div>
+          <span className="hero-line mt-9 h-px w-14 bg-black/55 opacity-0 md:mt-10 md:w-16" />
 
-            <p className="text-base md:text-lg leading-[2.2] text-gray-600 font-sans font-light max-w-3xl">
-              株式会社エニシャルは、計画・実務・創造の3つのアプローチから、お客様のビジネス成長を多角的にサポートする会社です。
-              単なる代行ではなく、ポテンシャルを最大化するパートナーとして共に歩みます。
-            </p>
-          </div>
-
-          <div className="text-center pt-12">
-            <p className="text-[13px] tracking-[0.5em] text-gray-500 uppercase mb-3 font-sans font-bold italic">Origin</p>
-            <p className="text-base tracking-[0.15em] text-gray-600 italic">EN × POTENTIAL</p>
-          </div>
-        </div>
-
-        <div className="grid gap-36">
-          <div>
-            <h3 className="text-[12px] tracking-[0.3em] text-gray-500 mb-6 uppercase font-sans font-bold border-l-2 border-gray-400 pl-4">Mission</h3>
-            <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-900 mb-8 font-serif">縁を尊び、可能性を最大化する。</p>
-            <p className="text-base md:text-lg text-gray-700 leading-loose max-w-3xl font-sans font-light">
-              顧客との縁を大切にし、製品やサービスのポテンシャルを最大限に引き出すことで、持続可能な成長と価値創造を実現します。
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-[12px] tracking-[0.3em] text-gray-500 mb-6 uppercase font-sans font-bold border-l-2 border-gray-400 pl-4">Vision</h3>
-            <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-900 mb-8 font-serif">共に未来を切り拓く、最良のパートナー。</p>
-            <p className="text-base md:text-lg text-gray-700 leading-loose max-w-3xl font-sans font-light">
-              革新的で信頼される支援を通じて、顧客のビジネスを成功へ導く最良の伴走者となります。
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-[12px] tracking-[0.3em] text-gray-500 mb-6 uppercase font-sans font-bold border-l-2 border-gray-400 pl-4">Value</h3>
-            <p className="text-2xl md:text-3xl leading-relaxed font-light text-gray-900 mb-8 font-serif">誠実、創造、持続。</p>
-            <p className="text-base md:text-lg text-gray-700 leading-loose max-w-3xl font-sans font-light">
-              誠実な対話と創造的な提案を核とし、長期的な信頼に基づく持続可能な成長を目指します。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Services */}
-      <section id="services" className="bg-[#fcfcfc] py-40 px-6 border-y border-gray-100 font-sans">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-32">
-            <h2 className="text-[13px] tracking-[0.5em] text-gray-500 uppercase font-bold">Services</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-x-12 gap-y-20 text-left">
-            {/* 01 Consulting */}
-            <div id="service-consulting" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
-              <div className="space-y-3">
-                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">01</span>
-                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Consulting ｜ 支援</h3>
-              </div>
-              <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                想いを戦略に、戦略を確かな実行へ。補助金の活用や事業計画の策定を通じ、経営者の「右腕」として、次の一歩に必要な確かな道筋を共に整えます。
-              </p>
-              <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
-                <li>・補助金申請サポート</li>
-                <li>・事業計画策定 / 実現性検証</li>
-                <li>・プレイヤー視点の伴走助言</li>
-              </ul>
-            </div>
-
-            {/* 02 Commerce - 指定の内容に修正済 */}
-            <div id="service-commerce" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
-              <div className="space-y-3">
-                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">02</span>
-                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Commerce ｜ 物販</h3>
-              </div>
-              <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-                国内外の魅力ある商品を選定し、主要ECモールを中心に自社販売・運営を行っています。商品企画から仕入れ、販促、出荷までを自社で完結させ、データに基づいたスピード感のある物販事業を展開しています。
-              </p>
-              <div className="space-y-6 pt-8 border-t border-gray-100">
-                <div>
-                  <h4 className="text-[11px] tracking-widest text-gray-400 uppercase font-bold mb-3">Domestic Channels</h4>
-                 <ul className="text-[15px] text-gray-800 space-y-2 font-medium">
-  <li>・楽天市場 / メルカリShops</li>
-  <li>・Amazon / Giftmall</li>
-</ul>
-                </div>
-                <div>
-                  <h4 className="text-[11px] tracking-widest text-gray-400 uppercase font-bold mb-3">Global Channels</h4>
-                  <ul className="text-[15px] text-gray-800 space-y-2 font-medium">
-                    <li>・eBay / Shopee</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="text-[11px] tracking-widest text-gray-400 uppercase font-bold mb-3">Future Plan</h4>
-                  <ul className="text-[15px] text-gray-800 space-y-2 font-medium">
-                    <li>・自社ECサイトの構築・運営</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* 03 Creative */}
-            <div id="service-creative" className="space-y-10 scroll-mt-24 bg-white p-8 border border-gray-50 shadow-sm">
-              <div className="space-y-3">
-                <span className="text-[13px] text-gray-400 tracking-[0.2em] font-bold italic">03</span>
-                <h3 className="text-xl md:text-[1.25rem] lg:text-[1.4rem] tracking-[0.1em] font-light font-serif text-gray-900 border-b border-gray-100 pb-3 uppercase md:whitespace-nowrap">Creative ｜ 創造</h3>
-              </div>
-              <p className="text-[15px] text-gray-700 leading-loose min-h-[100px] font-light">
-               伝えたい想いが伝わるデザインに。名刺から看板まで、ブランドの個性を大切にしながら、新しく価値あるものを丁寧に作り上げます。
-              </p>
-              <ul className="text-[16px] text-gray-800 space-y-5 pt-8 border-t border-gray-100 font-medium">
-                <li>・名刺 / カード / ポスター制作</li>
-                <li>・サインデザイン / 看板 / 什器</li>
-                <li>・ディレクション / 印刷・納品</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Contact Form */}
-      <section id="contact" className="py-40 px-6 bg-white font-sans text-left text-gray-800">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-24 space-y-4">
-            <h2 className="text-[13px] tracking-[0.5em] text-gray-500 uppercase font-bold">Contact</h2>
-            <p className="text-2xl font-light text-gray-900 font-serif font-semibold">ご相談はこちらから</p>
-            <p className="text-sm text-gray-500 tracking-wider font-light uppercase">担当者より2営業日以内にご連絡いたします</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="grid md:grid-cols-2 gap-10">
-              <div className="space-y-3">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">氏名 *</label>
-                <input required name="name" type="text" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg" />
-              </div>
-              <div className="space-y-3">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">会社名 *</label>
-                <input required name="company" type="text" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-10">
-              <div className="space-y-3">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">メールアドレス *</label>
-                <input required name="email" type="email" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg" />
-              </div>
-              <div className="space-y-3">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">電話番号 *</label>
-                <input required name="tel" type="tel" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg" />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-10">
-              <div className="space-y-3 text-left">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">ご相談内容 *</label>
-                <select required name="category" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg appearance-none cursor-pointer">
-                  <option value="">選択してください</option>
-                  <option value="事業計画策定">事業計画策定</option>
-                  <option value="補助金申請サポート">補助金申請サポート</option>
-                  <option value="営業代行">営業代行</option>
-                  <option value="ネットショップ運営・販売">ネットショップ運営・販売</option>
-                  <option value="デザイン制作">デザイン制作</option>
-                  <option value="その他">その他</option>
-                </select>
-              </div>
-              <div className="space-y-3 text-left">
-                <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">予算（任意）</label>
-                <select name="budget" className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg appearance-none cursor-pointer">
-                  <option value="未定">選択してください</option>
-                  <option value="〜100万円">〜100万円</option>
-                  <option value="100万円〜300万円">100万円〜300万円</option>
-                  <option value="300万円〜500万円">300万円〜500万円</option>
-                  <option value="500万円〜1000万円">500万円〜1000万円</option>
-                  <option value="1000万円以上">1000万円以上</option>
-                  <option value="相談して決めたい">相談して決めたい</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="space-y-3 text-gray-800 text-left">
-              <label className="text-xs tracking-widest text-gray-600 uppercase font-bold">お問い合わせ内容 *</label>
-              <textarea required name="message" rows={5} className="w-full bg-transparent border-b border-gray-200 py-3 focus:border-black outline-none transition-colors text-lg resize-none"></textarea>
-            </div>
-
-            <div className="flex flex-col items-center space-y-10 pt-16">
-              <label className="flex items-center space-x-4 cursor-pointer text-gray-800">
-                <input required type="checkbox" className="w-6 h-6 border-gray-300 rounded focus:ring-black cursor-pointer shadow-sm" />
-                <span className="text-sm tracking-widest uppercase font-bold">
-                  <Link href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline hover:text-black transition-colors">
-                    プライバシーポリシー
-                  </Link>
-                  に同意します *
-                </span>
-              </label>
-              <button type="submit" className="group relative inline-block px-24 py-6 border border-gray-200 text-sm tracking-[0.4em] overflow-hidden transition-all hover:border-black text-gray-900 font-bold uppercase">
-                <span className="relative z-10 group-hover:text-white transition-colors duration-500">送信する</span>
-                <div className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></div>
-              </button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      {/* 5. Company Info & Footer */}
-      <footer className="py-40 px-6 bg-[#fcfcfc] font-sans border-t border-gray-100">
-        <div className="max-w-4xl mx-auto space-y-28 text-center text-gray-600">
-          <h2 className="text-[14px] tracking-[0.5em] text-gray-500 uppercase font-bold border-b border-gray-100 inline-block pb-3">Company Profile</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 text-left max-w-4xl mx-auto font-light text-[15px] leading-[2.5]">
-            <div className="space-y-12 text-left">
-              <div>
-                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Company Name</span>
-                <span className="text-gray-900 text-base font-light">株式会社エニシャル</span>
-              </div>
-              <div>
-                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Established</span>
-                <span className="text-gray-900 text-base font-light">2024年9月</span>
-              </div>
-              <div>
-                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Representative</span>
-                <span className="text-gray-900 text-base font-light">廣瀬 陽介</span>
-              </div>
-            </div>
-            <div className="space-y-12 text-left">
-              <div>
-                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Location</span>
-                <div className="space-y-4 text-gray-800 text-base font-light">
-                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans tracking-widest">Head</span>岐阜県揖斐郡揖斐川町日坂1178</p>
-                  <p><span className="text-[11px] text-gray-500 mr-4 uppercase font-bold bg-gray-50 px-3 py-1 font-sans tracking-widest">Office</span>岐阜県本巣郡北方町高屋条里3-37</p>
-                </div>
-              </div>
-              <div>
-                <span className="text-xs text-gray-400 tracking-widest uppercase block mb-3 font-bold border-l-4 border-gray-100 pl-4">Email</span>
-                <span className="text-gray-900 text-base font-light font-serif">info@enitial.jp</span>
-              </div>
-            </div>
-          </div>
-          <p className="text-[11px] text-gray-400 tracking-[0.3em] uppercase pt-20 text-center font-serif opacity-80">
-            &copy; ENITIAL Co., Ltd. All Rights Reserved.
+          <p className="hero-from-right mt-9 ml-[0.32em] font-serif text-[16px] tracking-[0.34em] text-[#b7b7b7] opacity-0 md:mt-10 md:text-[19px]">
+            縁を、形に。
           </p>
+
+          <button
+            type="button"
+            aria-label="次のセクションへスクロール"
+            onClick={() => go("about")}
+            className="hero-fade absolute bottom-12 flex flex-col items-center gap-3 opacity-0 md:bottom-14"
+          >
+            <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+            <span className="h-7 w-px bg-[#9c9c9c]" />
+            <span className="font-sans text-[9px] tracking-[0.34em] text-[#666]">SCROLL</span>
+          </button>
+        </section>
+
+        {/* About */}
+        <section id="about" className="bg-white px-6 py-24 md:px-10 md:py-36">
+          <div className="mx-auto max-w-4xl">
+            <SectionLabel>ABOUT US</SectionLabel>
+
+            <div className="max-w-3xl font-serif text-[16px] leading-[2.25] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.2]">
+              <p>人と人、商品と事業、地域と未来。</p>
+              <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
+              <p>新たな価値を生み出していきます。</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Business */}
+        <section id="business" className="bg-white px-6 pb-24 md:px-10 md:pb-36">
+          <div className="mx-auto max-w-4xl">
+            <SectionLabel>OUR BUSINESS</SectionLabel>
+
+            <div className="border-t border-[#e8e6e1]">
+              <AccordionItem
+                id="commerce"
+                title="Commerce"
+                subtitle="物販"
+                icon={<ShoppingCart size={24} strokeWidth={1.25} />}
+                isOpen={openSection === "commerce"}
+                onToggle={() => toggleSection("commerce")}
+              >
+                <div className="max-w-3xl space-y-7 font-sans text-[14px] leading-[2] text-[#444] md:text-[15px]">
+                  <div>
+                    <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
+                      国内外の優れた商品を、確かな価値とともに。
+                    </p>
+                    <p>日本の優れた商品を国内外へ。</p>
+                    <p>そして、海外の魅力ある商品を正規ルートで日本へ。</p>
+                    <p className="mt-3">ECを通じて、価値ある商品を安心してお届けしています。</p>
+                  </div>
+
+                  <div>
+                    <p className="mb-2 flex items-center gap-2 font-medium text-[#222]">
+                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      販売チャネル
+                    </p>
+                    <p>楽天市場 / Amazon / Giftmall / eBay / Shopee / メルカリShops など</p>
+                  </div>
+
+                  <div>
+                    <p className="mb-2 flex items-center gap-2 font-medium text-[#222]">
+                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      取扱実績
+                    </p>
+                    <p>日本製品・海外ブランド・オリジナル商品の企画・販売</p>
+                  </div>
+
+                  <p className="text-[12px] tracking-[0.04em] text-[#666]">※ HAV-A-HANK 正規販売店</p>
+                </div>
+              </AccordionItem>
+
+              <AccordionItem
+                id="creative"
+                title="Creative"
+                subtitle="デザイン・制作"
+                icon={<PencilLine size={23} strokeWidth={1.25} />}
+                isOpen={openSection === "creative"}
+                onToggle={() => toggleSection("creative")}
+              >
+                <div className="max-w-3xl space-y-7 font-sans text-[14px] leading-[2] text-[#444] md:text-[15px]">
+                  <div>
+                    <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
+                      伝えたい想いを、伝わるデザインへ。
+                    </p>
+                    <p>
+                      ロゴや販促物の制作から、Webサイト制作、SNS運用サポートまで、ブランドの魅力を一貫して形にします。
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="mb-3 flex items-center gap-2 font-medium text-[#222]">
+                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      対応内容
+                    </p>
+                    <ul className="grid gap-x-10 gap-y-1 md:grid-cols-2">
+                      <li>・ロゴ制作</li>
+                      <li>・名刺・ショップカード</li>
+                      <li>・チラシ・パンフレット</li>
+                      <li>・看板・POP</li>
+                      <li>・パッケージ</li>
+                      <li>・ノベルティ</li>
+                      <li>・Webサイト制作</li>
+                      <li>・Instagram・食べログ・Googleなどの運用サポート</li>
+                    </ul>
+                  </div>
+                </div>
+              </AccordionItem>
+
+              <AccordionItem
+                id="support"
+                title="Business Support"
+                subtitle="事業支援"
+                icon={<FileText size={23} strokeWidth={1.25} />}
+                isOpen={openSection === "support"}
+                onToggle={() => toggleSection("support")}
+              >
+                <div className="max-w-3xl space-y-7 font-sans text-[14px] leading-[2] text-[#444] md:text-[15px]">
+                  <div>
+                    <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
+                      事業の成長を、実務と戦略の両面からサポートします。
+                    </p>
+                    <p>
+                      補助金活用や事業計画の作成だけでなく、販路拡大やEC運営まで、実践的な支援を行っています。
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="mb-3 flex items-center gap-2 font-medium text-[#222]">
+                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      サポート内容
+                    </p>
+                    <ul className="space-y-1">
+                      <li>・補助金活用支援</li>
+                      <li>・事業計画策定</li>
+                      <li>・販路拡大支援</li>
+                      <li>・商品企画</li>
+                      <li>・EC運営サポート</li>
+                      <li>・その他、事業に関するご相談</li>
+                    </ul>
+                  </div>
+                </div>
+              </AccordionItem>
+
+              <AccordionItem
+                id="original"
+                title="オリジナル制作"
+                subtitle="ギフトブランド"
+                badge="準備中"
+                icon={<Gift size={23} strokeWidth={1.25} />}
+                isOpen={openSection === "original"}
+                onToggle={() => toggleSection("original")}
+              >
+                <div className="max-w-3xl space-y-6 font-sans text-[14px] leading-[2] text-[#444] md:text-[15px]">
+                  <p className="font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
+                    大切な想いを、かたちに。
+                  </p>
+                  <p>
+                    出産祝い、誕生日、記念日、退職祝いなど、人生のさまざまな節目に寄り添うギフトを企画・制作しています。
+                  </p>
+                  <p>
+                    日本の優れた素材や製品に、自社加工を施し、想いを込めたオリジナルギフトをお届けするブランドを準備中です。
+                  </p>
+                </div>
+              </AccordionItem>
+            </div>
+          </div>
+        </section>
+
+        {/* Philosophy */}
+        <section id="philosophy" className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32">
+          <div className="mx-auto max-w-4xl border-t border-[#e8e6e1]">
+            <AccordionItem
+              id="philosophy-item"
+              title="PHILOSOPHY"
+              isOpen={openSection === "philosophy"}
+              onToggle={() => toggleSection("philosophy")}
+            >
+              <div className="grid gap-10 md:grid-cols-3 md:gap-12">
+                <div>
+                  <p className="mb-4 flex items-center gap-2 font-serif text-[13px] tracking-[0.08em] text-[#555]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
+                    Mission
+                  </p>
+                  <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">
+                    縁を尊び、可能性を最大化する。
+                  </p>
+                  <p className="font-sans text-[13px] leading-[2] text-[#555]">
+                    人と人、商品と市場、地域と未来。一つひとつのご縁を大切にし、それぞれが持つ可能性を最大限に引き出します。
+                  </p>
+                </div>
+
+                <div>
+                  <p className="mb-4 flex items-center gap-2 font-serif text-[13px] tracking-[0.08em] text-[#555]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
+                    Vision
+                  </p>
+                  <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">
+                    共に未来を切り拓く、最良のパートナー。
+                  </p>
+                  <p className="font-sans text-[13px] leading-[2] text-[#555]">
+                    目先の成果だけではなく、長く信頼される存在として、お客様とともに未来を築いていきます。
+                  </p>
+                </div>
+
+                <div>
+                  <p className="mb-4 flex items-center gap-2 font-serif text-[13px] tracking-[0.08em] text-[#555]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
+                    Value
+                  </p>
+                  <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">誠実、創造、持続。</p>
+                  <p className="font-sans text-[13px] leading-[2] text-[#555]">
+                    誠実な姿勢を大切に、新しい価値を生み出し、持続可能な成長につながる仕事を積み重ねます。
+                  </p>
+                </div>
+              </div>
+            </AccordionItem>
+          </div>
+        </section>
+
+        {/* Company Profile */}
+        <section id="company" className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32">
+          <div className="mx-auto max-w-4xl border-t border-[#e8e6e1]">
+            <AccordionItem
+              id="company-item"
+              title="COMPANY PROFILE"
+              isOpen={openSection === "company"}
+              onToggle={() => toggleSection("company")}
+            >
+              <dl className="font-sans text-[13px] leading-[1.9] text-[#444] md:text-[14px]">
+                {[
+                  ["Company Name", "株式会社エニシャル"],
+                  ["Established", "2024年9月"],
+                  ["Representative", "廣瀬 陽介"],
+                  ["Head", "岐阜県揖斐郡揖斐川町日坂1178"],
+                  ["Office", "岐阜県本巣郡北方町高屋条里3-37"],
+                  ["Email", "info@enitial.jp"],
+                ].map(([label, value]) => (
+                  <div
+                    key={label}
+                    className="grid gap-1 border-b border-[#e8e6e1] py-4 last:border-b-0 md:grid-cols-[170px_1fr] md:gap-8"
+                  >
+                    <dt className="text-[10px] tracking-[0.16em] text-[#777] uppercase">{label}</dt>
+                    <dd className="text-[#222]">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </AccordionItem>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section id="contact" className="bg-white px-6 py-24 md:px-10 md:py-32">
+          <div className="mx-auto max-w-4xl">
+            <p className="mb-8 font-serif text-[13px] tracking-[0.28em] text-[#222]">CONTACT</p>
+
+            <a
+              href="mailto:info@enitial.jp?subject=お問い合わせ"
+              className="group flex w-full items-center gap-4 border border-[#FFD600]/80 px-6 py-5 transition-colors hover:bg-[#fffdf2] md:px-8 md:py-6"
+            >
+              <Mail size={21} strokeWidth={1.25} className="shrink-0" />
+              <span className="flex-1 font-serif text-[14px] tracking-[0.09em] md:text-[16px]">
+                お問い合わせはこちらから
+              </span>
+              <ArrowRight
+                size={21}
+                strokeWidth={1.25}
+                className="shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-[#eceae5] bg-white px-6 py-10 md:px-10">
+        <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-5 font-sans text-[10px] tracking-[0.12em] text-[#888] md:flex-row">
+          <p>© ENITIAL Co., Ltd. All Rights Reserved.</p>
+          <a href="/privacy-policy" className="transition-colors hover:text-[#222]">
+            Privacy Policy
+          </a>
         </div>
       </footer>
 
-      {/* グローバルアニメーション設定 */}
       <style jsx global>{`
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideInLeft {
-          from { opacity: 0; transform: translateX(-30px); }
-          to { opacity: 1; transform: translateX(0); }
+        html {
+          scroll-behavior: smooth;
         }
-        .animate-fadeIn { animation: fadeIn 2s ease-out forwards; }
-        .animate-slideInLeft { animation: slideInLeft 1.5s ease-out forwards; }
+
+        @keyframes heroFromLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-28px);
+            filter: blur(4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+          }
+        }
+
+        @keyframes heroFromRight {
+          from {
+            opacity: 0;
+            transform: translateX(28px);
+            filter: blur(4px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+          }
+        }
+
+        @keyframes heroFade {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .hero-from-left {
+          animation: heroFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+        }
+
+        .hero-line {
+          animation: heroFade 1.5s ease-out 0.65s forwards;
+        }
+
+        .hero-from-right {
+          animation: heroFromRight 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+        }
+
+        .hero-fade {
+          animation: heroFade 1.5s ease-out 1.05s forwards;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          html {
+            scroll-behavior: auto;
+          }
+
+          .hero-from-left,
+          .hero-from-right,
+          .hero-line,
+          .hero-fade {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+          }
+        }
       `}</style>
     </div>
   )
