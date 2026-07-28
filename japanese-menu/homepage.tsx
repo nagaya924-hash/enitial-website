@@ -92,30 +92,6 @@ function AccordionItem({
         </span>
       </button>
 
-      {/* 開いたときだけ、短い淡い線がゆっくり伸びる */}
-      <div
-        aria-hidden="true"
-        className="h-px md:ml-11"
-        style={{
-          width: "52px",
-          overflow: "hidden",
-        }}
-      >
-        <span
-          style={{
-            display: "block",
-            width: "52px",
-            height: "1px",
-            backgroundColor: "#dfcc82",
-            opacity: isOpen ? 0.5 : 0,
-            transform: isOpen ? "scaleX(1)" : "scaleX(0)",
-            transformOrigin: "left center",
-            transition:
-              "transform 850ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms ease",
-          }}
-        />
-      </div>
-
       <div
         id={`${id}-content`}
         className={`grid transition-[grid-template-rows,opacity] ease-out ${
@@ -127,14 +103,14 @@ function AccordionItem({
         <div className="overflow-hidden">
           <div
             className={`pl-0 md:pl-11 ${
-              isOpen ? "pb-9 pt-7 md:pb-11 md:pt-8" : "pb-0 pt-0"
+              isOpen ? "pb-9 pt-5 md:pb-11 md:pt-7" : "pb-0 pt-0"
             }`}
             style={{
               opacity: isOpen ? 1 : 0,
-              transform: isOpen ? "translateY(0)" : "translateY(10px)",
+              transform: isOpen ? "translateY(0)" : "translateY(8px)",
               transition: isOpen
-                ? "opacity 600ms ease 140ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 100ms"
-                : "opacity 250ms ease, transform 350ms ease",
+                ? "opacity 550ms ease 100ms, transform 650ms cubic-bezier(0.22, 1, 0.36, 1) 80ms"
+                : "opacity 220ms ease, transform 300ms ease",
             }}
           >
             {children}
@@ -166,6 +142,7 @@ export default function Homepage() {
     setIsMenuOpen(false)
 
     const element = document.getElementById(id)
+
     if (!element) return
 
     const offset = 88
@@ -183,6 +160,7 @@ export default function Homepage() {
 
   useEffect(() => {
     const cursor = cursorRef.current
+
     if (!cursor) return
 
     const moveCursor = (event: MouseEvent) => {
