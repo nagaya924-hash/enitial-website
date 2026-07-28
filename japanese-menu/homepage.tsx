@@ -74,7 +74,9 @@ function AccordionItem({
             size={14}
             strokeWidth={1.35}
             className={`absolute transition-all duration-300 ${
-              isOpen ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100"
+              isOpen
+                ? "rotate-90 scale-75 opacity-0"
+                : "rotate-0 scale-100 opacity-100"
             }`}
           />
 
@@ -82,29 +84,35 @@ function AccordionItem({
             size={14}
             strokeWidth={1.35}
             className={`absolute transition-all duration-300 ${
-              isOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0"
+              isOpen
+                ? "rotate-0 scale-100 opacity-100"
+                : "-rotate-90 scale-75 opacity-0"
             }`}
           />
         </span>
 
         <span
           aria-hidden="true"
-          className={`absolute bottom-0 left-0 h-px bg-[#FFD600] transition-[width,opacity] duration-500 ease-out ${
-            isOpen ? "w-full opacity-55" : "w-0 opacity-0"
+          className={`absolute bottom-0 left-0 h-px bg-[#d8bd55] transition-[width,opacity] duration-700 ease-out ${
+            isOpen ? "w-[50px] opacity-30" : "w-0 opacity-0"
           }`}
         />
       </button>
 
       <div
         id={`${id}-content`}
-        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
-          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        className={`grid transition-[grid-template-rows,opacity] duration-700 ease-out ${
+          isOpen
+            ? "grid-rows-[1fr] opacity-100"
+            : "grid-rows-[0fr] opacity-0"
         }`}
       >
         <div className="overflow-hidden">
           <div
-            className={`pb-9 pl-0 transition-[transform,opacity] duration-500 ease-out md:pb-11 md:pl-11 ${
-              isOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+            className={`pb-9 pl-0 transition-[transform,opacity] delay-100 duration-700 ease-out md:pb-11 md:pl-11 ${
+              isOpen
+                ? "translate-y-0 opacity-100"
+                : "translate-y-3 opacity-0"
             }`}
           >
             {children}
@@ -169,7 +177,7 @@ export default function Homepage() {
           top,
           behavior: "smooth",
         })
-      }, 120)
+      }, 180)
     }
   }
 
@@ -200,14 +208,12 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen bg-[#fcfbf8] text-[#222] selection:bg-[#fff3a5]">
-      {/* ほのかな黄色のカーソル */}
       <div
         ref={cursorRef}
         aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 z-[100] hidden h-9 w-9 rounded-full bg-[#FFD600]/25 opacity-0 blur-md transition-[opacity,width,height] duration-200 md:block"
       />
 
-      {/* Header */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#eceae5] bg-[#fcfbf8]/92 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:h-24 md:px-10">
           <button
@@ -335,7 +341,6 @@ export default function Homepage() {
       </nav>
 
       <main>
-        {/* Hero */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center md:pt-24">
           <h1 className="hero-from-left font-serif text-[34px] tracking-[0.31em] text-[#17202b] opacity-0 md:text-[54px]">
             ENITIAL
@@ -361,7 +366,6 @@ export default function Homepage() {
           </button>
         </section>
 
-        {/* About */}
         <section
           id="about"
           className="bg-white px-6 py-24 md:px-10 md:py-36"
@@ -393,7 +397,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Business */}
         <section
           id="business"
           className="bg-white px-6 pb-24 md:px-10 md:pb-36"
@@ -558,7 +561,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Philosophy */}
         <section
           id="philosophy"
           className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32"
@@ -620,7 +622,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Company Profile */}
         <section
           id="company"
           className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32"
@@ -657,7 +658,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Contact */}
         <section
           id="contact"
           className="bg-white px-6 py-24 md:px-10 md:py-32"
