@@ -249,29 +249,30 @@ export default function Homepage() {
           </button>
         </section>
 
-        {/* About */}
-        <section id="about" className="bg-white px-6 py-24 md:px-10 md:py-36">
-          <div className="mx-auto max-w-4xl">
-            <SectionLabel>ABOUT US</SectionLabel>
+       {/* About */}
+<section id="about" className="bg-white px-6 py-24 md:px-10 md:py-36">
+  <div className="mx-auto max-w-4xl">
+    <SectionLabel>ABOUT US</SectionLabel>
 
-            <div>
-  <div className="max-w-3xl font-serif text-[16px] leading-[2.25] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.2]">
-    <p>人と人、商品と事業、地域と未来。</p>
-    <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
-    <p>新たな価値を生み出していきます。</p>
+    <div>
+      <div className="max-w-3xl font-serif text-[16px] leading-[2.25] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.2]">
+        <p>人と人、商品と事業、地域と未来。</p>
+        <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
+        <p>新たな価値を生み出していきます。</p>
+      </div>
+
+      <div className="mt-12 md:mt-14">
+        <p className="font-sans text-[9px] tracking-[0.32em] text-[#b2b2b2]">
+          ORIGIN
+        </p>
+
+        <p className="mt-2 font-serif text-[12px] tracking-[0.2em] text-[#a8a8a8] md:text-[13px]">
+          EN × POTENTIAL
+        </p>
+      </div>
+    </div>
   </div>
-
-  <div className="mt-12 md:mt-14">
-    <p className="font-sans text-[9px] tracking-[0.32em] text-[#b2b2b2]">
-      ORIGIN
-    </p>
-    <p className="mt-2 font-serif text-[12px] tracking-[0.2em] text-[#a8a8a8] md:text-[13px]">
-      EN × POTENTIAL
-    </p>
-  </div>
-</div>
-        </section>
-
+</section>
         {/* Business */}
         <section id="business" className="bg-white px-6 pb-24 md:px-10 md:pb-36">
           <div className="mx-auto max-w-4xl">
