@@ -250,7 +250,10 @@ export default function Homepage() {
         </section>
 
        {/* About */}
-<section id="about" className="bg-white px-6 py-24 md:px-10 md:py-36">
+<section
+  id="about"
+  className="bg-white px-6 py-24 md:px-10 md:py-36"
+>
   <div className="mx-auto max-w-4xl">
     <SectionLabel>ABOUT US</SectionLabel>
 
@@ -261,15 +264,42 @@ export default function Homepage() {
         <p>新たな価値を生み出していきます。</p>
       </div>
 
-      <div className="mt-20 md:mt-24">
-        <div className="flex items-center gap-4">
-          <span className="h-px w-10 bg-[#d8d8d8] md:w-12" />
-          <p className="font-sans text-[9px] tracking-[0.34em] text-[#c5c5c5]">
+      <div style={{ marginTop: "96px" }}>
+        <div className="flex items-center">
+          <span
+            style={{
+              display: "block",
+              width: "46px",
+              height: "1px",
+              marginRight: "18px",
+              backgroundColor: "#e5e5e5",
+            }}
+          />
+
+          <p
+            className="font-sans"
+            style={{
+              margin: 0,
+              fontSize: "9px",
+              letterSpacing: "0.34em",
+              color: "#d2d2d2",
+              fontWeight: 400,
+            }}
+          >
             ORIGIN
           </p>
         </div>
 
-        <p className="mt-4 font-serif text-[12px] tracking-[0.24em] text-[#c2c2c2] md:text-[13px]">
+        <p
+          className="font-serif"
+          style={{
+            marginTop: "18px",
+            fontSize: "12px",
+            letterSpacing: "0.24em",
+            color: "#cecece",
+            fontWeight: 400,
+          }}
+        >
           EN × POTENTIAL
         </p>
       </div>
