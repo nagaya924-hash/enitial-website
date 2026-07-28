@@ -254,19 +254,22 @@ export default function Homepage() {
   <div className="mx-auto max-w-4xl">
     <SectionLabel>ABOUT US</SectionLabel>
 
-    <div>
-      <div className="max-w-3xl font-serif text-[16px] leading-[2.25] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.2]">
+    <div className="max-w-3xl">
+      <div className="font-serif text-[16px] leading-[2.35] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.25]">
         <p>人と人、商品と事業、地域と未来。</p>
         <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
         <p>新たな価値を生み出していきます。</p>
       </div>
 
-      <div className="mt-12 md:mt-14">
-        <p className="font-sans text-[9px] tracking-[0.32em] text-[#b2b2b2]">
-          ORIGIN
-        </p>
+      <div className="mt-20 md:mt-24">
+        <div className="flex items-center gap-4">
+          <span className="h-px w-10 bg-[#d8d8d8] md:w-12" />
+          <p className="font-sans text-[9px] tracking-[0.34em] text-[#c5c5c5]">
+            ORIGIN
+          </p>
+        </div>
 
-        <p className="mt-2 font-serif text-[12px] tracking-[0.2em] text-[#a8a8a8] md:text-[13px]">
+        <p className="mt-4 font-serif text-[12px] tracking-[0.24em] text-[#c2c2c2] md:text-[13px]">
           EN × POTENTIAL
         </p>
       </div>
