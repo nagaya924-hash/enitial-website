@@ -41,8 +41,9 @@ function AccordionItem({
         type="button"
         aria-expanded={isOpen}
         aria-controls={`${id}-content`}
+        id={`${id}-trigger`}
         onClick={onToggle}
-        className="group flex w-full items-center gap-4 py-6 text-left md:py-7"
+        className="group relative flex w-full items-center gap-4 overflow-hidden py-6 text-left md:py-7"
       >
         {icon && (
           <span className="flex h-7 w-7 shrink-0 items-center justify-center text-[#222]">
@@ -68,13 +69,30 @@ function AccordionItem({
           )}
         </span>
 
-        <span className="ml-2 flex h-6 w-6 shrink-0 items-center justify-center text-[#FFD600] transition-transform duration-300">
-          {isOpen ? (
-            <Minus size={14} strokeWidth={1.35} />
-          ) : (
-            <Plus size={14} strokeWidth={1.35} />
-          )}
+        <span className="relative ml-2 flex h-6 w-6 shrink-0 items-center justify-center text-[#FFD600]">
+          <Plus
+            size={14}
+            strokeWidth={1.35}
+            className={`absolute transition-all duration-300 ${
+              isOpen ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100"
+            }`}
+          />
+
+          <Minus
+            size={14}
+            strokeWidth={1.35}
+            className={`absolute transition-all duration-300 ${
+              isOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0"
+            }`}
+          />
         </span>
+
+        <span
+          aria-hidden="true"
+          className={`absolute bottom-0 left-0 h-px bg-[#FFD600] transition-[width,opacity] duration-500 ease-out ${
+            isOpen ? "w-full opacity-55" : "w-0 opacity-0"
+          }`}
+        />
       </button>
 
       <div
@@ -84,7 +102,13 @@ function AccordionItem({
         }`}
       >
         <div className="overflow-hidden">
-          <div className="pb-9 pl-0 md:pb-11 md:pl-11">{children}</div>
+          <div
+            className={`pb-9 pl-0 transition-[transform,opacity] duration-500 ease-out md:pb-11 md:pl-11 ${
+              isOpen ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
+            }`}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
@@ -97,6 +121,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
       <h2 className="font-serif text-[13px] tracking-[0.28em] text-[#222] md:text-[14px]">
         {children}
       </h2>
+
       <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
     </div>
   )
@@ -109,6 +134,7 @@ export default function Homepage() {
 
   const go = (id: string) => {
     setIsMenuOpen(false)
+
     const element = document.getElementById(id)
 
     if (!element) return
@@ -116,19 +142,46 @@ export default function Homepage() {
     const offset = 88
     const top = element.getBoundingClientRect().top + window.scrollY - offset
 
-    window.scrollTo({ top, behavior: "smooth" })
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    })
   }
 
   const toggleSection = (id: string) => {
-    setOpenSection((current) => (current === id ? null : id))
+    const willOpen = openSection !== id
+
+    setOpenSection(willOpen ? id : null)
+
+    if (willOpen) {
+      window.setTimeout(() => {
+        const trigger = document.getElementById(`${id}-trigger`)
+
+        if (!trigger) return
+
+        const headerOffset = window.innerWidth >= 768 ? 112 : 92
+        const top =
+          trigger.getBoundingClientRect().top +
+          window.scrollY -
+          headerOffset
+
+        window.scrollTo({
+          top,
+          behavior: "smooth",
+        })
+      }, 120)
+    }
   }
 
   useEffect(() => {
     const cursor = cursorRef.current
+
     if (!cursor) return
 
     const moveCursor = (event: MouseEvent) => {
-      cursor.style.transform = `translate3d(${event.clientX - 18}px, ${event.clientY - 18}px, 0)`
+      cursor.style.transform = `translate3d(${event.clientX - 18}px, ${
+        event.clientY - 18
+      }px, 0)`
       cursor.style.opacity = "1"
     }
 
@@ -160,7 +213,12 @@ export default function Homepage() {
           <button
             type="button"
             aria-label="ページ上部へ戻る"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() =>
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+              })
+            }
             className="shrink-0"
           >
             <img
@@ -171,19 +229,43 @@ export default function Homepage() {
           </button>
 
           <div className="hidden items-center gap-10 font-sans text-[11px] tracking-[0.18em] text-[#555] md:flex">
-            <button type="button" onClick={() => go("about")} className="transition-colors hover:text-black">
+            <button
+              type="button"
+              onClick={() => go("about")}
+              className="transition-colors hover:text-black"
+            >
               ABOUT
             </button>
-            <button type="button" onClick={() => go("business")} className="transition-colors hover:text-black">
+
+            <button
+              type="button"
+              onClick={() => go("business")}
+              className="transition-colors hover:text-black"
+            >
               BUSINESS
             </button>
-            <button type="button" onClick={() => go("philosophy")} className="transition-colors hover:text-black">
+
+            <button
+              type="button"
+              onClick={() => go("philosophy")}
+              className="transition-colors hover:text-black"
+            >
               PHILOSOPHY
             </button>
-            <button type="button" onClick={() => go("company")} className="transition-colors hover:text-black">
+
+            <button
+              type="button"
+              onClick={() => go("company")}
+              className="transition-colors hover:text-black"
+            >
               COMPANY
             </button>
-            <button type="button" onClick={() => go("contact")} className="transition-colors hover:text-black">
+
+            <button
+              type="button"
+              onClick={() => go("contact")}
+              className="transition-colors hover:text-black"
+            >
               CONTACT
             </button>
           </div>
@@ -195,7 +277,11 @@ export default function Homepage() {
             onClick={() => setIsMenuOpen((current) => !current)}
             className="flex h-10 w-10 items-center justify-center md:hidden"
           >
-            {isMenuOpen ? <X size={25} strokeWidth={1.35} /> : <Menu size={28} strokeWidth={1.35} />}
+            {isMenuOpen ? (
+              <X size={25} strokeWidth={1.35} />
+            ) : (
+              <Menu size={28} strokeWidth={1.35} />
+            )}
           </button>
         </div>
 
@@ -205,19 +291,43 @@ export default function Homepage() {
           }`}
         >
           <div className="space-y-7 px-7 py-9 font-sans text-[12px] tracking-[0.2em] text-[#444]">
-            <button type="button" onClick={() => go("about")} className="block w-full text-left">
+            <button
+              type="button"
+              onClick={() => go("about")}
+              className="block w-full text-left"
+            >
               ABOUT
             </button>
-            <button type="button" onClick={() => go("business")} className="block w-full text-left">
+
+            <button
+              type="button"
+              onClick={() => go("business")}
+              className="block w-full text-left"
+            >
               BUSINESS
             </button>
-            <button type="button" onClick={() => go("philosophy")} className="block w-full text-left">
+
+            <button
+              type="button"
+              onClick={() => go("philosophy")}
+              className="block w-full text-left"
+            >
               PHILOSOPHY
             </button>
-            <button type="button" onClick={() => go("company")} className="block w-full text-left">
+
+            <button
+              type="button"
+              onClick={() => go("company")}
+              className="block w-full text-left"
+            >
               COMPANY PROFILE
             </button>
-            <button type="button" onClick={() => go("contact")} className="block w-full text-left">
+
+            <button
+              type="button"
+              onClick={() => go("contact")}
+              className="block w-full text-left"
+            >
               CONTACT
             </button>
           </div>
@@ -245,69 +355,49 @@ export default function Homepage() {
           >
             <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
             <span className="h-7 w-px bg-[#9c9c9c]" />
-            <span className="font-sans text-[9px] tracking-[0.34em] text-[#666]">SCROLL</span>
+            <span className="font-sans text-[9px] tracking-[0.34em] text-[#666]">
+              SCROLL
+            </span>
           </button>
         </section>
 
-       {/* About */}
-<section
-  id="about"
-  className="bg-white px-6 py-24 md:px-10 md:py-36"
->
-  <div className="mx-auto max-w-4xl">
-    <SectionLabel>ABOUT US</SectionLabel>
-
-    <div className="max-w-3xl">
-      <div className="font-serif text-[16px] leading-[2.35] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.25]">
-        <p>人と人、商品と事業、地域と未来。</p>
-        <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
-        <p>新たな価値を生み出していきます。</p>
-      </div>
-
-      <div style={{ marginTop: "96px" }}>
-        <div className="flex items-center">
-          <span
-            style={{
-              display: "block",
-              width: "46px",
-              height: "1px",
-              marginRight: "18px",
-              backgroundColor: "#e5e5e5",
-            }}
-          />
-
-          <p
-            className="font-sans"
-            style={{
-              margin: 0,
-              fontSize: "9px",
-              letterSpacing: "0.34em",
-              color: "#d2d2d2",
-              fontWeight: 400,
-            }}
-          >
-            ORIGIN
-          </p>
-        </div>
-
-        <p
-          className="font-serif"
-          style={{
-            marginTop: "18px",
-            fontSize: "12px",
-            letterSpacing: "0.24em",
-            color: "#cecece",
-            fontWeight: 400,
-          }}
+        {/* About */}
+        <section
+          id="about"
+          className="bg-white px-6 py-24 md:px-10 md:py-36"
         >
-          EN × POTENTIAL
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+          <div className="mx-auto max-w-4xl">
+            <SectionLabel>ABOUT US</SectionLabel>
+
+            <div className="max-w-3xl">
+              <div className="font-serif text-[16px] leading-[2.35] tracking-[0.06em] text-[#303030] md:text-[19px] md:leading-[2.25]">
+                <p>人と人、商品と事業、地域と未来。</p>
+                <p>ご縁を大切に、それぞれの可能性を引き出し、</p>
+                <p>新たな価値を生み出していきます。</p>
+              </div>
+
+              <div className="mt-20 md:mt-24">
+                <div className="flex items-center gap-4">
+                  <span className="h-px w-10 bg-[#d8d8d8] md:w-12" />
+
+                  <p className="font-sans text-[9px] tracking-[0.34em] text-[#c5c5c5]">
+                    ORIGIN
+                  </p>
+                </div>
+
+                <p className="mt-4 font-serif text-[12px] tracking-[0.24em] text-[#c2c2c2] md:text-[13px]">
+                  EN × POTENTIAL
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Business */}
-        <section id="business" className="bg-white px-6 pb-24 md:px-10 md:pb-36">
+        <section
+          id="business"
+          className="bg-white px-6 pb-24 md:px-10 md:pb-36"
+        >
           <div className="mx-auto max-w-4xl">
             <SectionLabel>OUR BUSINESS</SectionLabel>
 
@@ -325,9 +415,13 @@ export default function Homepage() {
                     <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
                       国内外の優れた商品を、確かな価値とともに。
                     </p>
+
                     <p>日本の優れた商品を国内外へ。</p>
                     <p>そして、海外の魅力ある商品を正規ルートで日本へ。</p>
-                    <p className="mt-3">ECを通じて、価値ある商品を安心してお届けしています。</p>
+
+                    <p className="mt-3">
+                      ECを通じて、価値ある商品を安心してお届けしています。
+                    </p>
                   </div>
 
                   <div>
@@ -335,7 +429,11 @@ export default function Homepage() {
                       <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
                       販売チャネル
                     </p>
-                    <p>楽天市場 / Amazon / Giftmall / eBay / Shopee / メルカリShops など</p>
+
+                    <p>
+                      楽天市場 / Amazon / Giftmall / eBay / Shopee /
+                      メルカリShops など
+                    </p>
                   </div>
 
                   <div>
@@ -343,10 +441,15 @@ export default function Homepage() {
                       <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
                       取扱実績
                     </p>
-                    <p>日本製品・海外ブランド・オリジナル商品の企画・販売</p>
+
+                    <p>
+                      日本製品・海外ブランド・オリジナル商品の企画・販売
+                    </p>
                   </div>
 
-                  <p className="text-[12px] tracking-[0.04em] text-[#666]">※ HAV-A-HANK 正規販売店</p>
+                  <p className="text-[12px] tracking-[0.04em] text-[#666]">
+                    ※ HAV-A-HANK 正規販売店
+                  </p>
                 </div>
               </AccordionItem>
 
@@ -363,6 +466,7 @@ export default function Homepage() {
                     <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
                       伝えたい想いを、伝わるデザインへ。
                     </p>
+
                     <p>
                       ロゴや販促物の制作から、Webサイト制作、SNS運用サポートまで、ブランドの魅力を一貫して形にします。
                     </p>
@@ -373,6 +477,7 @@ export default function Homepage() {
                       <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
                       対応内容
                     </p>
+
                     <ul className="grid gap-x-10 gap-y-1 md:grid-cols-2">
                       <li>・ロゴ制作</li>
                       <li>・名刺・ショップカード</li>
@@ -381,7 +486,9 @@ export default function Homepage() {
                       <li>・パッケージ</li>
                       <li>・ノベルティ</li>
                       <li>・Webサイト制作</li>
-                      <li>・Instagram・食べログ・Googleなどの運用サポート</li>
+                      <li>
+                        ・Instagram・食べログ・Googleなどの運用サポート
+                      </li>
                     </ul>
                   </div>
                 </div>
@@ -400,6 +507,7 @@ export default function Homepage() {
                     <p className="mb-4 font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
                       事業の成長を、実務と戦略の両面からサポートします。
                     </p>
+
                     <p>
                       補助金活用や事業計画の作成だけでなく、販路拡大やEC運営まで、実践的な支援を行っています。
                     </p>
@@ -410,6 +518,7 @@ export default function Homepage() {
                       <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
                       サポート内容
                     </p>
+
                     <ul className="space-y-1">
                       <li>・補助金活用支援</li>
                       <li>・事業計画策定</li>
@@ -435,9 +544,11 @@ export default function Homepage() {
                   <p className="font-serif text-[18px] leading-relaxed text-[#222] md:text-[21px]">
                     大切な想いを、かたちに。
                   </p>
+
                   <p>
                     出産祝い、誕生日、記念日、退職祝いなど、人生のさまざまな節目に寄り添うギフトを企画・制作しています。
                   </p>
+
                   <p>
                     日本の優れた素材や製品に、自社加工を施し、想いを込めたオリジナルギフトをお届けするブランドを準備中です。
                   </p>
@@ -448,7 +559,10 @@ export default function Homepage() {
         </section>
 
         {/* Philosophy */}
-        <section id="philosophy" className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32">
+        <section
+          id="philosophy"
+          className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32"
+        >
           <div className="mx-auto max-w-4xl border-t border-[#e8e6e1]">
             <AccordionItem
               id="philosophy-item"
@@ -462,9 +576,11 @@ export default function Homepage() {
                     <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                     Mission
                   </p>
+
                   <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">
                     縁を尊び、可能性を最大化する。
                   </p>
+
                   <p className="font-sans text-[13px] leading-[2] text-[#555]">
                     人と人、商品と市場、地域と未来。一つひとつのご縁を大切にし、それぞれが持つ可能性を最大限に引き出します。
                   </p>
@@ -475,9 +591,11 @@ export default function Homepage() {
                     <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                     Vision
                   </p>
+
                   <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">
                     共に未来を切り拓く、最良のパートナー。
                   </p>
+
                   <p className="font-sans text-[13px] leading-[2] text-[#555]">
                     目先の成果だけではなく、長く信頼される存在として、お客様とともに未来を築いていきます。
                   </p>
@@ -488,7 +606,11 @@ export default function Homepage() {
                     <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                     Value
                   </p>
-                  <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">誠実、創造、持続。</p>
+
+                  <p className="mb-4 font-serif text-[17px] leading-[1.8] text-[#222]">
+                    誠実、創造、持続。
+                  </p>
+
                   <p className="font-sans text-[13px] leading-[2] text-[#555]">
                     誠実な姿勢を大切に、新しい価値を生み出し、持続可能な成長につながる仕事を積み重ねます。
                   </p>
@@ -499,7 +621,10 @@ export default function Homepage() {
         </section>
 
         {/* Company Profile */}
-        <section id="company" className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32">
+        <section
+          id="company"
+          className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32"
+        >
           <div className="mx-auto max-w-4xl border-t border-[#e8e6e1]">
             <AccordionItem
               id="company-item"
@@ -520,7 +645,10 @@ export default function Homepage() {
                     key={label}
                     className="grid gap-1 border-b border-[#e8e6e1] py-4 last:border-b-0 md:grid-cols-[170px_1fr] md:gap-8"
                   >
-                    <dt className="text-[10px] tracking-[0.16em] text-[#777] uppercase">{label}</dt>
+                    <dt className="text-[10px] uppercase tracking-[0.16em] text-[#777]">
+                      {label}
+                    </dt>
+
                     <dd className="text-[#222]">{value}</dd>
                   </div>
                 ))}
@@ -530,18 +658,25 @@ export default function Homepage() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="bg-white px-6 py-24 md:px-10 md:py-32">
+        <section
+          id="contact"
+          className="bg-white px-6 py-24 md:px-10 md:py-32"
+        >
           <div className="mx-auto max-w-4xl">
-            <p className="mb-8 font-serif text-[13px] tracking-[0.28em] text-[#222]">CONTACT</p>
+            <p className="mb-8 font-serif text-[13px] tracking-[0.28em] text-[#222]">
+              CONTACT
+            </p>
 
             <a
               href="mailto:info@enitial.jp?subject=お問い合わせ"
               className="group flex w-full items-center gap-4 border border-[#FFD600]/80 px-6 py-5 transition-colors hover:bg-[#fffdf2] md:px-8 md:py-6"
             >
               <Mail size={21} strokeWidth={1.25} className="shrink-0" />
+
               <span className="flex-1 font-serif text-[14px] tracking-[0.09em] md:text-[16px]">
                 お問い合わせはこちらから
               </span>
+
               <ArrowRight
                 size={21}
                 strokeWidth={1.25}
@@ -555,7 +690,11 @@ export default function Homepage() {
       <footer className="border-t border-[#eceae5] bg-white px-6 py-10 md:px-10">
         <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-5 font-sans text-[10px] tracking-[0.12em] text-[#888] md:flex-row">
           <p>© ENITIAL Co., Ltd. All Rights Reserved.</p>
-          <a href="/privacy-policy" className="transition-colors hover:text-[#222]">
+
+          <a
+            href="/privacy-policy"
+            className="transition-colors hover:text-[#222]"
+          >
             Privacy Policy
           </a>
         </div>
@@ -572,6 +711,7 @@ export default function Homepage() {
             transform: translateX(-28px);
             filter: blur(4px);
           }
+
           to {
             opacity: 1;
             transform: translateX(0);
@@ -585,6 +725,7 @@ export default function Homepage() {
             transform: translateX(28px);
             filter: blur(4px);
           }
+
           to {
             opacity: 1;
             transform: translateX(0);
@@ -597,6 +738,7 @@ export default function Homepage() {
             opacity: 0;
             transform: translateY(10px);
           }
+
           to {
             opacity: 1;
             transform: translateY(0);
@@ -604,7 +746,8 @@ export default function Homepage() {
         }
 
         .hero-from-left {
-          animation: heroFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+          animation: heroFromLeft 1.7s cubic-bezier(0.22, 1, 0.36, 1)
+            0.15s forwards;
         }
 
         .hero-line {
@@ -612,7 +755,8 @@ export default function Homepage() {
         }
 
         .hero-from-right {
-          animation: heroFromRight 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.45s forwards;
+          animation: heroFromRight 1.7s cubic-bezier(0.22, 1, 0.36, 1)
+            0.45s forwards;
         }
 
         .hero-fade {
