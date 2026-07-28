@@ -39,11 +39,11 @@ function AccordionItem({
     <div className="border-b border-[#e8e6e1]">
       <button
         type="button"
+        id={`${id}-trigger`}
         aria-expanded={isOpen}
         aria-controls={`${id}-content`}
-        id={`${id}-trigger`}
         onClick={onToggle}
-        className="group relative flex w-full items-center gap-4 overflow-hidden py-6 text-left md:py-7"
+        className="group flex w-full items-center gap-4 py-6 text-left md:py-7"
       >
         {icon && (
           <span className="flex h-7 w-7 shrink-0 items-center justify-center text-[#222]">
@@ -73,7 +73,7 @@ function AccordionItem({
           <Plus
             size={14}
             strokeWidth={1.35}
-            className={`absolute transition-all duration-300 ${
+            className={`absolute transition-all duration-300 ease-out ${
               isOpen
                 ? "rotate-90 scale-75 opacity-0"
                 : "rotate-0 scale-100 opacity-100"
@@ -83,37 +83,59 @@ function AccordionItem({
           <Minus
             size={14}
             strokeWidth={1.35}
-            className={`absolute transition-all duration-300 ${
+            className={`absolute transition-all duration-300 ease-out ${
               isOpen
                 ? "rotate-0 scale-100 opacity-100"
                 : "-rotate-90 scale-75 opacity-0"
             }`}
           />
         </span>
-
-        <span
-          aria-hidden="true"
-          className={`absolute bottom-0 left-0 h-px bg-[#d8bd55] transition-[width,opacity] duration-700 ease-out ${
-            isOpen ? "w-[50px] opacity-30" : "w-0 opacity-0"
-          }`}
-        />
       </button>
+
+      {/* 開いたときだけ、短い淡い線がゆっくり伸びる */}
+      <div
+        aria-hidden="true"
+        className="h-px md:ml-11"
+        style={{
+          width: "52px",
+          overflow: "hidden",
+        }}
+      >
+        <span
+          style={{
+            display: "block",
+            width: "52px",
+            height: "1px",
+            backgroundColor: "#dfcc82",
+            opacity: isOpen ? 0.5 : 0,
+            transform: isOpen ? "scaleX(1)" : "scaleX(0)",
+            transformOrigin: "left center",
+            transition:
+              "transform 850ms cubic-bezier(0.22, 1, 0.36, 1), opacity 450ms ease",
+          }}
+        />
+      </div>
 
       <div
         id={`${id}-content`}
-        className={`grid transition-[grid-template-rows,opacity] duration-700 ease-out ${
+        className={`grid transition-[grid-template-rows,opacity] ease-out ${
           isOpen
-            ? "grid-rows-[1fr] opacity-100"
-            : "grid-rows-[0fr] opacity-0"
+            ? "grid-rows-[1fr] opacity-100 duration-700"
+            : "grid-rows-[0fr] opacity-0 duration-500"
         }`}
       >
         <div className="overflow-hidden">
           <div
-            className={`pb-9 pl-0 transition-[transform,opacity] delay-100 duration-700 ease-out md:pb-11 md:pl-11 ${
-              isOpen
-                ? "translate-y-0 opacity-100"
-                : "translate-y-3 opacity-0"
+            className={`pl-0 md:pl-11 ${
+              isOpen ? "pb-9 pt-7 md:pb-11 md:pt-8" : "pb-0 pt-0"
             }`}
+            style={{
+              opacity: isOpen ? 1 : 0,
+              transform: isOpen ? "translateY(0)" : "translateY(10px)",
+              transition: isOpen
+                ? "opacity 600ms ease 140ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) 100ms"
+                : "opacity 250ms ease, transform 350ms ease",
+            }}
           >
             {children}
           </div>
@@ -144,7 +166,6 @@ export default function Homepage() {
     setIsMenuOpen(false)
 
     const element = document.getElementById(id)
-
     if (!element) return
 
     const offset = 88
@@ -157,33 +178,11 @@ export default function Homepage() {
   }
 
   const toggleSection = (id: string) => {
-    const willOpen = openSection !== id
-
-    setOpenSection(willOpen ? id : null)
-
-    if (willOpen) {
-      window.setTimeout(() => {
-        const trigger = document.getElementById(`${id}-trigger`)
-
-        if (!trigger) return
-
-        const headerOffset = window.innerWidth >= 768 ? 112 : 92
-        const top =
-          trigger.getBoundingClientRect().top +
-          window.scrollY -
-          headerOffset
-
-        window.scrollTo({
-          top,
-          behavior: "smooth",
-        })
-      }, 180)
-    }
+    setOpenSection((current) => (current === id ? null : id))
   }
 
   useEffect(() => {
     const cursor = cursorRef.current
-
     if (!cursor) return
 
     const moveCursor = (event: MouseEvent) => {
@@ -208,12 +207,14 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen bg-[#fcfbf8] text-[#222] selection:bg-[#fff3a5]">
+      {/* ほのかな黄色のカーソル */}
       <div
         ref={cursorRef}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[100] hidden h-9 w-9 rounded-full bg-[#FFD600]/25 opacity-0 blur-md transition-[opacity,width,height] duration-200 md:block"
+        className="pointer-events-none fixed left-0 top-0 z-[100] hidden h-9 w-9 rounded-full bg-[#FFD600]/25 opacity-0 blur-md transition-opacity duration-200 md:block"
       />
 
+      {/* Header */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#eceae5] bg-[#fcfbf8]/92 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:h-24 md:px-10">
           <button
@@ -341,6 +342,7 @@ export default function Homepage() {
       </nav>
 
       <main>
+        {/* Hero */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center md:pt-24">
           <h1 className="hero-from-left font-serif text-[34px] tracking-[0.31em] text-[#17202b] opacity-0 md:text-[54px]">
             ENITIAL
@@ -366,6 +368,7 @@ export default function Homepage() {
           </button>
         </section>
 
+        {/* About */}
         <section
           id="about"
           className="bg-white px-6 py-24 md:px-10 md:py-36"
@@ -380,16 +383,53 @@ export default function Homepage() {
                 <p>新たな価値を生み出していきます。</p>
               </div>
 
-              <div className="mt-20 md:mt-24">
-                <div className="flex items-center gap-4">
-                  <span className="h-px w-10 bg-[#d8d8d8] md:w-12" />
+              <div
+                style={{
+                  marginTop: "88px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "18px",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "block",
+                      width: "46px",
+                      height: "1px",
+                      flexShrink: 0,
+                      backgroundColor: "#dfddd7",
+                    }}
+                  />
 
-                  <p className="font-sans text-[9px] tracking-[0.34em] text-[#c5c5c5]">
+                  <p
+                    className="font-sans"
+                    style={{
+                      margin: 0,
+                      fontSize: "9px",
+                      fontWeight: 400,
+                      letterSpacing: "0.34em",
+                      color: "#c9c7c1",
+                    }}
+                  >
                     ORIGIN
                   </p>
                 </div>
 
-                <p className="mt-4 font-serif text-[12px] tracking-[0.24em] text-[#c2c2c2] md:text-[13px]">
+                <p
+                  className="font-serif"
+                  style={{
+                    marginTop: "18px",
+                    marginBottom: 0,
+                    fontSize: "12px",
+                    fontWeight: 400,
+                    letterSpacing: "0.24em",
+                    color: "#c5c3bd",
+                  }}
+                >
                   EN × POTENTIAL
                 </p>
               </div>
@@ -397,6 +437,7 @@ export default function Homepage() {
           </div>
         </section>
 
+        {/* Business */}
         <section
           id="business"
           className="bg-white px-6 pb-24 md:px-10 md:pb-36"
@@ -429,7 +470,7 @@ export default function Homepage() {
 
                   <div>
                     <p className="mb-2 flex items-center gap-2 font-medium text-[#222]">
-                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                       販売チャネル
                     </p>
 
@@ -441,7 +482,7 @@ export default function Homepage() {
 
                   <div>
                     <p className="mb-2 flex items-center gap-2 font-medium text-[#222]">
-                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                       取扱実績
                     </p>
 
@@ -477,7 +518,7 @@ export default function Homepage() {
 
                   <div>
                     <p className="mb-3 flex items-center gap-2 font-medium text-[#222]">
-                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                       対応内容
                     </p>
 
@@ -518,7 +559,7 @@ export default function Homepage() {
 
                   <div>
                     <p className="mb-3 flex items-center gap-2 font-medium text-[#222]">
-                      <span className="h-2 w-2 rounded-full bg-[#FFD600]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-[#FFD600]" />
                       サポート内容
                     </p>
 
@@ -561,6 +602,7 @@ export default function Homepage() {
           </div>
         </section>
 
+        {/* Philosophy */}
         <section
           id="philosophy"
           className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32"
@@ -622,6 +664,7 @@ export default function Homepage() {
           </div>
         </section>
 
+        {/* Company Profile */}
         <section
           id="company"
           className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32"
@@ -658,6 +701,7 @@ export default function Homepage() {
           </div>
         </section>
 
+        {/* Contact */}
         <section
           id="contact"
           className="bg-white px-6 py-24 md:px-10 md:py-32"
