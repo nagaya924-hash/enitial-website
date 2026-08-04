@@ -468,10 +468,6 @@ export default function Homepage() {
                       日本製品・海外ブランド・オリジナル商品の企画・販売
                     </p>
                   </div>
-
-                  <p className="text-[12px] tracking-[0.04em] text-[#666]">
-                    ※ HAV-A-HANK 正規販売店
-                  </p>
                 </div>
               </AccordionItem>
 
