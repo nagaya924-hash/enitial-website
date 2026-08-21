@@ -21,6 +21,30 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
+  manifest: "/site.webmanifest",
+
+  icons: {
+    icon: [
+      {
+        url: "/favicon-32x32.jpg",
+        sizes: "32x32",
+        type: "image/jpeg",
+      },
+      {
+        url: "/favicon-16x16.jpg",
+        sizes: "16x16",
+        type: "image/jpeg",
+      },
+    ],
+    apple: [
+      {
+        url: "/apple-touch-icon.jpg",
+        sizes: "180x180",
+        type: "image/jpeg",
+      },
+    ],
+  },
+
   openGraph: {
     title: "株式会社エニシャル｜物販・デザイン・事業支援",
     description:
