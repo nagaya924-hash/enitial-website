@@ -7,38 +7,41 @@ import { Toaster } from "sonner"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "株式会社エニシャル - ビジネス成長のパートナー",
-  description:
-    "事業計画策定から補助金申請、営業代行まで、お客様のビジネス成長を総合的にサポートいたします。",
-  icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon-16x16.jpg", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.jpg", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [
-      { url: "/apple-touch-icon.jpg", sizes: "180x180", type: "image/png" },
-    ],
+  title: {
+    default: "株式会社エニシャル｜物販・デザイン・事業支援",
+    template: "%s｜株式会社エニシャル",
   },
-  manifest: "/site.webmanifest",
 
-  // ✅ OGP設定（SNS共通で利用される）
+  description:
+    "株式会社エニシャルは、国内外の優れた商品の販売、デザイン制作、補助金活用や事業計画などの事業支援を行う、流通・クリエイティブ企業です。",
+
+  metadataBase: new URL("https://www.enitial.jp"),
+
+  alternates: {
+    canonical: "/",
+  },
+
   openGraph: {
-    title: "株式会社エニシャル - ビジネス成長のパートナー",
+    title: "株式会社エニシャル｜物販・デザイン・事業支援",
     description:
-      "事業計画策定から補助金申請、営業代行まで、お客様のビジネス成長を総合的にサポートいたします。",
+      "国内外の優れた商品の販売、デザイン制作、事業支援を通じて、人と商品、事業と未来をつなぎます。",
     url: "https://www.enitial.jp",
     siteName: "株式会社エニシャル",
     images: [
       {
-        url: "https://www.enitial.jp/og-image.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "株式会社エニシャル ロゴ",
+        alt: "株式会社エニシャル",
       },
     ],
     locale: "ja_JP",
     type: "website",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
   },
 }
 
@@ -51,9 +54,9 @@ export default function RootLayout({
     <html lang="ja">
       <body className={inter.className}>
         {children}
+
         <Toaster position="top-right" />
 
-        {/* ✅ 構造化データ (JSON-LD) */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -62,7 +65,8 @@ export default function RootLayout({
               "@type": "Organization",
               name: "株式会社エニシャル",
               url: "https://www.enitial.jp",
-              logo: "https://www.enitial.jp/og-image.png",
+              logo: "https://www.enitial.jp/images/logo-horizontal.png",
+              email: "info@enitial.jp",
               contactPoint: {
                 "@type": "ContactPoint",
                 email: "info@enitial.jp",
