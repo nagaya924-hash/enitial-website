@@ -1,7 +1,13 @@
 {
   "name": "株式会社エニシャル",
-  "short_name": "エニシャル",
-  "description": "ビジネス成長のパートナー",
+  "short_name": "ENITIAL",
+  "description": "FROM EN, VALUE.",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fcfbf8",
+  "theme_color": "#fcfbf8",
   "icons": [
     {
       "src": "/favicon-32x32.jpg",
@@ -13,9 +19,5 @@
       "sizes": "180x180",
       "type": "image/jpeg"
     }
-  ],
-  "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/"
+  ]
 }
