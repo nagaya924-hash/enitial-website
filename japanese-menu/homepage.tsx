@@ -185,14 +185,12 @@ export default function Homepage() {
 
   return (
     <div className="min-h-screen bg-[#fcfbf8] text-[#222] selection:bg-[#fff3a5]">
-      {/* ほのかな黄色のカーソル */}
       <div
         ref={cursorRef}
         aria-hidden="true"
         className="pointer-events-none fixed left-0 top-0 z-[100] hidden h-9 w-9 rounded-full bg-[#FFD600]/25 opacity-0 blur-md transition-opacity duration-200 md:block"
       />
 
-      {/* Header */}
       <nav className="fixed inset-x-0 top-0 z-50 border-b border-[#eceae5] bg-[#fcfbf8]/92 backdrop-blur-md">
         <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:h-24 md:px-10">
           <button
@@ -320,7 +318,6 @@ export default function Homepage() {
       </nav>
 
       <main>
-        {/* Hero */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6 pt-20 text-center md:pt-24">
           <h1 className="hero-from-left font-serif text-[34px] tracking-[0.31em] text-[#17202b] opacity-0 md:text-[54px]">
             ENITIAL
@@ -346,7 +343,6 @@ export default function Homepage() {
           </button>
         </section>
 
-        {/* About */}
         <section
           id="about"
           className="bg-white px-6 py-24 md:px-10 md:py-36"
@@ -415,7 +411,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Business */}
         <section
           id="business"
           className="bg-white px-6 pb-24 md:px-10 md:pb-36"
@@ -576,7 +571,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Philosophy */}
         <section
           id="philosophy"
           className="bg-[#fcfbf8] px-6 py-24 md:px-10 md:py-32"
@@ -638,7 +632,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Company Profile */}
         <section
           id="company"
           className="bg-[#fcfbf8] px-6 pb-24 md:px-10 md:pb-32"
@@ -675,7 +668,6 @@ export default function Homepage() {
           </div>
         </section>
 
-        {/* Contact */}
         <section
           id="contact"
           className="bg-white px-6 py-24 md:px-10 md:py-32"
@@ -709,12 +701,23 @@ export default function Homepage() {
         <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-5 font-sans text-[10px] tracking-[0.12em] text-[#888] md:flex-row">
           <p>© ENITIAL Co., Ltd. All Rights Reserved.</p>
 
-          <a
-            href="/privacy-policy"
-            className="transition-colors hover:text-[#222]"
-          >
-            Privacy Policy
-          </a>
+          <div className="flex items-center gap-5">
+            <a
+              href="/privacy-policy"
+              className="transition-colors hover:text-[#222]"
+            >
+              Privacy Policy
+            </a>
+
+            <span className="text-[#d6d3cc]">｜</span>
+
+            <a
+              href="/recruit"
+              className="transition-colors hover:text-[#222]"
+            >
+              Recruit
+            </a>
+          </div>
         </div>
       </footer>
 
